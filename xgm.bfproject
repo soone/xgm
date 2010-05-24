@@ -1,0 +1,21 @@
+name: xgm
+files: /var/www/xgm/template/default/style.css
+files: /var/www/xgm/template/default/menu.tpl
+files: /var/www/xgm/template/default/header.tpl
+files: /var/www/xgm/template/default/footer.tpl
+basedir: /var/www/xgm/template/default/
+webdir: 
+template: 
+word_wrap: 1
+recent_files: /var/www/xgm/template/default/menu.tpl
+recent_files: /var/www/xgm/template/default/header.tpl
+recent_files: /var/www/xgm/template/default/footer.tpl
+recent_files: /var/www/xgm/template/defult/menu.tpl
+recent_files: /var/www/xgm/template/defult/header.tpl
+recent_files: /var/www/xgm/template/defult/footer.tpl
+opendir: /var/www/xgm/template/default
+savedir: /var/www/xgm/template/default
+view_html_toolbar: 1
+view_custom_menu: 1
+view_main_toolbar: 1
+view_left_panel: 1
