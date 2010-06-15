@@ -6,6 +6,13 @@
  */
 class Control_User extends N8_Core_Control
 {
+	public $db;
+	public function __init()
+	{
+		$this->db = new N8_Dblayer_Dblayer();
+		$this->db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+	}
+
 	public function login()
 	{
 		if($_SESSION['user_name'] && $_SESSION['user_id'])
@@ -67,9 +74,49 @@ class Control_User extends N8_Core_Control
 	{
 		if($this->req['post']['submit'])
 		{
-			var_dump($this->req['post']);
+			$rs = $this->db->create(array(
+				'table' => 'xgm_supplier',
+				'key' => array('sp_name', 'sp_conner1', 'sp_conner2', 'sp_c1tel1', 'sp_c1tel2', 'sp_c2tel1',
+				'sp_c2tel2', 'sp_manager', 'sp_manmobile', 'sp_manmsn', 'sp_manqq', 'sp_mantaobao',
+				'sp_office', 'sp_svn', 'sp_website', 'sp_email', 'sp_bankno', 'sp_bankname', 'sp_product', 'sp_time'
+				),
+				'value' => array($this->req['post']['comname'] . ',' . $this->req['post']['cname1'] . ',' . $this->req['post']['cname2'] . ',' . $this->req['post']['cname1tel1'] . ',' . $this->req['post']['cname1tel2'] . ',' .	$this->req['post']['cname2tel1'] . ',' .
+				$this->req['post']['cname2tel2'] . ',' . $this->req['post']['manager'] . ',' . $this->req['post']['mtel'] . ',' . $this->req['post']['mmsn'] . ',' . $this->req['post']['mqq'] . ',' . $this->req['post']['mtaobao'] . ',' .
+		$this->req['post']['address'] . ',' . $this->req['post']['libaddr'] . ',' . $this->req['post']['website'] . ',' . $this->req['post']['email'] . ',' . $this->req['post']['bname'] . ',' . $this->req['post']['bno'] . ',' . $this->req['post']['product'] . ',' . date('Y-m-d H:i:s'))
+			));
+
+			if($rs === false)
+			{
+				//数据库出错
+			}
+			else
+			{
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=user&action=suplist');
+			}
 		}
 
 		$this->render(array('tplDir' => $this->conf->get('view->rDir')));
+	}
+
+	/**
+	 * 供应商列表 
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function suplist()
+	{
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 0;
+		$perNum = 30;
+		$start = $page * $perNum;
+		$data = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('sp_id', 'sp_name', 'sp_conner1', 'sp_c1tel1', 'sp_c1tel2', 'sp_conner2', 'sp_c2tel1', 'sp_c2tel2', 'sp_manager', 'sp_manmobile'),
+			'limit' => array($start, $perNum)
+		));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'slist' => $data
+		));
 	}
 }
