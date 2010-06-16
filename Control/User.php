@@ -106,17 +106,278 @@ class Control_User extends N8_Core_Control
 	 */
 	public function suplist()
 	{
-		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 0;
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
 		$perNum = 30;
-		$start = $page * $perNum;
+		$start = ($page-1)*$perNum;
+		$allNums = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('count(*)'),
+		));
+
 		$data = $this->db->get(array(
 			'table' => 'xgm_supplier',
 			'key' => array('sp_id', 'sp_name', 'sp_conner1', 'sp_c1tel1', 'sp_c1tel2', 'sp_conner2', 'sp_c2tel1', 'sp_c2tel2', 'sp_manager', 'sp_manmobile'),
 			'limit' => array($start, $perNum)
 		));
 
+		$page =	N8_Helper_Helper::setPage(array(
+					'allNums' => $allNums[0][0], 
+					'curPage' => $page,
+					'perNum' => $perNum));
+
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
-							'slist' => $data
+							'slist' => $data,
+							'page' => $page
+		));
+	}
+
+	/**
+	 * 修改供应商界面 
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function supedit()
+	{
+		$data = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('sp_name', 'sp_conner1', 'sp_conner2', 'sp_c1tel1', 'sp_c1tel2', 'sp_c2tel1',
+				'sp_c2tel2', 'sp_manager', 'sp_manmobile', 'sp_manmsn', 'sp_manqq', 'sp_mantaobao',
+				'sp_office', 'sp_svn', 'sp_website', 'sp_email', 'sp_bankno', 'sp_bankname', 'sp_product', 'sp_time'),
+			'where' => array('and' => array('sp_id' => $this->req['get']['spid'])),
+			'limit' => array(0, 1)
+		));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'info' => $data[0],
+							'spid' => $this->req['get']['spid'],
+							'tpl' => 'User_supplier.tpl',
+							'edit' => 1
+		));
+	}
+
+	public function supdoedit()
+	{
+		$this->req['post']['comname'] ? $set['sp_name'] = $this->req['post']['comname'] : '';
+		$this->req['post']['cname1'] ? $set['sp_conner1'] = $this->req['post']['cname1'] : '';
+		$this->req['post']['cname2'] ? $set['sp_conner2'] = $this->req['post']['cname2'] : '';
+		$this->req['post']['cname1tel1'] ? $set['sp_c1tel1'] = $this->req['post']['cname1tel1'] : '';
+		$this->req['post']['cname1tel2'] ? $set['sp_c1tel2'] = $this->req['post']['cname1tel2'] : '';
+		$this->req['post']['cname2tel1'] ? $set['sp_c2tel1'] = $this->req['post']['cname2tel1'] : '';
+		$this->req['post']['cname2tel2'] ? $set['sp_c2tel2'] = $this->req['post']['cname2tel2'] : '';
+		$this->req['post']['manager'] ? $set['sp_manager'] = $this->req['post']['manager'] : '';
+		$this->req['post']['mtel'] ? $set['sp_manmobile'] = $this->req['post']['mtel'] : '';
+		$this->req['post']['mmsn'] ? $set['sp_manmsn'] = $this->req['post']['mmsn'] : '';
+		$this->req['post']['mqq'] ? $set['sp_manqq'] = $this->req['post']['mqq'] : '';
+		$this->req['post']['mtaobao'] ? $set['sp_mantaobao'] = $this->req['post']['mtaobao'] : '';
+		$this->req['post']['address'] ? $set['sp_office'] = $this->req['post']['address'] : '';
+		$this->req['post']['libaddr'] ? $set['sp_svn'] = $this->req['post']['libaddr'] : '';
+		$this->req['post']['website'] ? $set['sp_website'] = $this->req['post']['website'] : '';
+		$this->req['post']['email'] ? $set['sp_email'] = $this->req['post']['email'] : '';
+		$this->req['post']['bname'] ? $set['sp_bankname'] = $this->req['post']['bname'] : '';
+		$this->req['post']['bno'] ? $set['sp_bankno'] = $this->req['post']['bno'] : '';
+		$this->req['post']['product'] ? $set['sp_product'] = $this->req['post']['product'] : '';
+		if($set)
+		{
+			$rs = $this->db->set(array(
+				'table' => 'xgm_supplier',
+				'key' => array_keys($set),
+				'value' => array_values($set),
+				'where' => array('and' => array('sp_id' => $this->req['post']['spid'])),
+				));
+
+			if($rs === false)
+			{
+				//数据库出错
+			}
+		}
+		N8_Helper_Helper::showMessage('操作成功', 'index.php?control=user&action=suplist');
+	}
+
+	public function cardface()
+	{
+		$edit = 0;
+		if($this->req['post']['submit'])
+		{
+			if(!$this->req['post']['cviewid'])
+			{
+				$rs = $this->db->create(array(
+					'table' => 'xgm_cardview',
+					'key' => array('cview_name', 'cview_desc', 'cview_date'),
+					'value' => array($this->req['post']['facename'] . ',' . $this->req['post']['facemark'] . ',' . date('Y-m-d H:i:s'))
+				));
+			}
+			else
+			{
+				$this->req['post']['facename'] ? $set['cview_name'] = $this->req['post']['facename'] : '';
+				$this->req['post']['facemark'] ? $set['cview_desc'] = $this->req['post']['facemark'] : '';
+				if($set)
+				{
+					$rs = $this->db->set(array(
+						'table' => 'xgm_cardview',
+						'key' => array_keys($set),
+						'value' => array_values($set),
+						'where' => array('and' => array('cview_id' => $this->req['post']['cviewid'])),
+					));
+				}
+			}
+
+			if($rs === false)
+			{
+				
+			}
+			else
+			{
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?action=cardface');
+			}
+		}
+
+		//查看列表
+		$data = $this->db->get(array(
+			'table' => 'xgm_cardview',
+			'key' => array('cview_id', 'cview_name', 'cview_desc', 'cview_date'),
+		));
+
+		if($this->req['get']['cviewid'])
+		{
+			$sizeData = sizeof($data);
+			for($i = 0; $i < $sizeData; $i++)
+			{
+				if($data[$i][0] == $this->req['get']['cviewid'])
+					$cData = $data[$i];
+			}
+
+			$edit = 1;
+		}
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+				'cData' => $cData,
+				'data' => $data,
+				'cviewid' => $this->req['get']['cviewid'],
+				'edit' => $edit
+		));
+	}
+
+	public function delcf()
+	{
+		$rs = $this->db->del(array(
+			'table' => 'xgm_cardview',
+			'where' => array('and' => array('cview_id' => $this->req['get']['cviewid'])),
+		));
+
+		if($rs === false)
+		{
+			
+		}
+		else
+		{
+			N8_Helper_Helper::showMessage('操作成功', 'index.php?action=cardface');
+		}
+	}
+
+	public function gcarddef()
+	{
+		$edit = 0;
+		
+		if($this->req['post']['submit'])
+		{
+			$cviewInfo = unserialize($this->req['post']['cviewinfo']);
+			if(!$this->req['post']['ciid'])
+			{
+				$rs = $this->db->create(array(
+					'table' => 'xgm_cardinfo',
+					'key' => array('ci_name', 'ci_money', 'cview_id', 'cview_name', 'ci_date', 'ci_type', 'ci_desc', 'ci_mark'),
+					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',' . $this->req['post']['cviewid'] . ',' . $cviewInfo[$this->req['post']['cviewid']] . ',' . date('Y-m-d H:i:s') . ',' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
+				));
+			}
+			else
+			{
+				$this->req['post']['ciname'] ? $set['ci_name'] = $this->req['post']['ciname'] : '';
+				$this->req['post']['cimoney'] ? $set['ci_money'] = $this->req['post']['cimoney'] : '';
+				$this->req['post']['cviewid'] ? $set['cview_id'] = $this->req['post']['cviewid'] : '';
+				$this->req['post']['cviewid'] ? $set['cview_name'] =$cviewInfo[$this->req['post']['cviewid']] : '';
+				$this->req['post']['citype'] ? $set['ci_type'] = $this->req['post']['citype'] : '';
+				$this->req['post']['cidesc'] ? $set['ci_desc'] = $this->req['post']['cidesc'] : '';
+				$this->req['post']['cimark'] ? $set['ci_mark'] = $this->req['post']['cimark'] : '';
+				if($set)
+				{
+					$rs = $this->db->set(array(
+						'table' => 'xgm_cardinfo',
+						'key' => array_keys($set),
+						'value' => array_values($set),
+						'where' => array('and' => array('ci_id' => $this->req['post']['ciid'])),
+					));
+				}
+			}
+			
+			if($rs === false)
+			{
+				
+			}
+			else
+			{
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?action=gcarddef');
+			}
+		}
+
+		if($this->req['get']['ciid'])
+		{
+			$data = $this->db->get(array(
+				'table' => 'xgm_cardinfo',
+				'key' => array('ci_id', 'ci_name', 'ci_money', 'cview_id', 'cview_name', 'ci_type', 'ci_desc', 'ci_mark'),
+				'where' => array('and' => array('ci_id' => $this->req['get']['ciid'])),
+				'limit' => array(0, 1)
+			));
+
+			$edit = 1;
+		}
+
+		$cview = $this->db->get(array(
+			'table' => 'xgm_cardview',
+			'key' => array('cview_id', 'cview_name'),
+		));
+
+		$sizeCview = sizeof($cview);
+		for($i = 0; $i < $sizeCview; $i++)
+		{
+			$cviewInfo[$cview[$i][0]] = $cview[$i][1];
+		}
+
+		$cviewInfo = serialize($cviewInfo);
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+				'data' => $data[0],
+				'ciid' => $this->req['get']['ciid'],
+				'edit' => $edit,
+				'cview' => $cview,
+				'cviewinfo' => $cviewInfo
+		));
+	}
+
+	public function gcardlist()
+	{
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+		$perNum = 30;
+		$start = ($page-1)*$perNum;
+		$allNums = $this->db->get(array(
+			'table' => 'xgm_cardinfo',
+			'key' => array('count(*)'),
+		));
+
+		$data = $this->db->get(array(
+			'table' => 'xgm_cardinfo',
+			'key' => array('ci_id', 'ci_name', 'ci_money', 'cview_name', 'ci_date', 'ci_type', 'ci_desc', 'ci_mark'),
+			'limit' => array($start, $perNum)
+		));
+
+		$page =	N8_Helper_Helper::setPage(array(
+					'allNums' => $allNums[0][0], 
+					'curPage' => $page,
+					'perNum' => $perNum));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'data' => $data,
+							'page' => $page
 		));
 	}
 }
