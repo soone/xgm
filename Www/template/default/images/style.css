@@ -24,3 +24,6 @@ tfoot td {text-align:center;}
 
 .slist{width:98%;margin:5px auto;}
 .slist tfoot td, .slist thead th,.slist tbody td{text-align:center;height:32px}
+
+#usecard, #uncard{width:98%;border:1px solid #999;margin:0 auto;height:200px;overflow:auto;word-break:break-all;}
+#uncard{height:100px;}

@@ -26,7 +26,7 @@ $pConfig['router'] = array(
 
 $pConfig['view'] = array(
 	'type' => 'Smarty',
-	'rDir' => '/template/default/',
+	'rDir' => 'template/default/',
 	'conf' => array(
 		'force_compile' => 1,
 		'compile_check' => 1,
