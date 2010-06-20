@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-20 11:48:16
+<?php /* Smarty version Smarty3-b8, created on 2010-06-20 15:10:44
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:11519815154c1d8f80edd183-59173259%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3258173154c1dbef41479c5-81734986%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '8a7a6af31448d665b3d33305eb6c6f65cf4b9b0f' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl',
-      1 => 1277005694,
+      1 => 1277011784,
     ),
   ),
-  'nocache_hash' => '11519815154c1d8f80edd183-59173259',
+  'nocache_hash' => '3258173154c1dbef41479c5-81734986',
   'function' => 
   array (
   ),
@@ -159,7 +159,6 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['last']       = ($_smart
       </p>
   </form>
 </div>
-<script type="text/javascript" language="javascript" src="images/jquery.js"></script>
 <script language="javascript" type="text/javascript">
 $('#ciid').bind('change', function(){
 	var id = $('#ciid').val();

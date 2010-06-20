@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-20 11:48:17
+<?php /* Smarty version Smarty3-b8, created on 2010-06-20 15:15:30
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:17019026684c1d8f81339a77-00978015%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1055530614c1dc012726552-91497534%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1276874346,
+      1 => 1277011780,
     ),
   ),
-  'nocache_hash' => '17019026684c1d8f81339a77-00978015',
+  'nocache_hash' => '1055530614c1dc012726552-91497534',
   'function' => 
   array (
   ),
@@ -33,6 +33,7 @@ images/ie.css" type="text/css" media="screen, projection"><![endif]-->
 </style>
 <link rel="stylesheet" href="<?php echo $_smarty_tpl->getVariable('tplDir')->value;?>
 images/style.css" type="text/css" media="screen, projection">
+<script type="text/javascript" language="javascript" src="images/jquery.js"></script>
 </head>
 <body>
 <div id="top" class="container">
@@ -58,8 +59,7 @@ images/style.css" type="text/css" media="screen, projection">
             <h4>销售管理</h4>
             <ul>
                 <li><a href="index.php?control=card&action=order">售卡订单登记</a></li>
-                <li><a href="">订单列表</a></li>
-                <li><a href="">出卡操作</a></li>
+                <li><a href="index.php?control=card&action=colist">订单列表</a></li>
                 <li><a href="">礼品卡查询</a></li>
                 <li><a href="">配送单登记</a></li>
                 <li><a href="">配送单查询</a></li>
@@ -70,7 +70,6 @@ images/style.css" type="text/css" media="screen, projection">
             <ul>
                 <li><a href="">入库操作</a></li>
                 <li><a href="">出库操作</a></li>
-                <li><a href="">出卡操作</a></li>
                 <li><a href="">物品列表</a></li>
                 <li><a href="">物品分类添加</a></li>
                 <li><a href="">物品分类列表</a></li>

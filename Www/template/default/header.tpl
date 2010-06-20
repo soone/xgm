@@ -11,6 +11,7 @@
   .box p { margin-bottom:10px; }
 </style>
 <link rel="stylesheet" href="<!--{$tplDir}-->images/style.css" type="text/css" media="screen, projection">
+<script type="text/javascript" language="javascript" src="images/jquery.js"></script>
 </head>
 <body>
 <div id="top" class="container">
@@ -36,8 +37,7 @@
             <h4>销售管理</h4>
             <ul>
                 <li><a href="index.php?control=card&action=order">售卡订单登记</a></li>
-                <li><a href="">订单列表</a></li>
-                <li><a href="">出卡操作</a></li>
+                <li><a href="index.php?control=card&action=colist">订单列表</a></li>
                 <li><a href="">礼品卡查询</a></li>
                 <li><a href="">配送单登记</a></li>
                 <li><a href="">配送单查询</a></li>
@@ -48,7 +48,6 @@
             <ul>
                 <li><a href="">入库操作</a></li>
                 <li><a href="">出库操作</a></li>
-                <li><a href="">出卡操作</a></li>
                 <li><a href="">物品列表</a></li>
                 <li><a href="">物品分类添加</a></li>
                 <li><a href="">物品分类列表</a></li>

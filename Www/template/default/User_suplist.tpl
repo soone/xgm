@@ -21,11 +21,11 @@
 					<ul>
 						<li class="all">总<!--{$page['allPages']}-->页</li>
 						<li><a href="index.php?action=suplist">|<</a></li>
-						<li><a href="index.php?action=suplist&page=<!--{$page['curPage']-1}-->"><<</a></li>
+						<li><a href="index.php?action=suplist&page=<!--{$page['prevPage']}-->"><<</a></li>
 						<!--{section name=p loop=$page['max']+$page['min'] start=$page['min'] max=$page['max']}-->
 						<li><a href="index.php?action=suplist&page=<!--{$smarty.section.p.index}-->"><!--{$smarty.section.p.index}--></a></li>
 						<!--{/section}-->
-						<li><a href="index.php?action=suplist&page=<!--{$page['curPage']+1}-->">>></a></li>
+						<li><a href="index.php?action=suplist&page=<!--{$page['nextPage']}-->">>></a></li>
 						<li><a href="index.php?action=suplist&page=<!--{$page['allPages']}-->">>|</a></li>
 					
 					</ul>

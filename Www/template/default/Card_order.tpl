@@ -89,7 +89,6 @@
       </p>
   </form>
 </div>
-<script type="text/javascript" language="javascript" src="images/jquery.js"></script>
 <script language="javascript" type="text/javascript">
 $('#ciid').bind('change', function(){
 	var id = $('#ciid').val();

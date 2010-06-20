@@ -38,15 +38,33 @@ class Control_Card extends N8_Core_Control
 			$set['cu_atime'] = date('Y-m-d H:i:s');
 			$set['cu_sex'] = $this->req['post']['sex'];
 			//插入定卡客户表
-			$rs = $this->db->create(array(
+			$urs = $this->db->get(array(
 				'table' => 'xgm_carduser',
-				'key' => array_keys($set),
-				'value' => array(implode(',',array_values($set))),
-				'replace' => 1
+				'key' => array('cu_id'),
+				'where' => array('and' => array('cu_name' => $set['cu_name'])),
+				'limit' => array(0, 1)
 			));
+
+			if($urs)
+			{
+				$rs = $this->db->set(array(
+					'table' => 'xgm_carduser',
+					'key' => array_keys($set),
+					'value' => array_values($set),
+					'where' => array('and' => array('cu_id' => $urs[0][0])),
+				));
+			}
+			else
+			{
+				$rs = $this->db->create(array(
+					'table' => 'xgm_carduser',
+					'key' => array_keys($set),
+					'value' => array(implode(',',array_values($set))),
+				));
+			}
 			if($rs === false)
 				N8_Helper_Helper::showMessage('操作失败，请重试');
-				
+	
 			$oset['cu_id'] = $this->db->getLastInsertId();
 			$oset['cu_name'] = $this->req['post']['cname'];
 
@@ -80,17 +98,18 @@ class Control_Card extends N8_Core_Control
 
 			$data[0]['cardNums'] = $this->req['post']['nums'];
 			$oset['co_text'] = addslashes(serialize($data[0]));
-			$oset['co_order'] = date('YmdHis') . sprintf('%04s', mt_rand(1, 8000));
 
 			$this->req['post']['nums'] ? $oset['co_totalnums'] = $this->req['post']['nums'] : '';
 			$this->req['post']['omoney'] ? $oset['co_total'] = $this->req['post']['omoney'] : '';
-			$this->req['post']['emoney'] ? $oset['co_ava'] = $this->req['post']['emoney'] : '';
+			$this->req['post']['emoney'] ? $oset['co_ava'] = sprintf('%.2f', $this->req['post']['emoney']) : '';
 			$this->req['post']['invoctext'] ? $oset['co_invoice'] = $this->req['post']['invoctext'] : '';
 			$this->req['post']['mark'] ? $oset['co_mark'] = $this->req['post']['mark'] : '';
 			if(!$oset)
 				N8_Helper_Helper::showMessage('操作失败，数据缺少');
 
 			$oset['co_ctime'] = $set['cu_atime'];
+			$oset['cview_name'] = $data[0][1];
+			$oset['co_order'] = date('YmdHis') . sprintf('%04s', mt_rand(1, 8000));
 			$rs = $this->db->create(array(
 				'table' => 'xgm_cardorder',
 				'key' => array_keys($oset),
@@ -124,7 +143,7 @@ class Control_Card extends N8_Core_Control
 				//记录日志
 			}
 			else
-				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=card&action=orderlist');
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=card&action=colist');
 
 		}
 
@@ -152,5 +171,83 @@ class Control_Card extends N8_Core_Control
 			echo 0;
 		else
 			echo json_encode($data[0]);
+	}
+
+	public function colist()
+	{
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+		$perNum = 30;
+		$start = ($page-1)*$perNum;
+		$allNums = $this->db->get(array(
+			'table' => 'xgm_cardorder',
+			'key' => array('count(*)'),
+		));
+
+		$data = $this->db->get(array(
+			'table' => 'xgm_cardorder',
+			'key' => array('co_id', 'co_order', 'co_total', 'co_totalnums', 'co_ava', 'cview_name', 'co_invoice', 'co_ctime', 'cu_name', 'cu_id', 'co_status'),
+			'limit' => array($start, $perNum),
+			'order' => array('desc' => array('co_id'))
+		));
+
+		$page =	N8_Helper_Helper::setPage(array(
+					'allNums' => $allNums[0][0], 
+					'curPage' => $page,
+					'perNum' => $perNum));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+				'data' => $data,
+				'page' => $page
+		));
+	}
+
+	public function cstatus()
+	{
+		$rs = $this->db->set(array(
+			'table' => 'xgm_cardorder',
+			'key' => array('co_status', 'co_stime'),
+			'value' => array($this->req['get']['s'], date('Y-m-d H:i:s')),
+			'where' => array('and' => array('co_id' => $this->req['get']['coid']))
+		));
+
+		if($rs)
+			header('Location:' . $_SERVER['HTTP_REFERER']);
+		else
+			N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+	}
+
+	public function minfo()
+	{
+		$data = $this->db->get(array(
+			'table' => 'xgm_cardorder',
+			'key' => array('*'),
+			'where' => array('and' => array('co_id' => $this->req['get']['coid'])),
+			'limit' => array(0, 1)
+		));
+
+		if(!$data)
+			N8_Helper_Helper::showMessage('该订单不存在');
+
+		$data[0][6] = unserialize($data[0][6]);
+
+		$cardNum = $this->db->get(array(
+			'table' => 'xgm_cardlib',
+			'key' => array('cl_num'),
+			'where' => array('and' => array('co_id' => $this->req['get']['coid'])),
+		));
+		if($cardNum)
+		{
+			foreach($cardNum as $cn)
+			{
+				$cNums .= $sp . $cn[0];
+				$sp = ',';
+			}
+		}
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+				'data' => $data[0],
+				'cNums' => $cNums,
+				'refurl' => $_SERVER['HTTP_REFERER']
+		));
 	}
 }
