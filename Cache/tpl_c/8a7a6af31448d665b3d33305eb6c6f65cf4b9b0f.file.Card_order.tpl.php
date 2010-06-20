@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-19 02:32:59
+<?php /* Smarty version Smarty3-b8, created on 2010-06-20 11:48:16
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:10449538724c1bbbdb0f4261-94340035%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:11519815154c1d8f80edd183-59173259%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '8a7a6af31448d665b3d33305eb6c6f65cf4b9b0f' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl',
-      1 => 1276885898,
+      1 => 1277005694,
     ),
   ),
-  'nocache_hash' => '10449538724c1bbbdb0f4261-94340035',
+  'nocache_hash' => '11519815154c1d8f80edd183-59173259',
   'function' => 
   array (
   ),
@@ -125,7 +125,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['last']       = ($_smart
     	</p>
   	<p>
       	<label>订单售价：</label><input type="text" name="omoney" class="text" style="width:120px" id="omoney" />&nbsp;&nbsp;
-      	<label>单卡均价：</label><input type="text" name="emoney" class="text" style="width:120px" value="0" id="emoney" disabled="disabled" />&nbsp;&nbsp;
+      	<label>单卡均价：</label><input type="text" name="emoney" class="text" style="width:120px" value="0" id="emoney" readonly="readonly" />&nbsp;&nbsp;
       	<label>发票：</label><select name="invoc" id="ginvoc"><option value="0">否</option><option value="1">是</option></select>
     	</p>
   	<p style="display:none" id="invoctext">
@@ -166,11 +166,22 @@ $('#ciid').bind('change', function(){
 	$('span:.r').hide();
 	$('#ciid'+id).show();
 });
+$('#nums').bind('change', function(){
+	if(isNaN(parseInt($('#nums').val())))
+	{
+		alert('数量必须为数字');
+		return false;
+	}
+});
 $('#omoney').bind('change', function(){
-	var an = $('#nums').val();
-	an = parseInt(an);
-	var om = $('#omoney').val();
-	om = parseInt(om);
+	var an = parseInt($('#nums').val());
+	var om = parseInt($('#omoney').val());
+	if(isNaN(om))
+	{
+		alert('订单总价必须为数字');
+		return false;
+	}
+
 	$('#emoney').val((om/an)*100/100);
 });
 $('#ginvoc').bind('change', function(){

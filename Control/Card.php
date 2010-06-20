@@ -49,6 +49,23 @@ class Control_Card extends N8_Core_Control
 				
 			$oset['cu_id'] = $this->db->getLastInsertId();
 			$oset['cu_name'] = $this->req['post']['cname'];
+
+			//查看卡号是否存在了，存在的话就返回
+			$arrCard = explode(',', $this->req['post']['cards']);
+			$cdata = $this->db->get(array(
+				'table' => 'xgm_cardlib',
+				'key' => array('cl_num'),
+				'where' => array('and' => array('cl_num' => $arrCard, 'ci_id' => $this->req['post']['ciid'])),
+			));
+
+			if($cdata)
+			{
+				$badCard = '';
+				foreach($cdata as $v)
+					$badCard .= '\\n' . $v[0];
+
+				N8_Helper_Helper::showMessage('您选择的卡号有的已售出，请确认。\\n已售卡号：\\n' . $badCard);
+			}
 			
 			//查卡资料
 			$data = $this->db->get(array(
@@ -86,7 +103,6 @@ class Control_Card extends N8_Core_Control
 			}
 
 			//插入卡号
-			$arrCard = explode(',', $this->req['post']['cards']);
 			$cardCounts = count($arrCard);
 			for($i = 0; $i < $cardCounts; $i++)
 			{
