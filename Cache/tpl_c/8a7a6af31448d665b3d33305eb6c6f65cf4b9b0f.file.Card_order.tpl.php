@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-20 15:10:44
+<?php /* Smarty version Smarty3-b8, created on 2010-06-20 22:37:40
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3258173154c1dbef41479c5-81734986%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3165257784c1e27b4267458-34084914%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -10,7 +10,7 @@ $_smarty_tpl->decodeProperties(array (
       1 => 1277011784,
     ),
   ),
-  'nocache_hash' => '3258173154c1dbef41479c5-81734986',
+  'nocache_hash' => '3165257784c1e27b4267458-34084914',
   'function' => 
   array (
   ),

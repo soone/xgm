@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2010-5-19 23:16:07                           */
+/* Created on:     2010-6-21 1:52:58                            */
 /*==============================================================*/
 
 
@@ -10,11 +10,15 @@ drop table if exists xgm_cardlib;
 
 drop table if exists xgm_cardorder;
 
+drop index cnameemail on xgm_carduser;
+
 drop table if exists xgm_carduser;
 
 drop table if exists xgm_cardview;
 
 drop table if exists xgm_goinfo;
+
+drop index cname on xgm_goodcat;
 
 drop table if exists xgm_goodcat;
 
@@ -45,7 +49,8 @@ create table xgm_cardinfo
    ci_desc              text,
    ci_mark              text,
    primary key (ci_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_cardlib                                           */
@@ -54,7 +59,7 @@ create table xgm_cardlib
 (
    ci_id                int,
    cl_id                int not null auto_increment,
-   cd_id                int,
+   co_id                int,
    cl_num               varchar(12) not null,
    cl_date              datetime not null,
    cl_state             tinyint not null default 1 comment '1-为可用，0-为不可用',
@@ -62,8 +67,10 @@ create table xgm_cardlib
    cl_expire            datetime not null,
    ci_money             varchar(10) not null,
    ci_balance           varchar(10) not null default '0',
+   co_order             varchar(20) not null,
    primary key (cl_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_cardorder                                         */
@@ -74,17 +81,18 @@ create table xgm_cardorder
    cu_id                int,
    co_order             varchar(20) not null,
    co_totalnums         int not null default 0,
-   co_start             varchar(20) not null,
-   co_end               varchar(20) not null,
    co_total             varchar(10) not null,
    co_ava               varchar(20) not null,
    co_text              text not null comment '序列化的存放每种卡的名称，每种卡的数量，以及卡的单价',
    co_invoice           varchar(255) not null comment '为空则不需要发票',
    co_mark              text,
    co_ctime             datetime not null,
-   co_otime             datetime not null,
+   cu_name              varchar(20) not null,
+   cu_staus             tinyint not null default 1 comment '1-未出卡，3-出卡完成，5-作废',
+   co_stime             datetime not null comment '设置订单状态的时间',
    primary key (co_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_carduser                                          */
@@ -110,6 +118,16 @@ create table xgm_carduser
    cu_mark              text,
    cu_atime             datetime not null,
    primary key (cu_id)
+)
+type = MYISAM;
+
+/*==============================================================*/
+/* Index: cnameemail                                            */
+/*==============================================================*/
+create unique index cnameemail on xgm_carduser
+(
+   cu_name,
+   cu_email
 );
 
 /*==============================================================*/
@@ -122,7 +140,8 @@ create table xgm_cardview
    cview_desc           text,
    cview_date           datetime not null,
    primary key (cview_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_goinfo                                            */
@@ -133,7 +152,8 @@ create table xgm_goinfo
    gl_id                int,
    goi_nums             int not null default 0,
    gl_name              varchar(30) not null
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_goodcat                                           */
@@ -143,7 +163,18 @@ create table xgm_goodcat
    gc_id                int not null auto_increment,
    gc_name              varchar(20) not null,
    gc_time              datetime not null,
+   gc_pid               int not null default 0,
+   gc_mark              text not null,
    primary key (gc_id)
+)
+type = MYISAM;
+
+/*==============================================================*/
+/* Index: cname                                                 */
+/*==============================================================*/
+create unique index cname on xgm_goodcat
+(
+   gc_name
 );
 
 /*==============================================================*/
@@ -155,7 +186,8 @@ create table xgm_goodexception
    go_id                int,
    go_order             varchar(20) not null,
    primary key (ge_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_goodin                                            */
@@ -164,6 +196,7 @@ create table xgm_goodin
 (
    gi_id                int not null auto_increment,
    gl_id                int,
+   sp_id                int,
    gl_w                 varchar(10) not null,
    gl_net               varchar(10) not null,
    gl_edate             datetime not null,
@@ -175,7 +208,8 @@ create table xgm_goodin
    gl_date              datetime not null,
    gl_state             tinyint not null default 1 comment '1-可用，',
    primary key (gi_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_goodlib                                           */
@@ -195,7 +229,8 @@ create table xgm_goodlib
    gl_warnper           tinyint not null comment '1-数量，2-重量',
    gl_mark              text,
    primary key (gl_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_goodorder                                         */
@@ -203,13 +238,16 @@ create table xgm_goodlib
 create table xgm_goodorder
 (
    go_id                int not null auto_increment,
-   ou_id                int,
+   ou_id                int not null,
    go_order             varchar(20) not null,
    go_date              datetime not null,
    ou_username          varchar(20) not null,
-   go_status            tinyint not null,
+   go_status            tinyint not null comment '1-未配送，2-配送完成，3-作废，4-退货，5-换货',
+   cl_id                int not null,
+   go_sdate             datetime not null,
    primary key (go_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_orderuser                                         */
@@ -226,7 +264,8 @@ create table xgm_orderuser
    ou_address           text comment '序列化存放的收货清单',
    ou_date              datetime not null,
    primary key (ou_id)
-);
+)
+type = MYISAM;
 
 /*==============================================================*/
 /* Table: xgm_supplier                                          */
@@ -234,7 +273,6 @@ create table xgm_orderuser
 create table xgm_supplier
 (
    sp_id                int not null auto_increment,
-   gi_id                int,
    sp_name              varchar(50) not null,
    sp_conner1           varchar(20) not null,
    sp_conner2           varchar(20) not null,
@@ -258,4 +296,6 @@ create table xgm_supplier
    sp_mark              text,
    sp_time              datetime not null,
    primary key (sp_id)
-);
+)
+type = MYISAM;
+

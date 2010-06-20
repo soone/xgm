@@ -49,8 +49,7 @@
                 <li><a href="">入库操作</a></li>
                 <li><a href="">出库操作</a></li>
                 <li><a href="">物品列表</a></li>
-                <li><a href="">物品分类添加</a></li>
-                <li><a href="">物品分类列表</a></li>
+                <li><a href="index.php?control=good&action=cate">物品分类管理</a></li>
             </ul>
         </div>
     </div>

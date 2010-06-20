@@ -62,6 +62,7 @@ class Control_Card extends N8_Core_Control
 					'value' => array(implode(',',array_values($set))),
 				));
 			}
+
 			if($rs === false)
 				N8_Helper_Helper::showMessage('操作失败，请重试');
 	
@@ -210,10 +211,10 @@ class Control_Card extends N8_Core_Control
 			'where' => array('and' => array('co_id' => $this->req['get']['coid']))
 		));
 
-		if($rs)
-			header('Location:' . $_SERVER['HTTP_REFERER']);
-		else
+		if($rs === false)
 			N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+		else
+			header('Location:' . $_SERVER['HTTP_REFERER']);
 	}
 
 	public function minfo()
