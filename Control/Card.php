@@ -126,7 +126,7 @@ class Control_Card extends N8_Core_Control
 			for($i = 0; $i < $cardCounts; $i++)
 			{
 				if(!$arrCard[$i]) continue;
-				$cset[] = $this->req['post']['ciid'] . ',' . $this->db->getLastInsertId() . ',' . $arrCard[$i] . ',' . $set['cu_atime'] . ',2020-01-01,' . $this->req['post']['cmoney'] . ',' . $this->req['post']['cmoney'] . ',' . $oset['co_order'];
+				$cset[] = $this->req['post']['ciid'] . ',' . $this->db->getLastInsertId() . ',' . $arrCard[$i] . ',' . $set['cu_atime'] . ',' . $this->conf->get('cardExpires') . ',' . $this->req['post']['cmoney'] . ',' . $this->req['post']['cmoney'] . ',' . $oset['co_order'];
 			}
 
 			if(!$cset)
@@ -237,10 +237,19 @@ class Control_Card extends N8_Core_Control
 		));
 		if($cardNum)
 		{
+			$i = 0;
 			foreach($cardNum as $cn)
 			{
+				$i++;
 				$cNums .= $sp . $cn[0];
 				$sp = ',';
+				$br = '<br />';
+				if($i == 10)
+				{
+					$cNums .= $br;
+					$sp = $br = '';
+					$i = 0;
+				}
 			}
 		}
 
@@ -249,5 +258,47 @@ class Control_Card extends N8_Core_Control
 				'cNums' => $cNums,
 				'refurl' => $_SERVER['HTTP_REFERER']
 		));
+	}
+
+	public function search()
+	{
+		if($this->req['get']['submit'])
+		{
+			$card = $this->db->get(array(
+				'table' => 'xgm_cardlib',
+				'key' => array('*'),
+				'where' => array('and' => array('cl_num' => $this->req['get']['cardno'])),
+				'limit' => array(0, 1)
+			));
+
+			if($card)
+			{
+				$cType = $this->db->get(array(
+					'table' => 'xgm_cardinfo',
+					'key' => array('*'),
+					'where' => array('and' => array('ci_id' => $card[0][0])),
+					'limit' => array(0, 1)
+				));
+
+				$orders = $this->db->get(array(
+					'table' => 'xgm_goodorder',
+					'key' => array('go_id', 'go_order', 'go_date', 'go_sdate', 'go_status'),
+					'where' => array('and' => array('cl_id' => $card[0][0])),
+
+				));
+			}
+		}
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+			'card' => $card[0],
+			'cType' => $cType[0],
+			'orders' => $orders
+		));
+	}
+
+	public function choose()
+	{
+		//设置cookie
+
 	}
 }

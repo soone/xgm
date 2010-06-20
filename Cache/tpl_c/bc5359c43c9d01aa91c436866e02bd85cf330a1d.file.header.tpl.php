@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-20 15:15:30
+<?php /* Smarty version Smarty3-b8, created on 2010-06-20 22:34:46
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1055530614c1dc012726552-91497534%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:12828114264c1e27066f54e6-27603156%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1277011780,
+      1 => 1277038813,
     ),
   ),
-  'nocache_hash' => '1055530614c1dc012726552-91497534',
+  'nocache_hash' => '12828114264c1e27066f54e6-27603156',
   'function' => 
   array (
   ),
@@ -60,7 +60,7 @@ images/style.css" type="text/css" media="screen, projection">
             <ul>
                 <li><a href="index.php?control=card&action=order">售卡订单登记</a></li>
                 <li><a href="index.php?control=card&action=colist">订单列表</a></li>
-                <li><a href="">礼品卡查询</a></li>
+                <li><a href="index.php?control=card&action=search">礼品卡查询</a></li>
                 <li><a href="">配送单登记</a></li>
                 <li><a href="">配送单查询</a></li>
             </ul>
