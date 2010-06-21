@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-18 20:49:59
+<?php /* Smarty version Smarty3-b8, created on 2010-06-22 02:22:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/User_gcarddef.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:13361851934c1b6b77af3152-42673278%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:12700791584c1fade1d7a7e1-15439274%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -10,7 +10,7 @@ $_smarty_tpl->decodeProperties(array (
       1 => 1276711831,
     ),
   ),
-  'nocache_hash' => '13361851934c1b6b77af3152-42673278',
+  'nocache_hash' => '12700791584c1fade1d7a7e1-15439274',
   'function' => 
   array (
   ),

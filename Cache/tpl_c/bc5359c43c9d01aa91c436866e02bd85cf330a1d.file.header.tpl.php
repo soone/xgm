@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-21 01:41:50
+<?php /* Smarty version Smarty3-b8, created on 2010-06-22 03:41:42
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3830606744c1e52deecf7e2-55235277%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:8466768444c1fc076b85a32-83498526%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1277045441,
+      1 => 1277146885,
     ),
   ),
-  'nocache_hash' => '3830606744c1e52deecf7e2-55235277',
+  'nocache_hash' => '8466768444c1fc076b85a32-83498526',
   'function' => 
   array (
   ),
@@ -68,7 +68,7 @@ images/style.css" type="text/css" media="screen, projection">
         <div>
             <h4>库存管理</h4>
             <ul>
-                <li><a href="">入库操作</a></li>
+                <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
                 <li><a href="">出库操作</a></li>
                 <li><a href="">物品列表</a></li>
                 <li><a href="index.php?control=good&action=cate">物品分类管理</a></li>
