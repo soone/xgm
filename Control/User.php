@@ -29,13 +29,13 @@ class Control_User extends N8_Core_Control
 	 */
 	public function index()
 	{
-		//$db = new N8_Dblayer_Dblayer();
-		//$db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+		$db = new N8_Dblayer_Dblayer();
+		$db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
 
-		//var_dump($db->setSql(1, 
-		//				array('table' => 'test', 
-		//				'key' => array('id', 'uid'), 
-		//				'value' => array('1,2,', '4,5'))));
+		var_dump($db->setSql(1, 
+						array('table' => 'test', 
+						'key' => array('id', 'uid'), 
+						'value' => array('1,2,', '4,5', '{{now()}},4'))));
 		//var_dump($db->setSql(2, 
 		//				array('table' => 'test', 
 		//				'key' => array('id', 'uid'), 
