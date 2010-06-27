@@ -292,7 +292,29 @@ class Control_Good extends N8_Core_Control
 
 	public function ioadd()
 	{
-		$this->render(array('tplDir' => $this->conf->get('view->rDir')));
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+		$perNum = 30;
+		$start = ($page-1)*$perNum;
+		$allNums = $this->db->get(array(
+			'table' => 'xgm_inorder',
+			'key' => array('count(*)'),
+		));
+
+		$data = $this->db->get(array(
+			'table' => 'xgm_inorder',
+			'key' => array('io_id', 'io_no', 'io_date', 'io_total', 'io_mark'),
+			'limit' => array($start, $perNum)
+		));
+
+		$page =	N8_Helper_Helper::setPage(array(
+					'allNums' => $allNums[0][0], 
+					'curPage' => $page,
+					'perNum' => $perNum));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'iolist' => $data,
+							'page' => $page
+		));
 	}
 
 	public function inlist()
