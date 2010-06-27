@@ -47,8 +47,9 @@
             <h4>库存管理</h4>
             <ul>
                 <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
-                <li><a href="">出库操作</a></li>
-                <li><a href="">物品列表</a></li>
+                <li><a href="index.php?control=good&action=goodout">出库操作</a></li>
+                <li><a href="index.php?control=good&action=liblist">库存列表</a></li>
+                <li><a href="index.php?control=good&action=inlist">进货单列表</a></li>
                 <li><a href="index.php?control=good&action=cate">物品分类管理</a></li>
             </ul>
         </div>

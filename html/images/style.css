@@ -1,0 +1,28 @@
+#menu{width:160px;border:1px solid #0099FF;height:550px;padding: 5px 0 0 15px;float:left}﻿
+#top{background-color:#0099CC;}
+#content{float:left;width:80%;margin:0 5px;border:1px solid #0099FF;height:auto;min-height:550px;padding-top:5px}
+
+.topmenu, .page{margin:5px}
+.container{background-color:#DFF4FF;padding:0 10px;}
+
+.basetable{border:1px solid #ccc;margin:5px 10px;width:97%;background:#fff}
+.basetable tr{height:32px;line-height:32px;}
+.basetable td{border:1px solid #ccc;}
+
+.page ul{margin:0 auto;width:80%;height:32px;list-style:none;}
+.page ul li{width:24px;height:24px;line-height:24px;background:#fff;float:left;margin:0 5px;text-align:center;border:1px solid #ccc;}
+.page li a{text-decoration: none;}
+.page .all,.page .all:hover{width:70px;}
+.page li:hover, .page li a:hover{background:#0000FF;width:24px;height:24px;color:#fff}
+
+.divform{clear:both;width:95%;height:100%;margin:0 auto;}
+.short{width:120px;}
+
+table {
+border-collapse:collapse; /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+border:solid #999; /* 设置边框属性；样式(solid=实线)、颜色(#999=灰) */
+border-width:1px 0 0 1px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+}
+table caption {font-size:14px;font-weight:bolder;}
+table th,table td {border:solid #999;border-width:0 1px 1px 0;padding:2px;}
+tfoot td {text-align:center;}

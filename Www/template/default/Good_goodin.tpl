@@ -60,7 +60,13 @@
   	<p>
       	<label>厂商建议价：</label><input type="text" name="adprice" class="text" style="width:120px" />&nbsp;&nbsp;
       	<label>保质期：</label><input type="text" name="expirdate" class="text" style="width:120px" />&nbsp;&nbsp;
-      	<label>进货单号：</label><input type="text" name="order" class="text" style="width:120px" />
+      	<label>进货单号：</label>
+		<select name="order">
+			<!--{section name=o loop=$io}-->
+			<option value="<!--{$io[o].1}-->"><!--{$io[o].1}--></option>
+			<!--{/section}-->
+		</select>
+		<input type="text" name="order" class="text" style="width:120px" />
     	</p>
       <p>
 	  	<input type="hidden" name="action" value="goodin" />

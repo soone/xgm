@@ -35,7 +35,7 @@ class Control_Card extends N8_Core_Control
 			if(!$set)
 				N8_Helper_Helper::showMessage('操作失败，数据缺少');
 
-			$set['cu_atime'] = date('Y-m-d H:i:s');
+			$set['cu_atime'] = '{{now()}}';
 			$set['cu_sex'] = $this->req['post']['sex'];
 			//插入定卡客户表
 			$urs = $this->db->get(array(
@@ -53,6 +53,7 @@ class Control_Card extends N8_Core_Control
 					'value' => array_values($set),
 					'where' => array('and' => array('cu_id' => $urs[0][0])),
 				));
+				$oset['cu_id'] = $usr[0][0];
 			}
 			else
 			{
@@ -61,12 +62,12 @@ class Control_Card extends N8_Core_Control
 					'key' => array_keys($set),
 					'value' => array(implode(',',array_values($set))),
 				));
+				$oset['cu_id'] = $this->db->getLastInsertId();
 			}
 
 			if($rs === false)
 				N8_Helper_Helper::showMessage('操作失败，请重试');
 	
-			$oset['cu_id'] = $this->db->getLastInsertId();
 			$oset['cu_name'] = $this->req['post']['cname'];
 
 			//查看卡号是否存在了，存在的话就返回
@@ -118,9 +119,7 @@ class Control_Card extends N8_Core_Control
 			));
 
 			if($rs === false)
-			{
 				N8_Helper_Helper::showMessage('操作失败，请重试');
-			}
 
 			//插入卡号
 			$cardCounts = count($arrCard);
@@ -207,7 +206,7 @@ class Control_Card extends N8_Core_Control
 		$rs = $this->db->set(array(
 			'table' => 'xgm_cardorder',
 			'key' => array('co_status', 'co_stime'),
-			'value' => array($this->req['get']['s'], date('Y-m-d H:i:s')),
+			'value' => array($this->req['get']['s'], '{{now()}}'),
 			'where' => array('and' => array('co_id' => $this->req['get']['coid']))
 		));
 

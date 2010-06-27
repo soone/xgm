@@ -29,13 +29,13 @@ class Control_User extends N8_Core_Control
 	 */
 	public function index()
 	{
-		$db = new N8_Dblayer_Dblayer();
-		$db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+		//$db = new N8_Dblayer_Dblayer();
+		//$db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
 
-		var_dump($db->setSql(1, 
-						array('table' => 'test', 
-						'key' => array('id', 'uid'), 
-						'value' => array('1,2,', '4,5', '{{now()}},4'))));
+		//var_dump($db->setSql(1, 
+		//				array('table' => 'test', 
+		//				'key' => array('id', 'uid'), 
+		//				'value' => array('1,2,', '4,5', '{{id+1}},4'))));
 		//var_dump($db->setSql(2, 
 		//				array('table' => 'test', 
 		//				'key' => array('id', 'uid'), 
@@ -56,7 +56,7 @@ class Control_User extends N8_Core_Control
 		//var_dump($db->setSql(3, 
 		//				array('table' => 'test', 
 		//				'key' => array('id', 'uid'), 
-		//				'value' => array('1,2,', '4,5'))));
+		//				'value' => array('{{now()}}','{{num+1}}'))));
 		//var_dump($db->setSql(4, 
 		//				array('table' => 'test', 
 		//				'where' => array('or' => array('a' => 1, 'b' => array(1,2,3))),
@@ -82,8 +82,8 @@ class Control_User extends N8_Core_Control
 				),
 				'value' => array($this->req['post']['comname'] . ',' . $this->req['post']['cname1'] . ',' . $this->req['post']['cname2'] . ',' . $this->req['post']['cname1tel1'] . ',' . $this->req['post']['cname1tel2'] . ',' .	$this->req['post']['cname2tel1'] . ',' .
 				$this->req['post']['cname2tel2'] . ',' . $this->req['post']['manager'] . ',' . $this->req['post']['mtel'] . ',' . $this->req['post']['mmsn'] . ',' . $this->req['post']['mqq'] . ',' . $this->req['post']['mtaobao'] . ',' .
-		$this->req['post']['address'] . ',' . $this->req['post']['libaddr'] . ',' . $this->req['post']['website'] . ',' . $this->req['post']['email'] . ',' . $this->req['post']['bname'] . ',' . $this->req['post']['bno'] . ',' . $this->req['post']['product'] . ',' . date('Y-m-d H:i:s'))
-			));
+		$this->req['post']['address'] . ',' . $this->req['post']['libaddr'] . ',' . $this->req['post']['website'] . ',' . $this->req['post']['email'] . ',' . $this->req['post']['bname'] . ',' . $this->req['post']['bno'] . ',' . $this->req['post']['product'] . ',{{now()}}'))
+			);
 
 			if($rs === false)
 			{
@@ -204,7 +204,7 @@ class Control_User extends N8_Core_Control
 				$rs = $this->db->create(array(
 					'table' => 'xgm_cardview',
 					'key' => array('cview_name', 'cview_desc', 'cview_date'),
-					'value' => array($this->req['post']['facename'] . ',' . $this->req['post']['facemark'] . ',' . date('Y-m-d H:i:s'))
+					'value' => array($this->req['post']['facename'] . ',' . $this->req['post']['facemark'] . ',{{now()}}')
 				));
 			}
 			else
@@ -287,7 +287,7 @@ class Control_User extends N8_Core_Control
 				$rs = $this->db->create(array(
 					'table' => 'xgm_cardinfo',
 					'key' => array('ci_name', 'ci_money', 'cview_id', 'cview_name', 'ci_date', 'ci_type', 'ci_desc', 'ci_mark'),
-					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',' . $this->req['post']['cviewid'] . ',' . $cviewInfo[$this->req['post']['cviewid']] . ',' . date('Y-m-d H:i:s') . ',' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
+					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',' . $this->req['post']['cviewid'] . ',' . $cviewInfo[$this->req['post']['cviewid']] . ', {{now()}},' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
 				));
 			}
 			else

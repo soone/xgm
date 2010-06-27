@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-06-23 01:40:51
+<?php /* Smarty version Smarty3-b8, created on 2010-06-25 00:23:20
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_goodin.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:14646263214c20f5a3386612-63924404%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:12803691554c238678a2e281-87502796%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '9abea9f874ea7563767dba66f2e6a62c81ba7150' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_goodin.tpl',
-      1 => 1277228256,
+      1 => 1277233501,
     ),
   ),
-  'nocache_hash' => '14646263214c20f5a3386612-63924404',
+  'nocache_hash' => '12803691554c238678a2e281-87502796',
   'function' => 
   array (
   ),
@@ -95,6 +95,11 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['last']       = ($_smart
 "><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['s']['index']][1];?>
 </option>
 			<?php endfor; endif; ?>
+		</select>&nbsp;&nbsp;
+      	<label>状态：</label>
+		<select name="state"> 
+			<option value="1">可用</option>
+			<option value="0">不可用</option>
 		</select>
     	</p>
   	<p>

@@ -22,6 +22,7 @@ class Control_Good extends N8_Core_Control
 
 			if($this->req['post']['gcid'] > 0)
 			{
+				$rs = 1;
 				if($set)
 				{
 					$rs = $this->db->set(array(
@@ -31,15 +32,13 @@ class Control_Good extends N8_Core_Control
 						'where' => array('and' => array('gc_id' => $this->req['post']['gcid']))
 					));
 				}
-
-				$rs = 1;
 			}
 			else
 			{
 				$rs = $this->db->create(array(
 					'table' => 'xgm_goodcat',
 					'key' => array('gc_name', 'gc_time', 'gc_pid', 'gc_mark'),
-					'value' => array($this->req['post']['catname'] . ',' . date('Y-m-d H:i:s') . ',' . $this->req['post']['pid'] . ',' . $this->req['post']['mark'])
+					'value' => array($this->req['post']['catname'] . ', {{now()}},' . $this->req['post']['pid'] . ',' . $this->req['post']['mark'])
 				));
 			}
 
@@ -132,13 +131,13 @@ class Control_Good extends N8_Core_Control
 			//取得公司名称
 			$supplier = $this->db->get(array(
 				'table' => 'xgm_supplier',
-				'key' => 'sp_name',
+				'key' => array('sp_name'),
 				'where' => array('and' => array('sp_id' => $this->req['post']['sp_id'])),
 				'limit' => array(0, 1)
 			));
 
 			if($supplier === false)
-				N8_Helper_Helper::showMessage('暂无供应商信息，请先填写');
+				N8_Helper_Helper::showMessage('目前无供货商资料，请先填写供货商资料', 'index.php?action=supplier');
 
 			if(!$this->req['post']['giid'])//增加
 			{
@@ -146,7 +145,7 @@ class Control_Good extends N8_Core_Control
 				$inrs = $this->db->create(array(
 					'table' => 'xgm_goodin',
 					'key' => array('gl_id', 'sp_id', 'gl_edate', 'gl_inprice', 'gl_adprice', 'gl_nums', 'gl_order', 'sp_name', 'gl_date', 'gl_state', 'gl_leaves', 'gl_name'),
-					'value' => array($libdata[0][0] . ',' . $this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',' . date('Y-m-d H:i:s') . ',' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'])
+					'value' => array($libdata[0][0] . ',' . $this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'])
 				));
 
 				if($inrs === false)
@@ -207,7 +206,7 @@ class Control_Good extends N8_Core_Control
 				$this->req['post']['expirdate'] ? $inSet['gl_edate'] = $this->req['post']['expirdate'] : '';
 				$this->req['post']['order'] ? $inSet['gl_order'] = $this->req['post']['order'] : '';
 				$inSet['sp_name'] = $supplier[0][0];
-				$inSet['gl_leaves'] = $inSet['gl_nums']-$inNums[0][0]+$inNums[0][1];
+				$inSet['gl_leaves'] = $inSet['gl_nums']-($inNums[0][0]-$inNums[0][1]);
 
 				$upinrs = $this->db->set(array(
 					'table' => 'xgm_goodin',
@@ -221,7 +220,7 @@ class Control_Good extends N8_Core_Control
 				$this->req['post']['goodname'] ? $set['gl_name'] = $this->req['post']['goodname'] : '';
 				if($set)//更新goodlib
 				{
-					$set['gl_leaves'] = '{{gl_leaves}}+' . ($inSet['gl_nums']-$inNums[0][0]);
+					$set['gl_leaves'] = $inSet['gl_leaves'];
 					$uplibrs = $this->db->set(array(
 						'table' => 'xgm_goodlib',
 						'key' => array_keys($set),
@@ -245,9 +244,21 @@ class Control_Good extends N8_Core_Control
 
 		if(!$slist)
 			N8_Helper_Helper::showMessage('目前无供货商资料，请先填写供货商资料', 'index.php?action=supplier');
+
+		//进货订单列表
+		$inolist = $this->db->get(array(
+			'table' => 'xgm_inorder',
+			'key' => array('io_id', 'io_no'),
+			'order' => array('desc' => array('io_date')),
+			'limit' => array(10)
+		));
+
+		if(!$inolist)
+			N8_Helper_Helper::showMessage('请先添加进货订单号', 'index.php?control=good&action=ioadd');
 		
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 			'slist' => $slist,
+			'olist' => $inolist
 		));
 	}
 
@@ -277,5 +288,15 @@ class Control_Good extends N8_Core_Control
 			$r[0] = $gdata[0];
 
 		echo json_encode($r);
+	}
+
+	public function ioadd()
+	{
+		$this->render(array('tplDir' => $this->conf->get('view->rDir')));
+	}
+
+	public function inlist()
+	{
+		
 	}
 }
