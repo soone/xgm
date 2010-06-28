@@ -144,8 +144,8 @@ class Control_Good extends N8_Core_Control
 				//插入goodin
 				$inrs = $this->db->create(array(
 					'table' => 'xgm_goodin',
-					'key' => array('gl_id', 'sp_id', 'gl_edate', 'gl_inprice', 'gl_adprice', 'gl_nums', 'gl_order', 'sp_name', 'gl_date', 'gl_state', 'gl_leaves', 'gl_name'),
-					'value' => array($libdata[0][0] . ',' . $this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'])
+					'key' => array('sp_id', 'gl_edate', 'gl_inprice', 'gl_adprice', 'gl_nums', 'gl_order', 'sp_name', 'gl_date', 'gl_state', 'gl_leaves', 'gl_name'),
+					'value' => array($this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'])
 				));
 
 				if($inrs === false)
@@ -231,9 +231,8 @@ class Control_Good extends N8_Core_Control
 					if($uplibrs === false)
 						N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 				}
-
-				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=inlist');
 			}
+			N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=inlist');
 		}
 
 		//供货商列表
@@ -250,7 +249,7 @@ class Control_Good extends N8_Core_Control
 			'table' => 'xgm_inorder',
 			'key' => array('io_id', 'io_no'),
 			'order' => array('desc' => array('io_date')),
-			'limit' => array(10)
+			'limit' => array(0, 1)
 		));
 
 		if(!$inolist)
@@ -290,7 +289,7 @@ class Control_Good extends N8_Core_Control
 		echo json_encode($r);
 	}
 
-	public function ioadd()
+	public function inlist()
 	{
 		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
 		$perNum = 30;
@@ -317,8 +316,46 @@ class Control_Good extends N8_Core_Control
 		));
 	}
 
-	public function inlist()
+	public function ioadd()
 	{
-		
+		if($this->req['post']['submit'])
+		{
+			if($ioid = intval($this->req['post']['ioid']))//更新
+			{
+				$re = $this->db->set(array(
+					'table' => 'xgm_inorder',
+					'key' => array('io_no', 'io_date', 'io_total', 'io_mark'),
+					'value' => array($this->req['post']['io_no'], $this->req['post']['io_date'], $this->req['post']['io_total'], $this->req['post']['io_mark']),
+					'where' => array('and' => array('io_id' => $this->req['post']['ioid']))
+				));
+			}
+			else//增加
+			{
+				$rs = $this->db->create(array(
+					'table' => 'xgm_inorder',
+					'key' => array('io_no', 'io_date', 'io_total', 'io_mark', 'io_adate'),
+					'value' => array($this->req['post']['io_no'] . ',' . $this->req['post']['io_date'] . ',' . $this->req['post']['io_total'] . ',' . $this->req['post']['io_mark'] . ',' . '{{now()}}')
+				));
+			}
+
+			if($rs === false)
+				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+			else
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=inlist');
+		}
+
+		if($this->req['get']['ioid'])
+		{
+			$info = $this->db->get(array(
+				'table' => 'xgm_inorder',
+				'key' => array('*'),
+				'where' => array('and' => array('io_id' => $this->req['get']['ioid'])),
+				'limit' => array(0, 1)
+			));
+		}
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+			'info' => $info[0]
+		));
 	}
 }

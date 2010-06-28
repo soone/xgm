@@ -5,7 +5,6 @@
   	<p>
       	<label>物品名称：</label><input type="text" id="goodname" name="goodname" class="text" style="width:120px" />&nbsp;&nbsp;<a href="javascript:void(0);" id="ckgood">查看</a>
     	</p>
-	<div id="glib" style="display:none">
 		<p>
 			<label>物品简称：</label><input id="shortname" type="text" name="shortname" class="text" style="width:120px" />简称不超过10个汉字
 		</p>
@@ -41,7 +40,6 @@
 			<label>备注：</label><br />
 			<textarea id="mark" name="mark"></textarea>
 		</p>
-	</div>
   	<p>
       	<label>数量：</label><input type="text" name="nums" class="text" style="width:120px" />&nbsp;&nbsp;
       	<label>进货价：</label><input type="text" name="oprice" class="text" style="width:120px" />&nbsp;&nbsp;
@@ -60,13 +58,7 @@
   	<p>
       	<label>厂商建议价：</label><input type="text" name="adprice" class="text" style="width:120px" />&nbsp;&nbsp;
       	<label>保质期：</label><input type="text" name="expirdate" class="text" style="width:120px" />&nbsp;&nbsp;
-      	<label>进货单号：</label>
-		<select name="order">
-			<!--{section name=o loop=$io}-->
-			<option value="<!--{$io[o].1}-->"><!--{$io[o].1}--></option>
-			<!--{/section}-->
-		</select>
-		<input type="text" name="order" class="text" style="width:120px" />
+      	<label>进货单号：</label><input type="text" name="order" class="text" style="width:120px" />&nbsp;&nbsp;
     	</p>
       <p>
 	  	<input type="hidden" name="action" value="goodin" />
@@ -138,7 +130,7 @@ $('#ckgood').bind('click', function(){
 		$('#cate').append(cops);
 		$('#type').append(tops);
 
-		$('#glib').show();
+		//$('#glib').show();
 	});
 });
 </script>
