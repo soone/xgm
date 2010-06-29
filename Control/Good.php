@@ -302,7 +302,8 @@ class Control_Good extends N8_Core_Control
 		$data = $this->db->get(array(
 			'table' => 'xgm_inorder',
 			'key' => array('io_id', 'io_no', 'io_date', 'io_total', 'io_mark'),
-			'limit' => array($start, $perNum)
+			'limit' => array($start, $perNum),
+			'order' => array('desc' => array('io_id'))
 		));
 
 		$page =	N8_Helper_Helper::setPage(array(
@@ -357,5 +358,39 @@ class Control_Good extends N8_Core_Control
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 			'info' => $info[0]
 		));
+	}
+
+	public function liblist()
+	{
+		//显示库存列表
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+        $perNum = 30;
+        $start = ($page-1)*$perNum;
+        $allNums = $this->db->get(array(
+        	'table' => 'xgm_goodlib',
+        	'key' => array('count(*)'),
+			'where' => array('and' => array('gl_leaves' => 0), 'oper' => array('gl_leaves' => '>'))
+        ));
+
+        $data = $this->db->get(array(
+        	'table' => 'xgm_goodlib',
+        	'key' => array('gl_id', 'gl_name', 'gl_per', 'gl_mprice', 'gl_leaves', 'gl_mark'),
+        	'limit' => array($start, $perNum),
+        ));
+                                                                                
+        $page =	N8_Helper_Helper::setPage(array(
+        			'allNums' => $allNums[0][0], 
+        			'curPage' => $page,
+        			'perNum' => $perNum));
+                                                                                
+        $this->render(array('tplDir' => $this->conf->get('view->rDir'),
+        					'liblist' => $data,
+        					'page' => $page
+        ));
+	}
+
+	public function getcart()
+	{
+        $this->render(array('tplDir' => $this->conf->get('view->rDir')));
 	}
 }

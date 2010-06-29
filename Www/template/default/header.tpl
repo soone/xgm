@@ -39,6 +39,7 @@
                 <li><a href="index.php?control=card&action=order">售卡订单登记</a></li>
                 <li><a href="index.php?control=card&action=colist">订单列表</a></li>
                 <li><a href="index.php?control=card&action=search">礼品卡查询</a></li>
+                <li><a href="index.php?control=good&action=getcart">查看购物车</a></li>
                 <li><a href="">配送单登记</a></li>
                 <li><a href="">配送单查询</a></li>
             </ul>
