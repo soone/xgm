@@ -38,7 +38,7 @@
 			<td><!--{$liblist[l].3}--></td>
 			<td><!--{$liblist[l].4}-->(<!--{$liblist[l].2}-->)</td>
 			<td><!--{$liblist[l].5}--></td>
-			<td><input type="text" class="text" style="width:30px" value="1" id="good<!--{$liblist[l].0}-->"/><a href="javascript:void(0);" onclick="addcart(<!--{$liblist[l].0}-->, '<!--{$liblist[l].1}-->', <!--{$liblist[l].3}-->, <!--{$liblist[l].4}-->);">添加到购物车</a>&nbsp;|&nbsp;<a href="">查看详情</a></td>
+			<td><input type="text" class="text" style="width:30px" value="1" id="good<!--{$liblist[l].0}-->"/><a href="javascript:void(0);" onclick="addcart('<!--{$liblist[l].0}-->', '<!--{$liblist[l].1}-->', '<!--{$liblist[l].3}-->', '<!--{$liblist[l].4}-->');">添加到购物车</a>&nbsp;|&nbsp;<a href="">查看详情</a></td>
 		</tr>
 		<!--{/section}-->
 	</tbody>

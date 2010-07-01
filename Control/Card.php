@@ -292,13 +292,8 @@ class Control_Card extends N8_Core_Control
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 			'card' => $card[0],
 			'cType' => $cType[0],
-			'orders' => $orders
+			'orders' => $orders,
+			'eTime' => strtotime($card[0][7])
 		));
-	}
-
-	public function choose()
-	{
-		//设置cookie
-
 	}
 }

@@ -1,4 +1,24 @@
-<!--{include file="header.tpl"}-->
+<?php /* Smarty version Smarty3-b8, created on 2010-07-01 00:07:50
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:8097530654c2b6bd6b080a3-82630373%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'c771600f8b79e844a8f877d68ddc6e66fa63d68a' => 
+    array (
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl',
+      1 => 1277913014,
+    ),
+  ),
+  'nocache_hash' => '8097530654c2b6bd6b080a3-82630373',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
+<?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+
 <h3 class="topmenu">查看购物车</h3>
 <table class="slist">
 	<thead>
@@ -125,4 +145,6 @@ function cShopCart(id, type)
 	$.cookie('shopCart', shopCart.toJSONString());
 }
 </script>
-<!--{include file="footer.tpl"}-->
+<?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+

@@ -393,4 +393,11 @@ class Control_Good extends N8_Core_Control
 	{
         $this->render(array('tplDir' => $this->conf->get('view->rDir')));
 	}
+
+	public function order()
+	{
+		//设置cookie
+
+        $this->render(array('tplDir' => $this->conf->get('view->rDir')));
+	}
 }
