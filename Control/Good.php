@@ -396,7 +396,54 @@ class Control_Good extends N8_Core_Control
 
 	public function order()
 	{
+		if($this->req['post']['submit'])
+		{
+			$this->req['post']['email'] ? $set['ou_email'] = $this->req['post']['email'] : '';
+			$this->req['post']['truename'] ? $set['ou_truename'] = $this->req['post']['truename'] : '';
+			$this->req['post']['pinname'] ? $set['ou_pinyin'] = $this->req['post']['pinname'] : '';
+			$this->req['post']['mobile'] ? $set['ou_phone'] = $this->req['post']['mobile'] : '';
+			$this->req['post']['phone'] ? $set['ou_tel'] = $this->req['post']['phone'] : '';
+			//插入数据库
+			$cInfo = $this->db->get(array(
+				'table' => 'xgm_orderuser',
+				'key' => array('ou_id'),
+				'where' => array('and' => array('ou_email' => $this->req['post']['email'])),
+				'limit' => array(0, 1)
+			));
+
+			if($cInfo)
+			{
+				$rs = $this->db->set(array(
+					'table' => 'xgm_orderuser',
+					'key' => array_keys($set),
+					'value' => array_values($set),
+					'where' => array('and' => array('ou_id' => $cInfo[0][0]))
+				));
+			}
+			else
+			{
+				$rs = $this->db->create(array(
+					'table' => 'xgm_orderuser',
+					'key' => array_keys($set),
+					'value' => array(implode(',', array_values($set)))
+				));
+			}
+
+			if($rs === false)
+				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+			else
+			{
+				$set['otype'] = $this->req['post']['otype'];
+				setcookie('pInfo', json_encode($set), $_SERVER['REQUEST_TIME']+7200);
+				N8_Helper_Helper::showMessage('操作成功，请选择物品', 'index.php?control=good&action=liblist');
+			}
+		}
+
 		//设置cookie
+		if($this->req['get']['clnum'] && $this->req['get']['clid'] && $this->req['get']['balance'])
+		{
+			setcookie('cardInfo', json_encode(array('no' => $this->req['get']['clnum'], 'id' => $this->req['get']['clid'], 'balance' => $this->req['get']['balance'])), $_SERVER['REQUEST_TIME']+7200);
+		}
 
         $this->render(array('tplDir' => $this->conf->get('view->rDir')));
 	}

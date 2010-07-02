@@ -11,7 +11,7 @@
 	</form>
 	<!--{if $card}-->
 	<!--{if $card[9] > 0 && $card[5] == 1 && $eTime >= $smarty.now}-->
-	<h5>点击<a href="index.php?control=good&action=order&clnum=<!--{$card[3]}-->&clid=<!--{$card[1]}-->&blance=<!--{$card[9]}-->">这里</a>开始输入客户信息并挑选客户需要的物品</h5>
+	<h5>点击<a href="index.php?control=good&action=order&clnum=<!--{$card[3]}-->&clid=<!--{$card[1]}-->&blance=<!--{$card[9]}-->">这里</a>开始登记配送单信息</h5>
 	<!--{/if}-->
 	<table class="slist">
 		<tr>
