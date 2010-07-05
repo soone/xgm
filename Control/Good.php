@@ -391,7 +391,16 @@ class Control_Good extends N8_Core_Control
 
 	public function getcart()
 	{
-        $this->render(array('tplDir' => $this->conf->get('view->rDir')));
+		//赠品列表
+		$freeGood = $this->db->get(array(
+			'table' => 'xgm_goodlib',
+			'key' => array('gl_id', 'gl_name', 'gl_leaves'),
+			'where' => array('and' => array('gl_mprice' => 0, 'gl_leaves' => 0), 'oper' => array('gl_leaves' => '>'))
+		));
+
+        $this->render(array(
+			'tplDir' => $this->conf->get('view->rDir'),
+			'fgood' => $freeGood));
 	}
 
 	public function order()
@@ -406,7 +415,7 @@ class Control_Good extends N8_Core_Control
 			//插入数据库
 			$cInfo = $this->db->get(array(
 				'table' => 'xgm_orderuser',
-				'key' => array('ou_id'),
+				'key' => array('ou_id', 'ou_address'),
 				'where' => array('and' => array('ou_email' => $this->req['post']['email'])),
 				'limit' => array(0, 1)
 			));
@@ -419,6 +428,8 @@ class Control_Good extends N8_Core_Control
 					'value' => array_values($set),
 					'where' => array('and' => array('ou_id' => $cInfo[0][0]))
 				));
+
+				$set['ou_address'] = $cInfo[0][1];
 			}
 			else
 			{
@@ -433,9 +444,13 @@ class Control_Good extends N8_Core_Control
 				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 			else
 			{
+				if(!$total = $this->req['post']['total'])
+					$total = 0;
+				
+				$set['total'] = $total;
 				$set['otype'] = $this->req['post']['otype'];
 				setcookie('pInfo', json_encode($set), $_SERVER['REQUEST_TIME']+7200);
-				N8_Helper_Helper::showMessage('操作成功，请选择物品', 'index.php?control=good&action=liblist');
+				N8_Helper_Helper::showMessage(NULL, 'index.php?control=good&action=liblist');
 			}
 		}
 
@@ -446,5 +461,20 @@ class Control_Good extends N8_Core_Control
 		}
 
         $this->render(array('tplDir' => $this->conf->get('view->rDir')));
+	}
+
+	public function getpinfo()
+	{
+		$email = $this->db->get(array(
+			'table' => 'xgm_orderuser',
+			'key' => array('ou_truename', 'ou_pinyin', 'ou_phone', 'ou_tel', 'ou_total'),
+			'where' => array('and' => array('ou_email' => $this->req['get']['ou_email'])),
+			'limit' => array(0, 1)
+		));
+
+		if($email)
+			echo json_encode($email[0]);
+		else
+			echo 0;
 	}
 }
