@@ -473,8 +473,51 @@ class Control_Good extends N8_Core_Control
 		));
 
 		if($email)
+		{
+			if($email[0][4] >= 1000 && $email[0][4] < 2000)
+				$email[0][4] = 1;
+			elseif($email[0][4] >= 2000 && $email[0][4] < 3000)
+				$email[0][4] = 2;
+			elseif($email[0][4] >= 3000 && $email[0][4] < 4000)
+				$email[0][4] = 3;
+			elseif($email[0][4] >= 4000 && $email[0][4] < 5000)
+				$email[0][4] = 4;
+			elseif($email[0][4] >= 5000 && $email[0][4] < 6000)
+				$email[0][4] = 5;
+			elseif($email[0][4] >= 6000 && $email[0][4] < 7000)
+				$email[0][4] = 6;
+			elseif($email[0][4] >= 7000 && $email[0][4] < 8000)
+				$email[0][4] = 7;
+			elseif($email[0][4] >= 8000 && $email[0][4] < 9000)
+				$email[0][4] = 8;
+			elseif($email[0][4] >= 9000 && $email[0][4] < 10000)
+				$email[0][4] = 9;
+			elseif($email[0][4] >= 10000)
+				$email[0][4] = 10;
+			else
+				$email[0][4] = 0;
+
 			echo json_encode($email[0]);
+		}
 		else
 			echo 0;
+	}
+
+	public function corder()
+	{
+		//处理订货人的cookie
+		$orderPeople = $this->req['cookie']['pInfo'];
+
+		//处理货物的cookie
+
+		//处理卡的cookie
+
+		//处理收货人信息
+
+		//生成订单号保存订单信息
+
+		//显示订单号
+
+
 	}
 }
