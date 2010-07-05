@@ -287,7 +287,7 @@ class Control_User extends N8_Core_Control
 				$rs = $this->db->create(array(
 					'table' => 'xgm_cardinfo',
 					'key' => array('ci_name', 'ci_money', 'cview_id', 'cview_name', 'ci_date', 'ci_type', 'ci_desc', 'ci_mark'),
-					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',' . $this->req['post']['cviewid'] . ',' . $cviewInfo[$this->req['post']['cviewid']] . ', {{now()}},' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
+					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',' . $this->req['post']['cviewid'] . ',' . $cviewInfo[$this->req['post']['cviewid']] . ',{{now()}},' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
 				));
 			}
 			else
