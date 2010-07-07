@@ -1,4 +1,24 @@
-<!--{include file="header.tpl"}-->
+<?php /* Smarty version Smarty3-b8, created on 2010-07-06 22:50:11
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:12529155444c3342a36161c8-97057896%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '8a7a6af31448d665b3d33305eb6c6f65cf4b9b0f' => 
+    array (
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl',
+      1 => 1278427549,
+    ),
+  ),
+  'nocache_hash' => '12529155444c3342a36161c8-97057896',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
+<?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+
 <h3 class="topmenu">售卡订单</h3>
 <div class="divform">
   <form action="index.php" method="POST">
@@ -41,15 +61,65 @@
   	<p>
       	<label>礼品卡名称：</label>
 		<select name="ciid" id="ciid">
-			<!--{section name=c loop=$cdata}-->
-			<option value="<!--{$cdata[c].0}-->"><!--{$cdata[c].1}--></option>
-			<!--{/section}-->
+			<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['c']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['name'] = 'c';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('cdata')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['c']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['c']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['c']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['c']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['c']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['c']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['c']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['c']['total']);
+?>
+			<option value="<?php echo $_smarty_tpl->getVariable('cdata')->value[$_smarty_tpl->getVariable('smarty')->value['section']['c']['index']][0];?>
+"><?php echo $_smarty_tpl->getVariable('cdata')->value[$_smarty_tpl->getVariable('smarty')->value['section']['c']['index']][1];?>
+</option>
+			<?php endfor; endif; ?>
 		</select>
 		&nbsp;&nbsp;
 		面值：
-		<!--{section name=m loop=$cdata}-->
-		<span id="ciid<!--{$cdata[m].0}-->" class="r" <!--{if $smarty.section.m.index != 0}-->style="display:none"<!--{/if}-->><input type="text" name="cmoney" value="<!--{$cdata[m].2}-->" class="text" style="width:120px" readonly="readonly" /></span>
-		<!--{/section}-->
+		<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['m']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['name'] = 'm';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('cdata')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['m']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['m']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['m']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['m']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['m']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['m']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['m']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['m']['total']);
+?>
+		<span id="ciid<?php echo $_smarty_tpl->getVariable('cdata')->value[$_smarty_tpl->getVariable('smarty')->value['section']['m']['index']][0];?>
+" class="r" <?php if ($_smarty_tpl->getVariable('smarty')->value['section']['m']['index']!=0){?>style="display:none"<?php }?>><input type="text" name="cmoney" value="<?php echo $_smarty_tpl->getVariable('cdata')->value[$_smarty_tpl->getVariable('smarty')->value['section']['m']['index']][2];?>
+" class="text" style="width:120px" readonly="readonly" /></span>
+		<?php endfor; endif; ?>
 		&nbsp;&nbsp;
       	<label>数量：</label><input type="text" name="nums" class="text" style="width:120px" value="1000" id="nums" />
     	</p>
@@ -255,4 +325,6 @@ $('#clearcard').bind('click', function(){
 	}
 });
 </script>
-<!--{include file="footer.tpl"}-->
+<?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+

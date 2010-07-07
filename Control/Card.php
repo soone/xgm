@@ -126,7 +126,7 @@ class Control_Card extends N8_Core_Control
 			for($i = 0; $i < $cardCounts; $i++)
 			{
 				if(!$arrCard[$i]) continue;
-				$cset[] = $this->req['post']['ciid'] . ',' . $this->db->getLastInsertId() . ',' . $arrCard[$i] . ',' . $set['cu_atime'] . ',' . $this->conf->get('cardExpires') . ',' . $this->req['post']['cmoney'] . ',' . $this->req['post']['cmoney'] . ',' . $oset['co_order'];
+				$cset[] = $this->req['post']['ciid'] . ',' . $this->db->getLastInsertId() . ',' . $arrCard[$i] . ',' . $set['cu_atime'] . ',' . date('Y-m-d H:i:s', strtotime($this->req['post']['expdate'])) . ',' . $this->req['post']['cmoney'] . ',' . $this->req['post']['cmoney'] . ',' . $oset['co_order'];
 			}
 
 			if(!$cset)

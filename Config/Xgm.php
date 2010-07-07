@@ -41,4 +41,4 @@ $pConfig['view'] = array(
 	'suffix' => '.tpl',
 );
 
-$pConfig['cardExpires'] = date('Y-m-d', $_SERVER['REQUEST_TIME']+(2*365*86400));
+$pConfig['oGood'] = array(16, 17);

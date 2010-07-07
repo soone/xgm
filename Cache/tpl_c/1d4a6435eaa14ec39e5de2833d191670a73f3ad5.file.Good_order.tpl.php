@@ -1,4 +1,24 @@
-<!--{include file="header.tpl"}-->
+<?php /* Smarty version Smarty3-b8, created on 2010-07-06 23:02:47
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_order.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:1277000494c334597c265e3-49977936%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '1d4a6435eaa14ec39e5de2833d191670a73f3ad5' => 
+    array (
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_order.tpl',
+      1 => 1278428545,
+    ),
+  ),
+  'nocache_hash' => '1277000494c334597c265e3-49977936',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
+<?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+
 <h3 class="topmenu">配送单登记</h3>
 <div class="divform">
 	<form action="index.php" method="POST">
@@ -55,4 +75,6 @@ $('#checkphone').click(function(){
 	});
 });
 </script>
-<!--{include file="footer.tpl"}-->
+<?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+

@@ -38,7 +38,7 @@ class Control_Good extends N8_Core_Control
 				$rs = $this->db->create(array(
 					'table' => 'xgm_goodcat',
 					'key' => array('gc_name', 'gc_time', 'gc_pid', 'gc_mark'),
-					'value' => array($this->req['post']['catname'] . ', {{now()}},' . $this->req['post']['pid'] . ',' . $this->req['post']['mark'])
+					'value' => array($this->req['post']['catname'] . ',{{now()}},' . $this->req['post']['pid'] . ',' . $this->req['post']['mark'])
 				));
 			}
 
@@ -465,39 +465,39 @@ class Control_Good extends N8_Core_Control
 
 	public function getpinfo()
 	{
-		$email = $this->db->get(array(
+		$pInfo = $this->db->get(array(
 			'table' => 'xgm_orderuser',
-			'key' => array('ou_truename', 'ou_pinyin', 'ou_phone', 'ou_tel', 'ou_total'),
-			'where' => array('and' => array('ou_email' => $this->req['get']['ou_email'])),
+			'key' => array('ou_truename', 'ou_pinyin', 'ou_email', 'ou_tel', 'ou_total'),
+			'where' => array('and' => array('ou_phone' => $this->req['get']['ou_phone'])),
 			'limit' => array(0, 1)
 		));
 
-		if($email)
+		if($pInfo)
 		{
-			if($email[0][4] >= 1000 && $email[0][4] < 2000)
-				$email[0][4] = 1;
-			elseif($email[0][4] >= 2000 && $email[0][4] < 3000)
-				$email[0][4] = 2;
-			elseif($email[0][4] >= 3000 && $email[0][4] < 4000)
-				$email[0][4] = 3;
-			elseif($email[0][4] >= 4000 && $email[0][4] < 5000)
-				$email[0][4] = 4;
-			elseif($email[0][4] >= 5000 && $email[0][4] < 6000)
-				$email[0][4] = 5;
-			elseif($email[0][4] >= 6000 && $email[0][4] < 7000)
-				$email[0][4] = 6;
-			elseif($email[0][4] >= 7000 && $email[0][4] < 8000)
-				$email[0][4] = 7;
-			elseif($email[0][4] >= 8000 && $email[0][4] < 9000)
-				$email[0][4] = 8;
-			elseif($email[0][4] >= 9000 && $email[0][4] < 10000)
-				$email[0][4] = 9;
-			elseif($email[0][4] >= 10000)
-				$email[0][4] = 10;
+			if($pInfo[0][4] >= 1000 && $pInfo[0][4] < 2000)
+				$pInfo[0][4] = 1;
+			elseif($pInfo[0][4] >= 2000 && $pInfo[0][4] < 3000)
+				$pInfo[0][4] = 2;
+			elseif($pInfo[0][4] >= 3000 && $pInfo[0][4] < 4000)
+				$pInfo[0][4] = 3;
+			elseif($pInfo[0][4] >= 4000 && $pInfo[0][4] < 5000)
+				$pInfo[0][4] = 4;
+			elseif($pInfo[0][4] >= 5000 && $pInfo[0][4] < 6000)
+				$pInfo[0][4] = 5;
+			elseif($pInfo[0][4] >= 6000 && $pInfo[0][4] < 7000)
+				$pInfo[0][4] = 6;
+			elseif($pInfo[0][4] >= 7000 && $pInfo[0][4] < 8000)
+				$pInfo[0][4] = 7;
+			elseif($pInfo[0][4] >= 8000 && $pInfo[0][4] < 9000)
+				$pInfo[0][4] = 8;
+			elseif($pInfo[0][4] >= 9000 && $pInfo[0][4] < 10000)
+				$pInfo[0][4] = 9;
+			elseif($pInfo[0][4] >= 10000)
+				$pInfo[0][4] = 10;
 			else
-				$email[0][4] = 0;
+				$pInfo[0][4] = 0;
 
-			echo json_encode($email[0]);
+			echo json_encode($pInfo[0]);
 		}
 		else
 			echo 0;
@@ -507,17 +507,14 @@ class Control_Good extends N8_Core_Control
 	{
 		//处理订货人的cookie
 		$orderPeople = $this->req['cookie']['pInfo'];
+		//处理收货人信息
 
 		//处理货物的cookie
 
 		//处理卡的cookie
 
-		//处理收货人信息
-
 		//生成订单号保存订单信息
 
 		//显示订单号
-
-
 	}
 }
