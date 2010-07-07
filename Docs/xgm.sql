@@ -1,8 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2010-6-21 1:52:58                            */
+/* Created on:     2010-7-8 1:32:54                             */
 /*==============================================================*/
 
+
+drop table if exists xgm_car;
 
 drop table if exists xgm_cardinfo;
 
@@ -26,13 +28,31 @@ drop table if exists xgm_goodexception;
 
 drop table if exists xgm_goodin;
 
+drop index gname on xgm_goodlib;
+
 drop table if exists xgm_goodlib;
 
 drop table if exists xgm_goodorder;
 
+drop table if exists xgm_inorder;
+
 drop table if exists xgm_orderuser;
 
+drop table if exists xgm_sender;
+
 drop table if exists xgm_supplier;
+
+/*==============================================================*/
+/* Table: xgm_car                                               */
+/*==============================================================*/
+create table xgm_car
+(
+   car_id               int not null,
+   car_no               varchar(10) not null,
+   car_status           tinyint not null comment '1-可用，2-不可用',
+   car_adddate          datetime not null,
+   primary key (car_id)
+);
 
 /*==============================================================*/
 /* Table: xgm_cardinfo                                          */
@@ -88,8 +108,9 @@ create table xgm_cardorder
    co_mark              text,
    co_ctime             datetime not null,
    cu_name              varchar(20) not null,
-   cu_staus             tinyint not null default 1 comment '1-未出卡，3-出卡完成，5-作废',
+   co_status            tinyint not null default 1 comment '1-未出卡，3-出卡完成，5-作废',
    co_stime             datetime not null comment '设置订单状态的时间',
+   cview_name          varchar(20) not null,
    primary key (co_id)
 )
 type = MYISAM;
@@ -195,10 +216,7 @@ type = MYISAM;
 create table xgm_goodin
 (
    gi_id                int not null auto_increment,
-   gl_id                int,
    sp_id                int,
-   gl_w                 varchar(10) not null,
-   gl_net               varchar(10) not null,
    gl_edate             datetime not null,
    gl_inprice           varchar(10) not null,
    gl_adprice           varchar(10) not null,
@@ -206,7 +224,9 @@ create table xgm_goodin
    gl_order             varchar(20) not null,
    sp_name              varchar(50) not null,
    gl_date              datetime not null,
-   gl_state             tinyint not null default 1 comment '1-可用，',
+   gl_state             tinyint not null default 1 comment '1-可用，0-不可用 ',
+   gl_leaves            int not null default 0 comment '出库后剩余数量',
+   gl_name              varchar(30) not null,
    primary key (gi_id)
 )
 type = MYISAM;
@@ -224,13 +244,26 @@ create table xgm_goodlib
    gl_from              varchar(20) not null,
    gl_pack              varchar(250) not null,
    gl_per               varchar(10) not null,
-   gl_mprice            varchar(10) not null,
+   gl_mprice            varchar(10) not null default '0',
    gl_warn              varchar(10) not null default '0',
    gl_warnper           tinyint not null comment '1-数量，2-重量',
    gl_mark              text,
+   gl_type              tinyint not null,
+   gl_w                 varchar(10) not null,
+   gl_net               varchar(10) not null,
+   gl_leaves            int not null default 0,
+   gl_isspec            tinyint not null default 0 comment '1-为特价，0-非特价',
    primary key (gl_id)
 )
 type = MYISAM;
+
+/*==============================================================*/
+/* Index: gname                                                 */
+/*==============================================================*/
+create unique index gname on xgm_goodlib
+(
+   gl_name
+);
 
 /*==============================================================*/
 /* Table: xgm_goodorder                                         */
@@ -245,9 +278,36 @@ create table xgm_goodorder
    go_status            tinyint not null comment '1-未配送，2-配送完成，3-作废，4-退货，5-换货',
    cl_id                int not null,
    go_sdate             datetime not null,
+   go_mtype             tinyint not null comment '1-司机代收，2-支付宝，3-其他',
+   go_mark              text not null,
+   s_sender             varchar(20) not null,
+   s_id                 int not null,
+   car_no               varchar(10) not null,
+   car_id               int not null,
+   go_sendmoney         varchar(10) not null,
+   go_type              tinyint not null comment '1-储物卡订单，2-储值卡订单，3-零散配送单，4-补送配送单，5-投诉补送',
+   ou_truename          varchar(20) not null,
+   ou_oneaddress        text not null comment '序列化的收货人信息',
+   go_mtmark            varchar(120) not null,
+   go_allprice          varchar(8) not null,
+   go_oprice            varchar(8) not null,
    primary key (go_id)
 )
 type = MYISAM;
+
+/*==============================================================*/
+/* Table: xgm_inorder                                           */
+/*==============================================================*/
+create table xgm_inorder
+(
+   io_id                int not null auto_increment,
+   io_no                varchar(50) not null,
+   io_adate             datetime not null,
+   io_date              date not null,
+   io_total             float not null,
+   io_mark              text not null,
+   primary key (io_id)
+);
 
 /*==============================================================*/
 /* Table: xgm_orderuser                                         */
@@ -263,9 +323,22 @@ create table xgm_orderuser
    ou_total             varchar(10) not null default '0',
    ou_address           text comment '序列化存放的收货清单',
    ou_date              datetime not null,
+   ou_email             varchar(120) not null,
    primary key (ou_id)
 )
 type = MYISAM;
+
+/*==============================================================*/
+/* Table: xgm_sender                                            */
+/*==============================================================*/
+create table xgm_sender
+(
+   s_id                 int not null auto_increment,
+   s_sender             varchar(20) not null,
+   s_status             tinyint not null default 1 comment '1-可用，2-为不可用',
+   s_addtime            datetime not null,
+   primary key (s_id)
+);
 
 /*==============================================================*/
 /* Table: xgm_supplier                                          */
@@ -298,4 +371,3 @@ create table xgm_supplier
    primary key (sp_id)
 )
 type = MYISAM;
-

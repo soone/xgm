@@ -9,16 +9,18 @@
 			<label>物品简称：</label><input id="shortname" type="text" name="shortname" class="text" style="width:120px" />简称不超过10个汉字
 		</p>
 		<p>
-			<label>品牌：</label><input type="text" id="proname" name="proname" class="text" style="width:120px" />&nbsp;&nbsp;
-			<label>产地：</label><input type="text" id="factory"name="factory" class="text" style="width:120px" />&nbsp;&nbsp;
+			<label>物品类型：</label>
+			<select id="type" name="type"></select>&nbsp;&nbsp;
 			<label>所属分类：</label>
 			<select id="cate" name="cate"></select>
 		</p>
 		<p>
-			<label>物品类型：</label>
-			<select id="type" name="type"></select>&nbsp;&nbsp;
+			<label>品牌：</label><input type="text" id="proname" name="proname" class="text" style="width:120px" />&nbsp;&nbsp;
+			<label>产地：</label><input type="text" id="factory"name="factory" class="text" style="width:120px" />
+		</p>
+		<p>
 			<label>毛重：</label><input type="text" id="weight" name="weight" class="text" style="width:120px" />&nbsp;&nbsp;
-			<label>净重：</label><input type="text" id="netweight" name="netweight" class="text" style="width:120px" />&nbsp;&nbsp;
+			<label>净重：</label><input type="text" id="netweight" name="netweight" class="text" style="width:120px" />
 		</p>
 		<p>
 			<label>单位：</label><input type="text" id="pername" name="pername" class="text" style="width:120px" />&nbsp;&nbsp;
@@ -30,6 +32,7 @@
 		</p>
 		<p>
 			<label>猫零售价：</label><input type="text" id="myprice" name="myprice" class="text" style="width:120px" />&nbsp;&nbsp;
+			<label>是否特价：</label><select name="isspec"><option value="2">否</option><option value="1">是</option></select>&nbsp;&nbsp;
 			<label>库存报警：</label><input type="text" id="libwarn" name="libwarn" class="text" style="width:120px" />&nbsp;&nbsp;
 			<select id="warntype" name="warntype">
 				<option value="1">按数量</option>
@@ -58,7 +61,7 @@
   	<p>
       	<label>厂商建议价：</label><input type="text" name="adprice" class="text" style="width:120px" />&nbsp;&nbsp;
       	<label>保质期：</label><input type="text" name="expirdate" class="text" style="width:120px" />&nbsp;&nbsp;
-      	<label>进货单号：</label><input type="text" name="order" class="text" style="width:120px" />&nbsp;&nbsp;
+      	<label>进货单号：</label><input type="text" name="order" class="text" value="<!--{$olist[0][1]}-->" style="width:120px" />&nbsp;&nbsp;
     	</p>
       <p>
 	  	<input type="hidden" name="action" value="goodin" />
@@ -126,6 +129,9 @@ $('#ckgood').bind('click', function(){
 			else
 				cops += "<option "+((data[0][12] == n[1]) ? "selected='selected'" : " ")+"value='"+n[0]+"'>"+n[1]+"</option>";
 		});
+
+		$('#cate').html('');
+		$('#type').html('');
 
 		$('#cate').append(cops);
 		$('#type').append(tops);

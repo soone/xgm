@@ -232,7 +232,7 @@ class Control_Good extends N8_Core_Control
 						N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 				}
 			}
-			N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=inlist');
+			N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=liblist');
 		}
 
 		//供货商列表
@@ -248,7 +248,7 @@ class Control_Good extends N8_Core_Control
 		$inolist = $this->db->get(array(
 			'table' => 'xgm_inorder',
 			'key' => array('io_id', 'io_no'),
-			'order' => array('desc' => array('io_date')),
+			'order' => array('desc' => array('io_id')),
 			'limit' => array(0, 1)
 		));
 
@@ -368,13 +368,13 @@ class Control_Good extends N8_Core_Control
         $start = ($page-1)*$perNum;
         $allNums = $this->db->get(array(
         	'table' => 'xgm_goodlib',
-        	'key' => array('count(*)'),
+        	'key' => array('count(1)'),
 			'where' => array('and' => array('gl_leaves' => 0), 'oper' => array('gl_leaves' => '>'))
         ));
 
         $data = $this->db->get(array(
         	'table' => 'xgm_goodlib',
-        	'key' => array('gl_id', 'gl_name', 'gl_per', 'gl_mprice', 'gl_leaves', 'gl_mark'),
+        	'key' => array('gl_id', 'gl_name', 'gl_per', 'gl_mprice', 'gl_leaves', 'gl_mark', 'gl_isspec'),
         	'limit' => array($start, $perNum),
         ));
                                                                                 
@@ -382,9 +382,14 @@ class Control_Good extends N8_Core_Control
         			'allNums' => $allNums[0][0], 
         			'curPage' => $page,
         			'perNum' => $perNum));
+
+		$pInfo = 0;
+		if($this->req['cookie']['pInfo'])
+			$pInfo = 1;
                                                                                 
         $this->render(array('tplDir' => $this->conf->get('view->rDir'),
         					'liblist' => $data,
+							'pInfo' => $pInfo,
         					'page' => $page
         ));
 	}

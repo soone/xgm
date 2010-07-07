@@ -85,14 +85,12 @@ class Control_User extends N8_Core_Control
 		$this->req['post']['address'] . ',' . $this->req['post']['libaddr'] . ',' . $this->req['post']['website'] . ',' . $this->req['post']['email'] . ',' . $this->req['post']['bname'] . ',' . $this->req['post']['bno'] . ',' . $this->req['post']['product'] . ',{{now()}}'))
 			);
 
+			var_dump($this->db->getSql());
+
 			if($rs === false)
-			{
-				//数据库出错
-			}
+				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 			else
-			{
 				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=user&action=suplist');
-			}
 		}
 
 		$this->render(array('tplDir' => $this->conf->get('view->rDir')));

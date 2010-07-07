@@ -213,7 +213,19 @@ class Control_Card extends N8_Core_Control
 		if($rs === false)
 			N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 		else
+		{
+			if($this->req['get']['s'] == 3)
+			{
+				$this->db->set(array(
+					'table' => 'xgm_cardlib',
+					'key' => array('cl_otime'),
+					'value' => array('{{now()}}'),
+					'where' => array('and' => array('co_id' => $this->req['get']['coid']))
+				));
+			}
+
 			header('Location:' . $_SERVER['HTTP_REFERER']);
+		}
 	}
 
 	public function minfo()
@@ -286,6 +298,10 @@ class Control_Card extends N8_Core_Control
 					'where' => array('and' => array('cl_id' => $card[0][0])),
 
 				));
+			}
+			else
+			{
+				N8_Helper_Helper::showMessage('对不起，卡号不存在');
 			}
 		}
 

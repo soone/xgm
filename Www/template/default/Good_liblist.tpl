@@ -38,13 +38,13 @@
 			<td><!--{$liblist[l].3}--></td>
 			<td><!--{$liblist[l].4}-->(<!--{$liblist[l].2}-->)</td>
 			<td><!--{$liblist[l].5}--></td>
-			<td><input type="text" class="text" style="width:30px" value="1" id="good<!--{$liblist[l].0}-->"/><a href="javascript:void(0);" onclick="addcart('<!--{$liblist[l].0}-->', '<!--{$liblist[l].1}-->', '<!--{$liblist[l].3}-->', '<!--{$liblist[l].4}-->');">添加到购物车</a>&nbsp;|&nbsp;<a href="">查看详情</a></td>
+			<td><!--{if $pInfo == 1}--><input type="text" class="text" style="width:30px" value="1" id="good<!--{$liblist[l].0}-->"/><a href="javascript:void(0);" onclick="addcart('<!--{$liblist[l].0}-->', '<!--{$liblist[l].1}-->', '<!--{$liblist[l].3}-->', '<!--{$liblist[l].4}-->', '<!--{$liblist[l].6}-->');">添加到购物车</a>&nbsp;|&nbsp;<!--{/if}--><a href="">查看详情</a></td>
 		</tr>
 		<!--{/section}-->
 	</tbody>
 </table>
 <script language="javascript" type="text/javascript">
-function addcart(id, name, price, maxNum)
+function addcart(id, name, price, maxNum, isspec)
 {
 	var n = parseInt($('#good'+id).val());
 	if(isNaN(n))
@@ -64,7 +64,7 @@ function addcart(id, name, price, maxNum)
 	var s = $.cookie('shopCart');
 	var shopCart = s ? s.parseJSON() : new Array();
 	var scLen = shopCart.length;
-    var nAr = new Array(id, name, n, price, mNum);
+    var nAr = new Array(id, name, n, price, mNum, isspec);
 
 	if(scLen > 0)
 	{
