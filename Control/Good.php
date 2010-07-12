@@ -451,9 +451,16 @@ class Control_Good extends N8_Core_Control
 			{
 				if(!$total = $this->req['post']['total'])
 					$total = 0;
+
+				$adr = $this->db->get(array(
+					'table' => 'xgm_getaddress',
+					'key' => array('*'),
+					'where' => array('and' => array('ou_id' => $this->req['post']['ouid']))
+				));
 				
 				$set['total'] = $total;
 				$set['otype'] = $this->req['post']['otype'];
+				$set['gadr'] = $adr;
 				setcookie('pInfo', json_encode($set), $_SERVER['REQUEST_TIME']+7200);
 				N8_Helper_Helper::showMessage(NULL, 'index.php?control=good&action=liblist');
 			}
@@ -464,15 +471,13 @@ class Control_Good extends N8_Core_Control
 		{
 			setcookie('cardInfo', json_encode(array('no' => $this->req['get']['clnum'], 'id' => $this->req['get']['clid'], 'balance' => $this->req['get']['balance'])), $_SERVER['REQUEST_TIME']+7200);
 		}
-
-        $this->render(array('tplDir' => $this->conf->get('view->rDir')));
 	}
 
 	public function getpinfo()
 	{
 		$pInfo = $this->db->get(array(
 			'table' => 'xgm_orderuser',
-			'key' => array('ou_truename', 'ou_pinyin', 'ou_email', 'ou_tel', 'ou_total'),
+			'key' => array('ou_truename', 'ou_pinyin', 'ou_email', 'ou_tel', 'ou_total', 'ou_id'),
 			'where' => array('and' => array('ou_phone' => $this->req['get']['ou_phone'])),
 			'limit' => array(0, 1)
 		));
@@ -512,7 +517,14 @@ class Control_Good extends N8_Core_Control
 	{
 		//处理订货人的cookie
 		$orderPeople = $this->req['cookie']['pInfo'];
+		$oPe = json_decode($orderPeople);
 		//处理收货人信息
+		if($this->req['post']['oneAddress'] == 'new')
+		{
+			$this->db->set(array(
+				'table' => 'xgm_'
+			));
+		}
 
 		//处理货物的cookie
 
