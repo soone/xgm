@@ -434,6 +434,7 @@ class Control_Good extends N8_Core_Control
 					'where' => array('and' => array('ou_id' => $cInfo[0][0]))
 				));
 
+				$set['ou_id'] = $cInfo[0][0];
 				$set['ou_address'] = $cInfo[0][1];
 			}
 			else
@@ -443,6 +444,7 @@ class Control_Good extends N8_Core_Control
 					'key' => array_keys($set),
 					'value' => array(implode(',', array_values($set)))
 				));
+				$set['ou_id'] = $this->db->getLastInsertId();
 			}
 
 			if($rs === false)
@@ -455,7 +457,7 @@ class Control_Good extends N8_Core_Control
 				$adr = $this->db->get(array(
 					'table' => 'xgm_getaddress',
 					'key' => array('*'),
-					'where' => array('and' => array('ou_id' => $this->req['post']['ouid']))
+					'where' => array('and' => array('ou_id' => $set['ou_id']))
 				));
 				
 				$set['total'] = $total;
@@ -471,6 +473,8 @@ class Control_Good extends N8_Core_Control
 		{
 			setcookie('cardInfo', json_encode(array('no' => $this->req['get']['clnum'], 'id' => $this->req['get']['clid'], 'balance' => $this->req['get']['balance'])), $_SERVER['REQUEST_TIME']+7200);
 		}
+
+        $this->render(array('tplDir' => $this->conf->get('view->rDir')));
 	}
 
 	public function getpinfo()
@@ -515,23 +519,82 @@ class Control_Good extends N8_Core_Control
 
 	public function corder()
 	{
-		//处理订货人的cookie
-		$orderPeople = $this->req['cookie']['pInfo'];
-		$oPe = json_decode($orderPeople);
-		//处理收货人信息
-		if($this->req['post']['oneAddress'] == 'new')
+		if($this->req['post']['sn'] != $this->req['cookie']['sn'])
 		{
-			$this->db->set(array(
-				'table' => 'xgm_'
-			));
+			setcookie('sn', $this->req['post']['sn'], 1800);
+			//处理订货人的cookie
+			$orderPeople = $this->req['cookie']['pInfo'];
+			$oPe = json_decode($orderPeople, true);
+			//处理收货人信息
+			if($this->req['post']['oneAddress'] == 'new')
+			{
+				$this->db->create(array(
+					'table' => 'xgm_getaddress',
+					'key' => array('ou_id', 'ga_getter', 'ga_address', 'ga_phone', 'ga_tel'),
+					'value' => array($oPe['ou_id'].','.$this->req['post']['addName'].','.$this->req['post']['address'].','.$this->req['post']['addPho'].','.$this->req['post']['addTel'])
+				));
+
+				$addInfo = json_encode(array($this->db->getLastInsertId(), $this->req['post']['addName'], $this->req['post']['address'], $this->req['post']['addPho'], $this->req['post']['addTel']));
+			}
+			else
+			{
+				$rs = $this->db->get(array(
+					'table' => 'xgm_getaddress',
+					'key' => array('*'),
+					'where' => array('and' => array('ga_id' => $this->req['post']['oneAddress'])),
+					'limit' => array(0, 1)
+				));
+				$addInfo = json_encode($rs[0]);
+			}
+			//生成订单号保存订单信息
+			$orderNo = date('YmdHis') . sprintf('%05s', mt_rand(20000, 80000));
+			$cuttax = $this->req['post']['cuttax'] ? $this->req['post']['cuttax'] : 0;
+			$good = $this->req['cookie']['shopCart'];
+			foreach($good as $eGood)
+			{
+				$goodArr .= $spe . $eGood[0] . ',' . $eGood[2];
+				$spe = '|';
+			}
+
+			$sMark = $this->req['post']['smark'] ? $this->req['post']['smark'] : '';
+			$fMark = $this->req['post']['fmark'] ? $this->req['post']['fmark'] : '';
+			$gMark = $this->req['post']['gmark'] ? $this->req['post']['gmark'] : '';
+			$gType = $this->req['post']['gtype'];
+			$oMark = $this->req['post']['omark'] ? $this->req['post']['omark'] : '';
+
+			$params = array(
+				$orderNo,//订单号
+				$oPe['ou_id'],//用户id
+				$oPe['otype'],//订单类型
+				$cuttax,//折扣率
+				$goodArr,//物品
+				$addInfo,//收货人地址
+				$sMark,//送货备注
+				$fMark,//远程备注
+				$gType,//收费方式
+				$gMark,//收费备注
+				$oMark//其他备注
+			);
+			$oRs = $this->db->callProc('createGoodOrder', $params);
+			if(!$oRs)
+				N8_Helper_Helper::showMessage('订单生成失败，请稍候再试');
+			else
+			{
+				foreach($this->req['cookie'] as $c)
+				{
+					if($c != 'sn') setcookie($c, NULL, $_SERVER['REQUEST_TIME']-7200);
+				}
+				N8_Helper_Helper::showMessage('订单生成成功，订单号：' . $orderNo, 'index.php?control=good&action=orderlist');
+			}
 		}
+		else
+		{
+			foreach($this->req['cookie'] as $c)
+			{
+				if($c != 'sn') setcookie($c, NULL, $_SERVER['REQUEST_TIME']-7200);
+			}
 
-		//处理货物的cookie
-
-		//处理卡的cookie
-
-		//生成订单号保存订单信息
-
-		//显示订单号
+			N8_Helper_Helper::showMessage('index.php?control=good&action=orderlist');
+		}
 	}
 }
