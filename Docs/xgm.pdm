@@ -4872,7 +4872,7 @@ END soone_pro;</a:Procedure.Text>
 <a:Creator>Administrator</a:Creator>
 <a:ModificationDate>1279210460</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
-<a:PhysicalOptions>type = MYISAM</a:PhysicalOptions>
+<a:PhysicalOptions>type = InnoDB</a:PhysicalOptions>
 <c:Columns>
 <o:Column Id="o182">
 <a:ObjectID>7BC894C0-FDAD-4444-AD26-81FDDECF6D9C</a:ObjectID>
