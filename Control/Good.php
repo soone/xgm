@@ -561,6 +561,8 @@ class Control_Good extends N8_Core_Control
 			{
 				$cardInfo = json_decode($this->req['cookie']['cardInfo'], true);
 				$cId = $cardInfo['id'];
+				if(!$cId)
+					N8_Helper_Helper::showMessage('请先确认卡号');
 			}
 
 			$params = array(
@@ -653,7 +655,7 @@ class Control_Good extends N8_Core_Control
 
 		if($oInfo)
 		{
-			$goInfo = array();
+			$goInfo = $subInfo = array();
 			foreach($oInfo as $v)
 			{
 				$vInfo = $this->db->get(array(
@@ -665,14 +667,111 @@ class Control_Good extends N8_Core_Control
 
 				$v[3] = $vInfo;
 				$goInfo[] = $v;
+				if(!isset($subInfo[$v[0]]['goiNum']))
+					$subInfo[$v[0]]['goiNum'] = $v[2];
+
+				$subInfo[$v[0]]['inInfo'] = $vInfo;
 			}
+
+			if($this->req['post']['submit'])
+			{
+				foreach($subInfo as $k => $v)
+				{
+					$sum = array_sum($this->req['post']['yl'][$k]);
+					if($sum != $v['goiNum'])
+					{
+						N8_Helper_Helper::showMessage('数量错误');
+						break;
+					}
+
+					foreach($v['inInfo'] as $ik => $iv)
+					{
+						if($iv[2] < $this->req['post']['yl'][$k][$iv[0]])
+						{
+							N8_Helper_Helper::showMessage('物品数量错误');
+							break;
+						}
+						
+						$this->req['post']['yl'][$k][$iv[0]] > 0 ? $goodArr .= $spe . $iv[0] . ',' . $this->req['post']['yl'][$k][$iv[0]] : '';
+						$spe = '|';
+					}
+				}
+
+				//调用存储过程
+				$params = array(
+					$this->req['get']['go'],//订单号
+					$goodArr,//物品
+					$this->req['post']['sj'],
+					$this->req['post']['cp'],
+					$this->req['post']['yc'],
+					$this->req['post']['omark']
+				);
+
+				$oRs = $this->db->callProc('outOrder', $params);
+				if($oRs)
+					N8_Helper_Helper::showMessage('出库成功', 'index.php?control=good&action=orderlist');
+				else
+					N8_Helper_Helper::showMessage('出库失败');
+			}
+
+			$sjInfo = $this->db->get(array(
+				'table' => 'xgm_sender',
+				'key' => array('s_id', 's_sender'),
+				'where' => array('and' => array('s_status' => 1))
+			));
+
+			$cpInfo = $this->db->get(array(
+				'table' => 'xgm_car',
+				'key' => array('car_id', 'car_no'),
+				'where' => array('and' => array('car_status' => 1))
+			));
+
+			$orInfo = $this->db->get(array(
+				'table' => 'xgm_goodorder',
+				'key' => array('go_omark'),
+				'where' => array('and' => array('go_order' => $this->req['get']['go'])),
+				'limit' => array(0, 1)
+			));
 
 			$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 								'goInfo' => $goInfo,
-								'orderNo' => $this->req['get']['go']
+								'sjInfo' => $sjInfo,
+								'cpInfo' => $cpInfo,
+								'orderNo' => $this->req['get']['go'],
+								'oMark' => $orInfo[0][0]
 			));
 		}
 		else
 			N8_Helper_Helper::showMessage('订单数据错误，请检查');
+	}
+
+	function gochange()
+	{
+		switch($this->req['get']['t'])
+		{
+			case 2:
+				$rs = $this->db->set(array(
+					'table' => 'xgm_goodorder',
+					'key' => array('go_status'),
+					'value' => array($this->req['get']['t']),
+					'where' => array('and' => array('go_id' => $this->req['get']['id']))
+				));
+
+				if($rs)
+					N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=orderlist');
+				else
+					N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+				break;
+
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			default:
+				N8_Helper_Helper::showMessage('请选择合法的操作');
+				break;
+		}
 	}
 }

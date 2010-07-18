@@ -44,7 +44,7 @@
 			<td><!--{$golist[l].5}--></td>
 			<td>
 				<!--{if $golist[l].3 != 2}-->
-				<select onchange="javascript:setthis(this);">
+				<select onchange="javascript:setthis(<!--{$golist[l].0}-->);" id="aType_<!--{$golist[l].0}-->" name="aType">
 					<option value="">选择操作</option>
 					<option value="2">配送完成</option>
 					<option value="3">作废</option>
@@ -53,10 +53,26 @@
 				</select><br />
 				<input type="hidden" id="coid" value="<!--{$data[l].0}-->" />
 				<!--{/if}-->
-				<!--{if $golist[l].3 == 1}--><a href="index.php?control=good&action=gout&go=<!--{$golist[l].1}-->">出库配送</a><!--{/if}--><br /><a href="">查看详情</a>
+				<!--{if $golist[l].3 == 1}--><a href="index.php?control=good&action=gout&go=<!--{$golist[l].1}-->">出库配送</a><br /><!--{/if}--><a href="">查看详情</a>
 			</td>
 		</tr>
 		<!--{/section}-->
 	</tbody>
 </table>
+<script language="javascript" type="text/javascript">
+function setthis(id)
+{
+	var url = 'index.php?control=good&action=gochange';
+	url += '&id='+id;
+
+	var aType = $('#aType_'+id).val();
+	if(aType)
+	{
+		url += '&t='+aType;
+		location.href=url;
+	}
+	else
+		alert('请选择相应的操作');
+}
+</script>
 <!--{include file="footer.tpl"}-->
