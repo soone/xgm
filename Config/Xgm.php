@@ -41,4 +41,6 @@ $pConfig['view'] = array(
 	'suffix' => '.tpl',
 );
 
+$pConfig['tmp'] = PROJECT_ROOT . './Cache/tmp/';
+
 $pConfig['oGood'] = array(16, 17);

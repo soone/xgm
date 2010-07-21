@@ -546,8 +546,26 @@ class Control_Good extends N8_Core_Control
 				));
 				$addInfo = json_encode($rs[0]);
 			}
+
 			//生成订单号保存订单信息
-			$orderNo = date('YmdHis') . sprintf('%05s', mt_rand(20000, 80000));
+			$fName = date('ymdHi');
+			$f = $this->conf->get('tmp') . 'g_' . $fName;
+			$fNo = 1;
+			if(is_file($f))
+			{
+				$fNo = intval(file_get_contents($f))+1;
+				$fp = @fopen($f, 'w');
+				@fwrite($fp, $fNo);
+				@fclose($fp);
+			}
+			else
+			{
+				$fp = @fopen($f, 'w');
+				@fwrite($fp, $fNo);
+				@fclose($fp);
+			}
+
+			$orderNo = $fName.sprintf('%03d', $fNo);
 			$cuttax = $this->req['post']['cuttax'] ? $this->req['post']['cuttax'] : 0;
 			$good = json_decode($this->req['cookie']['shopCart'], true);
 			foreach($good as $eGood)
@@ -571,7 +589,17 @@ class Control_Good extends N8_Core_Control
 				$orderNo,//订单号
 				$oPe['otype'],//订单类型
 				$cuttax,//折扣率
-				$cId//卡号id
+				$cId,//卡号id
+				$this->req['post']['smark'],
+				$this->req['post']['fmark'],
+				$this->req['post']['gmark'],
+				$this->req['post']['gtype'],
+				$this->req['post']['omark'],
+				$oPe['ou_phone'],
+				$oPe['ou_truename'],
+				$addInfo,
+				$this->req['post']['extmoney'],
+				$this->req['post']['sdate']
 			);
 
 			$oRs = $this->db->callProc('createOrder', $params);
@@ -579,25 +607,6 @@ class Control_Good extends N8_Core_Control
 				N8_Helper_Helper::showMessage('订单生成失败，请稍候再试');
 			else
 			{
-				//根据订单号更改订单记录
-				$this->req['post']['smark'] ? $set['go_smark'] = $this->req['post']['smark'] : '';
-				$this->req['post']['fmark'] ? $set['go_fmark'] = $this->req['post']['fmark'] : '';
-				$this->req['post']['gmark'] ? $set['go_mark'] = $this->req['post']['gmark'] : '';
-				$set['go_mtype'] = $this->req['post']['gtype'];
-				$this->req['post']['omark'] ? $set['go_omark'] = $this->req['post']['omark'] : '';
-				$set['ou_id'] = $oPe['ou_id'];
-				$set['ou_phone'] = $oPe['ou_phone'];
-				$set['ou_truename'] = $oPe['ou_truename'];
-				$set['ou_oneaddress'] = $addInfo;
-				$this->req['post']['extmoney'] ? $set['go_oprice'] = $this->req['post']['extmoney'] : '';
-
-				$rs = $this->db->set(array(
-					'table' => 'xgm_goodorder',
-					'key' => array_keys($set),
-					'value' => array_values($set),
-					'where' => array('and' => array('go_order' => $orderNo))
-				));
-
 				foreach($this->req['cookie'] as $k => $v)
 				{
 					if($k != 'sn') setcookie($k, NULL, $_SERVER['REQUEST_TIME']-7200);
@@ -629,9 +638,9 @@ class Control_Good extends N8_Core_Control
                                                                                 
         $data = $this->db->get(array(
         	'table' => 'xgm_goodorder',
-        	'key' => array('go_id', 'go_order', 'ou_truename', 'go_status', 'go_type', 'go_date', 'go_allprice'),
+        	'key' => array('go_id', 'go_order', 'ou_truename', 'go_status', 'go_type', 'go_sdate', 'go_allprice'),
         	'limit' => array($start, $perNum),
-        	'order' => array('desc' => array('go_id'))
+        	'order' => array('desc' => array('go_sdate'))
         ));
 
         $page =	N8_Helper_Helper::setPage(array(
@@ -745,7 +754,7 @@ class Control_Good extends N8_Core_Control
 			N8_Helper_Helper::showMessage('订单数据错误，请检查');
 	}
 
-	function gochange()
+	public function gochange()
 	{
 		switch($this->req['get']['t'])
 		{
@@ -773,5 +782,55 @@ class Control_Good extends N8_Core_Control
 				N8_Helper_Helper::showMessage('请选择合法的操作');
 				break;
 		}
+	}
+
+	public function toprint()
+	{
+		if($this->req['get']['date'])
+		{
+			$oInfo = $this->db->get(array(
+				'table' => 'xgm_goodorder',
+				'key' => array('go_order', 'car_no'),
+				'where' => array('and' => array('go_status' => 6, 'go_sdate' => $this->req['get']['date'])
+			));
+
+			if($oInfo)
+			{
+				$all = $eGood = $cNo = $tArr = $carArr = array();
+				foreach($oInfo as $k => $v)
+				{
+					$cNo[] = $v[0];
+					$carArr[$v[0]] = $v[1];
+					$allCarNo[] = $v[1];
+				}
+
+				$uCarNo = array_unique($allCarNo);
+
+				$cInfo = $this->db->get(array(
+					'table' => 'xgm_goinfo',
+					'key' => array('go_order', 'goi_nums', 'gl_name', 'gl_id'),
+					'where' => array('and' => array('go_order' => array(implode(',', $cNo))))
+				));
+
+				foreach($cInfo as $k => $v)
+				{
+					if($carArr[$v[0]])
+					{
+						$eGood[$v[3]][$carArr[$v[0]]] += $v[1];
+						$all[$v[3]] += $v[1];
+						$nGood[$v[3]] = $v[2];
+					}
+				}
+				var_dump($nGood);
+				var_dump($cNo);
+				var_dump($all);
+				var_dump($allCarNo);
+			}
+		}
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'allInfo' => $all,
+							'gInfo' => $tArr,
+					));
 	}
 }

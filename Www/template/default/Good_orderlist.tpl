@@ -8,7 +8,7 @@
 			<th>类型</th>
 			<th>下单人</th>
 			<th>状态</th>
-			<th>下单时间</th>
+			<th>预定配送时间</th>
 			<th>操作</th>
 		</tr>
 	</thead>

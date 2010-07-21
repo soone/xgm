@@ -1,15 +1,60 @@
-<!--{include file="header.tpl"}-->
+<?php /* Smarty version Smarty3-b8, created on 2010-07-20 23:13:55
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:5148096664c45bd33de60d6-02997485%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'c771600f8b79e844a8f877d68ddc6e66fa63d68a' => 
+    array (
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl',
+      1 => 1279558191,
+    ),
+  ),
+  'nocache_hash' => '5148096664c45bd33de60d6-02997485',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
+<?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+
 <h3 class="topmenu">查看购物车</h3>
-<!--{if $fgood}-->
+<?php if ($_smarty_tpl->getVariable('fgood')->value){?>
 <p style="padding-left:5px;">添加赠品：
 <select id="freegood">
 	<option value="">请选择</option>
-	<!--{section name=fg loop=$fgood}-->
-	<option value="<!--{$fgood[fg].0}-->"><!--{$fgood[fg].1}--></option>
-	<!--{/section}-->
+	<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['name'] = 'fg';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('fgood')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['fg']['total']);
+?>
+	<option value="<?php echo $_smarty_tpl->getVariable('fgood')->value[$_smarty_tpl->getVariable('smarty')->value['section']['fg']['index']][0];?>
+"><?php echo $_smarty_tpl->getVariable('fgood')->value[$_smarty_tpl->getVariable('smarty')->value['section']['fg']['index']][1];?>
+</option>
+	<?php endfor; endif; ?>
 </select>
 </p>
-<!--{/if}-->
+<?php }?>
 <form id="orderform" name="orderform" action="index.php" method="post">
 <table class="slist">
 	<thead>
@@ -23,7 +68,8 @@
 	</thead>
 	<tbody id='sc'></tbody>
 </table>
-<input type="hidden" name="sn" value="<!--{$smarty.now}-->" />
+<input type="hidden" name="sn" value="<?php echo time();?>
+" />
 <input type="hidden" name="control" value="good" />
 <input type="hidden" name="action" value="corder" />
 </form>
@@ -147,12 +193,38 @@ $(document).ready(function(){
 		}
 	}
 
-	<!--{if $fgood}-->
-	<!--{section name=jfg loop=$fgood}-->
+	<?php if ($_smarty_tpl->getVariable('fgood')->value){?>
+	<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['name'] = 'jfg';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('fgood')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['jfg']['total']);
+?>
 	var fgood = new Array;
-	fgood["<!--{$fgood[jfg].0}-->"] = ["<!--{$fgood[jfg].1}-->", "<!--{$fgood[jfg].2}-->", 0];
-	<!--{/section}-->
-	<!--{/if}-->
+	fgood["<?php echo $_smarty_tpl->getVariable('fgood')->value[$_smarty_tpl->getVariable('smarty')->value['section']['jfg']['index']][0];?>
+"] = ["<?php echo $_smarty_tpl->getVariable('fgood')->value[$_smarty_tpl->getVariable('smarty')->value['section']['jfg']['index']][1];?>
+", "<?php echo $_smarty_tpl->getVariable('fgood')->value[$_smarty_tpl->getVariable('smarty')->value['section']['jfg']['index']][2];?>
+", 0];
+	<?php endfor; endif; ?>
+	<?php }?>
 
 	$('#clearShopCart').click(function(){
 		if(confirm('确定清空购物车？？'))
@@ -283,4 +355,6 @@ function cShopCart(id, type)
 	$.cookie('shopCart', shopCart.toJSONString());
 }
 </script>
-<!--{include file="footer.tpl"}-->
+<?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+

@@ -1,16 +1,38 @@
+<?php /* Smarty version Smarty3-b8, created on 2010-07-20 23:14:01
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:3934786284c45bd39105bf3-27475458%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
+    array (
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
+      1 => 1279472628,
+    ),
+  ),
+  'nocache_hash' => '3934786284c45bd39105bf3-27475458',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/xhtml1-loose.dtd">
 <html>
 <head>
 <title>西瓜猫管理系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="<!--{$tplDir}-->images/screen.css" type="text/css" media="screen, projection">
-<link rel="stylesheet" href="<!--{$tplDir}-->images/print.css" type="text/css" media="print">
-<!--[if lt IE 8]><link rel="stylesheet" href="<!--{$tplDir}-->images/ie.css" type="text/css" media="screen, projection"><![endif]-->
+<link rel="stylesheet" href="<?php echo $_smarty_tpl->getVariable('tplDir')->value;?>
+images/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?php echo $_smarty_tpl->getVariable('tplDir')->value;?>
+images/print.css" type="text/css" media="print">
+<!--[if lt IE 8]><link rel="stylesheet" href="<?php echo $_smarty_tpl->getVariable('tplDir')->value;?>
+images/ie.css" type="text/css" media="screen, projection"><![endif]-->
 <style type="text/css" media="screen">
   p, table, hr, .box { margin-bottom:25px; }
   .box p { margin-bottom:10px; }
 </style>
-<link rel="stylesheet" href="<!--{$tplDir}-->images/style.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?php echo $_smarty_tpl->getVariable('tplDir')->value;?>
+images/style.css" type="text/css" media="screen, projection">
 <script type="text/javascript" language="javascript" src="images/jquery.js"></script>
 </head>
 <body>
@@ -47,7 +69,6 @@
         <div>
             <h4>库存管理</h4>
             <ul>
-                <li><a href="index.php?control=good&action=toprint">出库汇总单</a></li>
                 <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
                 <li><a href="index.php?control=good&action=liblist">库存列表</a></li>
                 <li><a href="index.php?control=good&action=inlist">进货单列表</a></li>
