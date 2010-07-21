@@ -710,7 +710,6 @@ class Control_Good extends N8_Core_Control
 				$params = array(
 					$this->req['get']['go'],//订单号
 					$goodArr,//物品
-					$this->req['post']['sj'],
 					$this->req['post']['cp'],
 					$this->req['post']['yc'],
 					$this->req['post']['omark']
@@ -722,12 +721,6 @@ class Control_Good extends N8_Core_Control
 				else
 					N8_Helper_Helper::showMessage('出库失败');
 			}
-
-			$sjInfo = $this->db->get(array(
-				'table' => 'xgm_sender',
-				'key' => array('s_id', 's_sender'),
-				'where' => array('and' => array('s_status' => 1))
-			));
 
 			$cpInfo = $this->db->get(array(
 				'table' => 'xgm_car',
@@ -744,7 +737,6 @@ class Control_Good extends N8_Core_Control
 
 			$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 								'goInfo' => $goInfo,
-								'sjInfo' => $sjInfo,
 								'cpInfo' => $cpInfo,
 								'orderNo' => $this->req['get']['go'],
 								'oMark' => $orInfo[0][0]
@@ -756,32 +748,28 @@ class Control_Good extends N8_Core_Control
 
 	public function gochange()
 	{
-		switch($this->req['get']['t'])
+		if($this->req['get']['t'] == 2)
 		{
-			case 2:
-				$rs = $this->db->set(array(
-					'table' => 'xgm_goodorder',
-					'key' => array('go_status'),
-					'value' => array($this->req['get']['t']),
-					'where' => array('and' => array('go_id' => $this->req['get']['id']))
-				));
+			$rs = $this->db->set(array(
+				'table' => 'xgm_goodorder',
+				'key' => array('go_status'),
+				'value' => array($this->req['get']['t']),
+				'where' => array('and' => array('go_id' => $this->req['get']['id']))
+			));
 
-				if($rs)
-					N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=orderlist');
-				else
-					N8_Helper_Helper::showMessage('操作失败，请稍候再试');
-				break;
-
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			default:
-				N8_Helper_Helper::showMessage('请选择合法的操作');
-				break;
+			if($rs)
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=orderlist');
+			else
+				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 		}
+		else
+			N8_Helper_Helper::showMessage('请选择合法的操作');
+	}
+
+	public function backchange()
+	{
+
+        $this->render(array('tplDir' => $this->conf->get('view->rDir'),));
 	}
 
 	public function toprint()
@@ -791,46 +779,73 @@ class Control_Good extends N8_Core_Control
 			$oInfo = $this->db->get(array(
 				'table' => 'xgm_goodorder',
 				'key' => array('go_order', 'car_no'),
-				'where' => array('and' => array('go_status' => 6, 'go_sdate' => $this->req['get']['date'])
+				'where' => array('and' => array('go_status' => 6, 'go_sdate' => $this->req['get']['date']))
 			));
 
 			if($oInfo)
 			{
-				$all = $eGood = $cNo = $tArr = $carArr = array();
+				$allCarNo = $cOrder = $gArr = $end = $allGood = $aCll = $aGll = array();
 				foreach($oInfo as $k => $v)
 				{
-					$cNo[] = $v[0];
-					$carArr[$v[0]] = $v[1];
 					$allCarNo[] = $v[1];
+					$cOrder[$v[1]][] = $v[0];
 				}
 
-				$uCarNo = array_unique($allCarNo);
+				$allCarNo = array_values(array_unique($allCarNo));
 
-				$cInfo = $this->db->get(array(
-					'table' => 'xgm_goinfo',
-					'key' => array('go_order', 'goi_nums', 'gl_name', 'gl_id'),
-					'where' => array('and' => array('go_order' => array(implode(',', $cNo))))
-				));
-
-				foreach($cInfo as $k => $v)
+				foreach($allCarNo as $v)
 				{
-					if($carArr[$v[0]])
+					$cInfo = $this->db->get(array(
+						'table' => 'xgm_goinfo',
+						'key' => array('{{sum(goi_nums)}}', 'gl_name', 'gl_id'),
+						'group' => array('by' => 'gl_id'),
+						'where' => array('and' => array('go_order' => $cOrder[$v]))
+					));
+
+					if($cInfo)
 					{
-						$eGood[$v[3]][$carArr[$v[0]]] += $v[1];
-						$all[$v[3]] += $v[1];
-						$nGood[$v[3]] = $v[2];
+						foreach($cInfo as $ck => $cv)
+						{
+							if(!isset($gArr[$cv[2]]))
+								$gArr[$cv[2]] = $cv[1];
+
+							$end[$cv[2]][] = $cv[0];
+							$allGood[$cv[2]] += $cv[0];
+						}
 					}
 				}
-				var_dump($nGood);
-				var_dump($cNo);
-				var_dump($all);
-				var_dump($allCarNo);
+
+				$gArrKey = array_keys($gArr);
+
+				$s = 0;
+				foreach($gArrKey as $gv)
+				{
+					$temp = $end[$gv];
+					array_unshift($temp, $gArr[$gv]);
+					$x = count($temp);
+					if($x > $s) $s = $x;
+					$aTempGll[] = $temp;
+					$aCll[] = array($gArr[$gv], $allGood[$gv]);
+				}
+
+				foreach($aTempGll as $av)
+				{
+					$tSize = count($av);
+					if($tSize < $s)
+					{
+						$in = $s - $tSize;
+						$aGll[] = array_merge($av, array_fill($in, $in, 0));
+					}
+					else
+						$aGll[] = $av;
+				}
 			}
 		}
 
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
-							'allInfo' => $all,
-							'gInfo' => $tArr,
-					));
+							'aCll' => $aCll,
+							'aGll' => $aGll,
+							'cNos' => $allCarNo
+		));
 	}
 }

@@ -25,17 +25,8 @@
 	<!--{/section}-->
 <table>
 <table class="slist">
-	<!--{if $sjInfo}-->
+	<!--{if $cpInfo}-->
 	<tr>
-		<th><label>指定司机师傅：</label></th>
-		<td>
-			<select name="sj">
-				<option value="">请选择</option>
-				<!--{section name=sj loop=$sjInfo}-->
-				<option value="<!--{$sjInfo[sj].0}-->"><!--{$sjInfo[sj].1}--></option>
-				<!--{/section}-->
-			</select>
-		</td>
 		<th><label>指定车牌：</label></th>
 		<td>
 			<select name="cp">

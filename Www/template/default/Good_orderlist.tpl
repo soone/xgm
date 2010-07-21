@@ -48,8 +48,6 @@
 					<option value="">选择操作</option>
 					<option value="2">配送完成</option>
 					<option value="3">作废</option>
-					<option value="4">退货</option>
-					<option value="5">换货</option>
 				</select><br />
 				<input type="hidden" id="coid" value="<!--{$data[l].0}-->" />
 				<!--{/if}-->
@@ -62,7 +60,11 @@
 <script language="javascript" type="text/javascript">
 function setthis(id)
 {
-	var url = 'index.php?control=good&action=gochange';
+	if(id == 2)
+		var url = 'index.php?control=good&action=gochange';
+	else
+		var url = 'index.php?control=good&action=backchange';
+
 	url += '&id='+id;
 
 	var aType = $('#aType_'+id).val();
