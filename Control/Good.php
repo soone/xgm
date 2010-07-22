@@ -768,8 +768,54 @@ class Control_Good extends N8_Core_Control
 
 	public function backchange()
 	{
+		$oNo = $this->db->get(array(
+			'table' => 'xgm_goodorder',
+			'key' => array('go_order', 'go_id'),
+			'where' => array('and' => array('go_id' => $this->req['get']['id'], 'go_status' => 2), 'oper' => array('go_status' => '<>')),
+			'limit' => array(0, 1)
+		));
 
-        $this->render(array('tplDir' => $this->conf->get('view->rDir'),));
+		if(!$oNo)
+			N8_Helper_Helper::showMessage('配送单不存在');
+
+		$gInfo = $this->db->get(array(
+			'table' => 'xgm_goinfo',
+			'key' => array('gl_id', 'goi_nums', 'gl_name'),
+			'where' => array('and' => array('go_order' => $oNo[0][0]))
+		));
+
+		if($this->req['post']['submit'])
+		{
+			if($this->req['post']['type'] == 2)//全部退货
+				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], NULL, NULL, NULL));
+			else if($this->req['post']['type'] == 1)//部分送达
+			{
+				foreach($gInfo as $v)
+				{
+					if($v[1] <= $this->req['post']['oknum'][$v[0]])
+						N8_Helper_Helper::showMessage('输入的送达数量大于配送单中的数量，请检查');
+
+					$okNums .= $spe . $v[0] . ',' . $v[2] . ',' . intval($this->req['post']['oknum'][$v[0]]);
+					$leaveNums .= $spe .$v[0] . ',' . $v[2] . ',' . ($v[1] - $okNums[$v[0]][1]);
+					$spe = '|';
+				}
+
+				//生成异常配送单号
+				$wrongNo = date('ymdHis').'001';
+				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], $wrongNo, $okNums, $leaveNums));
+			}
+
+			if($oRs)
+				N8_Helper_Helper::showMessage('操作成功');
+			else
+				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+		}
+
+        $this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'id' => $oNo[0][1],
+							'orderNo' => $oNo[0][0],
+							'gInfo' => $gInfo
+		));
 	}
 
 	public function toprint()
