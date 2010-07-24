@@ -795,7 +795,7 @@ class Control_Good extends N8_Core_Control
 					if($v[1] <= $this->req['post']['oknum'][$v[0]])
 						N8_Helper_Helper::showMessage('输入的送达数量大于配送单中的数量，请检查');
 
-					$okNums .= $spe . $v[0] . ',' . $v[2] . ',' . intval($this->req['post']['oknum'][$v[0]]);
+					$okNums .= $spe . $v[0] . ',' . intval($this->req['post']['oknum'][$v[0]]);
 					$leaveNums .= $spe .$v[0] . ',' . $v[2] . ',' . ($v[1] - $okNums[$v[0]][1]);
 					$spe = '|';
 				}
