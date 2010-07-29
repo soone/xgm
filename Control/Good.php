@@ -802,7 +802,7 @@ class Control_Good extends N8_Core_Control
 
 				//生成异常配送单号
 				$wrongNo = date('ymdHis').'001';
-				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], $wrongNo, $okNums, $leaveNums));
+				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], $wrongNo, $okNums));
 			}
 
 			if($oRs)

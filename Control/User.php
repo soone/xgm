@@ -310,7 +310,10 @@ class Control_User extends N8_Core_Control
 			
 			if($rs === false)
 			{
-				
+				if($this->db->getErrno() == '23000')
+					N8_Helper_Helper::showMessage('卡名称已经存在');
+				else
+					N8_Helper_Helper::showMessage('插入失败，请稍候再试');
 			}
 			else
 			{

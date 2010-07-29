@@ -93,7 +93,7 @@ $(document).ready(function(){
         	}
         }
 
-        p += '<input type="radio" name="oneAddress" value="new" checked="checked" />收货人：<input type="text" class="text" style="width:50px;" name="addName" />&nbsp;&nbsp;收货地址：<input type="text" class="text" style="width:160px;" name="address" />&nbsp;&nbsp;联系手机：<input type="text" class="text" style="width:50px;" name="addPho" />&nbsp;&nbsp;联系电话：<input type="text" class="text" style="width:50px;" name="addTel" /></td></tr>';
+        p += '<input type="radio" name="oneAddress" value="new" checked="checked" />收货人：<input type="text" class="text" style="width:90px;" name="addName" />&nbsp;&nbsp;收货地址：<input type="text" class="text" name="address" /><br />联系手机：<input type="text" class="text" name="addPho" style="width:120px;" />&nbsp;&nbsp;联系电话：<input style="width:120px;" type="text" class="text" name="addTel" /></td></tr>';
         p += '<tr><th>送货备注：</th><td colspan="2"><textarea name="smark" style="width:200px;height:150px;"></textarea></td>';
         p += '<th>远程备注：</th><td colspan="2"><textarea name="fmark" style="width:200px;height:150px;"></textarea></td></tr>';
         p += '<tr><th>收费备注：</th><td colspan="2"><select name="gtype"><option value="0">请选择收款方式</option><option value="1">司机代收</option><option value="2">支付宝收款</option><option value="3">其他方式</option></select><br /><textarea name="gmark" style="width:200px;height:150px;"></textarea></td>';
