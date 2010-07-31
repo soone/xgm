@@ -6,8 +6,8 @@
 			<label>配送单类型：</label>
 			<select name="otype">
 				<option value="0">请选择</option>
-				<option value="1">储物卡配送单</option>
-				<option value="2">储值卡配送单</option>
+				<option <!--{if $ctype == 1}-->selected="selected" <!--{/if}-->value="1">储物卡配送单</option>
+				<option <!--{if $ctype == 2}-->selected="selected" <!--{/if}-->value="2">储值卡配送单</option>
 				<option value="3">零散配送单</option>
 				<option value="4">补送配送单</option>
 				<option value="5">投诉补送配送单</option>

@@ -28,6 +28,8 @@
 <input type="hidden" name="action" value="corder" />
 </form>
 <script type="text/javascript" language="javascript" src="images/json.js"></script>
+<script type="text/javascript" language="javascript" src="images/json.js"></script>
+<script type="text/javascript" language="javascript" src="images/datePickter/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript">
 var cuttax = 0;
 var allPrice = 0;
@@ -82,7 +84,7 @@ $(document).ready(function(){
         }
  
         p += '<tr><th>额外收款金额：</th><td><input type="text" class="text" name="extmoney" id="extmoney" value="0" style="width:40px;" /></td>';
-        p += parseInt(pInfo['otype']) == 3 ? '<th>折扣率：</th><td><input type="text" class="text" style="width:40px;" id="cuttax" value="'+pInfo['total']+'" name="cuttax" />%</td><th>配送日期：</th><td colspan="2"><input type="text" class="text" style="width:160px;" name="sdate" /></td>' : '<th>配送日期：</th><td colspan="4"><input type="text" class="text" style="width:160px;" name="sdate" /></td>';
+        p += parseInt(pInfo['otype']) == 3 ? '<th>折扣率：</th><td><input type="text" class="text" style="width:40px;" id="cuttax" value="'+pInfo['total']+'" name="cuttax" />%</td><th>配送日期：</th><td colspan="2"><input type="text" class="text" style="width:160px;" name="sdate" /></td>' : '<th>配送日期：</th><td colspan="4"><input type="text" class="text" style="width:160px;" name="sdate" onFocus="WdatePicker({dateFmt:\'yyyy-MM-dd\',skin:\'whyGreen\'})" /></td>';
         p += '</tr><tr><th>收货人信息：</th><td colspan="5">';
         if(pInfo['gadr'] != null)
         {

@@ -11,8 +11,8 @@
   	<p>
           <label>分类：</label>
 		  <select name="citype">
-		  	<option <!--{if $data[5] == 1}-->selected="selected" <!--{/if}-->value="1">储值卡</option>
-		  	<option <!--{if $data[5] == 3}-->selected="selected" <!--{/if}-->value="3">储物卡</option>
+		  	<option <!--{if $data[5] == 2}-->selected="selected" <!--{/if}-->value="2">储值卡</option>
+		  	<option <!--{if $data[5] == 1}-->selected="selected" <!--{/if}-->value="1">储物卡</option>
 		  </select>
     	</p>
   	<p>

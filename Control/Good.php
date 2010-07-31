@@ -474,7 +474,9 @@ class Control_Good extends N8_Core_Control
 			setcookie('cardInfo', json_encode(array('no' => $this->req['get']['clnum'], 'id' => $this->req['get']['clid'], 'balance' => $this->req['get']['balance'])), $_SERVER['REQUEST_TIME']+7200);
 		}
 
-        $this->render(array('tplDir' => $this->conf->get('view->rDir')));
+        $this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'ctype' => $this->req['get']['ctype']
+		));
 	}
 
 	public function getpinfo()
