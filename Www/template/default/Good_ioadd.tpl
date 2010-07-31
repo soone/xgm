@@ -5,7 +5,7 @@
   	<p>
       	<label>进货单号：</label><input type="text" name="io_no" class="text" value="<!--{$info[1]}-->" style="width:120px;" />&nbsp;&nbsp;
 		<label>总价：</label><input value="<!--{$info[4]}-->" type="text" name="io_total" class="text" style="width:120px;" />&nbsp;&nbsp;
-        <label>进货时间：</label><input value="<!--{$info[3]}-->" type="text" name="io_date" class="text" style="width:120px;" />
+        <label>进货时间：</label><input value="<!--{$info[3]}-->" type="text" name="io_date" class="text" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
 		  </p>
 	<p>
           <label>备注：</label><br />
@@ -24,4 +24,6 @@
       </p>
 	</form>
 </div>
+<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
+<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
 <!--{include file="footer.tpl"}-->

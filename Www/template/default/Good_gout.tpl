@@ -15,6 +15,8 @@
 			<!--{if $goInfo[s].3}-->
 			<!--{section name=ts loop=$goInfo[s].3}-->
 			<b>进货单号:</b><!--{$goInfo[s].3[ts].1}-->&nbsp;&nbsp;
+			<b>生产日期:</b><!--{$goInfo[s].3[ts].5}-->&nbsp;&nbsp;
+			<b>过期日期:</b><!--{$goInfo[s].3[ts].4}--><br />
 			<b>进货时间:</b><!--{$goInfo[s].3[ts].3}-->&nbsp;&nbsp;
 			<b>余量:</b><!--{$goInfo[s].3[ts].2}-->&nbsp;&nbsp;
 			<b>出库量:</b><input type="text" name="yl[<!--{$goInfo[s].0}-->][<!--{$goInfo[s].3[ts].0}-->]" value="0" class="text" style="width:50px;" /><br />

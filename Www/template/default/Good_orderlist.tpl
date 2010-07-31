@@ -1,5 +1,23 @@
 <!--{include file="header.tpl"}-->
 <h3 class="topmenu">配送单列表</h3>
+<div>
+<form>
+	<label>客户电话：</label><input type="text" class="text" name="cphone" style="width:120px;" value="<!--{$smarty.get.cphone}-->" />&nbsp;&nbsp;
+	<label>客户姓名：</label><input type="text" class="text" name="cname" style="width:120px;" value="<!--{$smarty.get.cname}-->" />&nbsp;&nbsp;
+	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" /><br />
+	<label>订单状态：</label>
+	<select name="cstatus">
+		<option value="">请选择</option>
+		<option <!--{if $smarty.get.cstatus == 1}-->selected="selected" <!--{/if}-->value="1">未配送</option>
+		<option <!--{if $smarty.get.cstatus == 2}-->selected="selected" <!--{/if}-->value="2">配送完成</option>
+		<option <!--{if $smarty.get.cstatus == 3}-->selected="selected" <!--{/if}-->value="3">作废</option>
+		<option <!--{if $smarty.get.cstatus == 6}-->selected="selected" <!--{/if}-->value="6">正在配送</option>
+	</select>
+	<input type="hidden" name="control" value="good" />
+	<input type="hidden" name="action" value="orderlist" />
+	<input type="submit" name="submit" value="查看" />
+</form>
+</div>
 <table class="slist">
 	<thead>
 		<tr>
@@ -60,14 +78,14 @@
 <script language="javascript" type="text/javascript">
 function setthis(id)
 {
-	if(id == 2)
+	var aType = $('#aType_'+id).val();
+	if(aType == '2')
 		var url = 'index.php?control=good&action=gochange';
 	else
 		var url = 'index.php?control=good&action=backchange';
 
 	url += '&id='+id;
 
-	var aType = $('#aType_'+id).val();
 	if(aType)
 	{
 		url += '&t='+aType;
@@ -77,4 +95,6 @@ function setthis(id)
 		alert('请选择相应的操作');
 }
 </script>
+<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
+<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
 <!--{include file="footer.tpl"}-->

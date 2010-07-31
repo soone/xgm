@@ -1,5 +1,19 @@
 <!--{include file="header.tpl"}-->
 <h3 class="topmenu">库存列表(<a href="index.php?control=good&action=getcart">查看购物车</a>)<span></h3>
+<div>
+<form>
+	<label>选择分类：</label>
+	<select name="ctype" id="bcate">
+		<option value="">请选择</option>
+		<!--{section name=t loop=$bigcate}-->
+		<option <!--{if $smarty.get.ctype == $bigcate[t].0}-->selected="selected" <!--{/if}-->value="<!--{$bigcate[t].0}-->"><!--{$bigcate[t].1}--></option>
+		<!--{/section}-->
+	</select>
+	<input type="hidden" name="control" value="good" />
+	<input type="hidden" name="action" value="liblist" />
+	<input type="submit" name="submit" value="查看" />
+</form>
+</div>
 <table class="slist">
 	<thead>
 		<tr>
@@ -17,7 +31,7 @@
 				<div class="page">
 					<ul>
 						<li class="all">总<!--{$page['allPages']}-->页</li>
-						<li><a href="index.php?control=good&action=liblist">|<</a></li>
+						<li><a href="index.php?ctype=<!--{$smarty.get.ctype}-->&control=good&action=liblist">|<</a></li>
 						<li><a href="index.php?control=good&action=liblist&page=<!--{$page['prevPage']}-->"><<</a></li>
 						<!--{section name=p loop=$page['max']+$page['min'] start=$page['min'] max=$page['max']}-->
 						<li><a href="index.php?control=good&action=liblist&page=<!--{$smarty.section.p.index}-->"><!--{$smarty.section.p.index}--></a></li>
@@ -43,7 +57,29 @@
 		<!--{/section}-->
 	</tbody>
 </table>
+<script type="text/javascript" language="javascript" src="images/json.js"></script>
 <script language="javascript" type="text/javascript">
+var smallCate = '<!--{$smallcate}-->';
+var sCate = smallCate.parseJSON();
+var nbCate = '<!--{$smarty.get.ctype}-->';
+var nsCate = '<!--{$smarty.get.cstype}-->';
+if(typeof(sCate[nbCate]) != "undefined")
+{
+	$('#bcate').after('<select id="sct" name="cstype"></select>');
+	$.each(sCate[$('#bcate').val()], function(i){
+		$('#sct').append("<option "+(parseInt(nsCate) == parseInt(sCate[nbCate][i][0]) ? "selected='selected' " : '')+"value='"+sCate[nbCate][i][0]+"'>"+sCate[nbCate][i][1]+"</option>");
+	});
+}
+$('#bcate').bind('change', function(){
+	$('#sct').hide();
+	if(typeof(sCate[$('#bcate').val()]) != "undefined")
+	{
+		$('#bcate').after('<select id="sct" name="cstype"></select>');
+		$.each(sCate[$('#bcate').val()], function(i){
+			$('#sct').append("<option value='"+sCate[$('#bcate').val()][i][0]+"'>"+sCate[$('#bcate').val()][i][1]+"</option>");
+		});
+	}
+});
 function addcart(id, name, price, maxNum, isspec)
 {
 	var n = parseInt($('#good'+id).val());
@@ -101,5 +137,4 @@ function addcart(id, name, price, maxNum, isspec)
 	alert('添加成功');
 }
 </script>
-<script type="text/javascript" language="javascript" src="images/json.js"></script>
 <!--{include file="footer.tpl"}-->

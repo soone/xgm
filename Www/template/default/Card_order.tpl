@@ -1,8 +1,7 @@
 <!--{include file="header.tpl"}-->
 <h3 class="topmenu">售卡订单</h3>
 <div class="divform">
-  <form action="index.php" method="POST">
-  	<p>
+  <form action="index.php" method="POST"> <p>
       	<label>客户名称：</label>中文：<input type="text" name="cname" class="text" style="width:120px" />&nbsp;&nbsp;拼音：<input type="text" name="cpinyin" class="text" style="width:120px"/>&nbsp;&nbsp;<a href="javascript:void(0);" id="check">查询</a>
     	</p>
   	<p>
@@ -56,7 +55,7 @@
   	<p>
       	<label>订单售价：</label><input type="text" name="omoney" class="text" style="width:120px" id="omoney" />&nbsp;&nbsp;
       	<label>单卡均价：</label><input type="text" name="emoney" class="text" style="width:120px" value="0" id="emoney" readonly="readonly" />&nbsp;&nbsp;
-      	<label>过期日期：</label><input type="text" name="expdate" class="text" style="width:120px" />&nbsp;&nbsp;
+      	<label>过期日期：</label><input type="text" name="expdate" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" class="text" style="width:120px" />&nbsp;&nbsp;
       	<label>发票：</label><select name="invoc" id="ginvoc"><option value="0">否</option><option value="1">是</option></select>
     	</p>
   	<p style="display:none" id="invoctext">
@@ -255,4 +254,6 @@ $('#clearcard').bind('click', function(){
 	}
 });
 </script>
+<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
+<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
 <!--{include file="footer.tpl"}-->

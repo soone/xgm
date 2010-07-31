@@ -144,8 +144,8 @@ class Control_Good extends N8_Core_Control
 				//插入goodin
 				$inrs = $this->db->create(array(
 					'table' => 'xgm_goodin',
-					'key' => array('sp_id', 'gl_edate', 'gl_inprice', 'gl_adprice', 'gl_nums', 'gl_order', 'sp_name', 'gl_date', 'gl_state', 'gl_leaves', 'gl_name'),
-					'value' => array($this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'])
+					'key' => array('sp_id', 'gl_edate', 'gl_inprice', 'gl_adprice', 'gl_nums', 'gl_order', 'sp_name', 'gl_date', 'gl_state', 'gl_leaves', 'gl_name', 'gl_prodate'),
+					'value' => array($this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'] . ',' . $this->req['post']['createdate'])
 				));
 
 				if($inrs === false)
@@ -366,18 +366,25 @@ class Control_Good extends N8_Core_Control
 		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
         $perNum = 30;
         $start = ($page-1)*$perNum;
-        $allNums = $this->db->get(array(
-        	'table' => 'xgm_goodlib',
-        	'key' => array('count(1)'),
-			'where' => array('and' => array('gl_leaves' => 0), 'oper' => array('gl_leaves' => '>'))
-        ));
-
-        $data = $this->db->get(array(
+		$dsql = array(
         	'table' => 'xgm_goodlib',
         	'key' => array('gl_id', 'gl_name', 'gl_per', 'gl_mprice', 'gl_leaves', 'gl_mark', 'gl_isspec'),
         	'limit' => array($start, $perNum),
+		);
+		$where = array('gl_leaves' => 0);
+		if($this->req['get']['cstype'])
+		{
+			$where['gc_id'] = $this->req['get']['cstype'];
+			$dsql['where'] = array('and' => array('gc_id' => $this->req['get']['cstype']));
+		}
+
+        $allNums = $this->db->get(array(
+        	'table' => 'xgm_goodlib',
+        	'key' => array('count(1)'),
+			'where' => array('and' => $where, 'oper' => array('gl_leaves' => '>'))
         ));
-                                                                                
+
+        $data = $this->db->get($dsql);
         $page =	N8_Helper_Helper::setPage(array(
         			'allNums' => $allNums[0][0], 
         			'curPage' => $page,
@@ -386,11 +393,30 @@ class Control_Good extends N8_Core_Control
 		$pInfo = 0;
 		if($this->req['cookie']['pInfo'])
 			$pInfo = 1;
-                                                                                
+
+		//读取分类列表
+		$clist = $this->db->get(array(
+			'table' => 'xgm_goodcat',
+			'key' => array('gc_id', 'gc_name', 'gc_pid')
+		));
+
+		if($clist)
+		{
+			foreach($clist as $v)
+			{
+				if($v[2] == 0)
+					$bigCate[] = $v;
+				else
+					$smallCate[$v[2]][] = $v;
+			}
+		}
+
         $this->render(array('tplDir' => $this->conf->get('view->rDir'),
         					'liblist' => $data,
 							'pInfo' => $pInfo,
-        					'page' => $page
+        					'page' => $page,
+							'bigcate' => $bigCate,
+							'smallcate' => json_encode($smallCate)
         ));
 	}
 
@@ -551,7 +577,7 @@ class Control_Good extends N8_Core_Control
 
 			//生成订单号保存订单信息
 			$fName = date('ymdHi');
-			$f = $this->conf->get('tmp') . 'g_' . $fName;
+			$f = $this->conf->get('tmp') . 'g_' . date('ymd');
 			$fNo = 1;
 			if(is_file($f))
 			{
@@ -630,25 +656,38 @@ class Control_Good extends N8_Core_Control
 
 	public function orderlist()
 	{
-		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
-        $perNum = 30;
-        $start = ($page-1)*$perNum;
-        $allNums = $this->db->get(array(
-        	'table' => 'xgm_goodorder',
-        	'key' => array('count(*)'),
-        ));
-                                                                                
-        $data = $this->db->get(array(
-        	'table' => 'xgm_goodorder',
-        	'key' => array('go_id', 'go_order', 'ou_truename', 'go_status', 'go_type', 'go_sdate', 'go_allprice'),
-        	'limit' => array($start, $perNum),
-        	'order' => array('desc' => array('go_sdate'))
-        ));
+		if($this->req['get']['cphone'] || $this->req['get']['cname'] || $this->req['get']['cdate'] || $this->req['get']['cstatus'])
+		{
+			$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+			$perNum = 30;
+			$start = ($page-1)*$perNum;
+			$cWhere = array(
+				'table' => 'xgm_goodorder',
+				'key' => array('count(*)'),
+			);
+			$dWhere = array(
+				'table' => 'xgm_goodorder',
+				'key' => array('go_id', 'go_order', 'ou_truename', 'go_status', 'go_type', 'go_sdate', 'go_allprice'),
+				'limit' => array($start, $perNum),
+				'order' => array('desc' => array('go_sdate'))
+			);
+			$this->req['get']['cphone'] ? $and['ou_phone'] = $this->req['get']['cphone'] : '';
+			$this->req['get']['cname'] ? $and['ou_truename'] = $this->req['get']['cname'] : '';
+			$this->req['get']['cdate'] ? $and['go_date'] = $this->req['get']['cdate'] : '';
+			$this->req['get']['cstatus'] ? $and['go_status'] = $this->req['get']['cstatus'] : '';
+			if($and)
+			{
+				$cWhere['where']['and'] = $and;
+				$dWhere['where']['and'] = $and;
+			}
 
-        $page =	N8_Helper_Helper::setPage(array(
-        			'allNums' => $allNums[0][0], 
-        			'curPage' => $page,
-        			'perNum' => $perNum));
+			$allNums = $this->db->get($cWhere);
+			$data = $this->db->get($dWhere);
+			$page =	N8_Helper_Helper::setPage(array(
+						'allNums' => $allNums[0][0], 
+						'curPage' => $page,
+						'perNum' => $perNum));
+		}
                                                                                 
         $this->render(array('tplDir' => $this->conf->get('view->rDir'),
         					'golist' => $data,
@@ -671,7 +710,7 @@ class Control_Good extends N8_Core_Control
 			{
 				$vInfo = $this->db->get(array(
 					'table' => 'xgm_goodin',
-					'key' => array('gi_id', 'gl_order', 'gl_leaves', 'gl_date'),
+					'key' => array('gi_id', 'gl_order', 'gl_leaves', 'gl_date', 'gl_edate', 'gl_prodate'),
 					'where' => array('and' => array('gl_name' => $v[1], 'gl_state' => 1)),
 					'order' => array('asc' => array('gl_date'))
 				));
@@ -756,7 +795,7 @@ class Control_Good extends N8_Core_Control
 				'table' => 'xgm_goodorder',
 				'key' => array('go_status'),
 				'value' => array($this->req['get']['t']),
-				'where' => array('and' => array('go_id' => $this->req['get']['id']))
+				'where' => array('and' => array('go_id' => $this->req['get']['id'], 'go_status' => '1'), 'oper' => array('go_status' => '<>'))
 			));
 
 			if($rs)
@@ -803,7 +842,24 @@ class Control_Good extends N8_Core_Control
 				}
 
 				//生成异常配送单号
-				$wrongNo = date('ymdHis').'001';
+ 				$fName = date('ymdHi');
+ 				$f = $this->conf->get('tmp') . 'w_' . date('ymd');
+ 				$fNo = 1;
+ 				if(is_file($f))
+ 				{
+					$fNo = intval(file_get_contents($f))+1;
+					$fp = @fopen($f, 'w');
+					@fwrite($fp, $fNo);
+					@fclose($fp);
+				}
+				else
+				{
+					$fp = @fopen($f, 'w');
+					@fwrite($fp, $fNo);
+					@fclose($fp);
+				}
+	 
+				$wrongNo = $fName.sprintf('%03d', $fNo);
 				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], $wrongNo, $okNums));
 			}
 

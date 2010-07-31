@@ -295,7 +295,7 @@ class Control_Card extends N8_Core_Control
 				$orders = $this->db->get(array(
 					'table' => 'xgm_goodorder',
 					'key' => array('go_id', 'go_order', 'go_date', 'go_sdate', 'go_status'),
-					'where' => array('and' => array('cl_id' => $card[0][0])),
+					'where' => array('and' => array('cl_id' => $card[0][1])),
 
 				));
 			}

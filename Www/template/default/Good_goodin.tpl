@@ -46,21 +46,24 @@
   	<p>
       	<label>数量：</label><input type="text" name="nums" class="text" style="width:120px" />&nbsp;&nbsp;
       	<label>进货价：</label><input type="text" name="oprice" class="text" style="width:120px" />&nbsp;&nbsp;
-      	<label>供应商：</label>
-		<select name="sp_id">
-			<!--{section name=s loop=$slist}-->
-			<option value="<!--{$slist[s].0}-->"><!--{$slist[s].1}--></option>
-			<!--{/section}-->
-		</select>&nbsp;&nbsp;
       	<label>状态：</label>
 		<select name="state"> 
 			<option value="1">可用</option>
 			<option value="0">不可用</option>
 		</select>
     	</p>
+	<p>
+      	<label>供应商：</label>
+		<select name="sp_id">
+			<!--{section name=s loop=$slist}-->
+			<option value="<!--{$slist[s].0}-->"><!--{$slist[s].1}--></option>
+			<!--{/section}-->
+		</select>&nbsp;&nbsp;
+		<label>生产日期：</label><input type="text" name="createdate" class="text" style="width:120px" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
+		</p>
   	<p>
       	<label>厂商建议价：</label><input type="text" name="adprice" class="text" style="width:120px" />&nbsp;&nbsp;
-      	<label>保质期：</label><input type="text" name="expirdate" class="text" style="width:120px" />&nbsp;&nbsp;
+      	<label>保质期：</label><input type="text" name="expirdate" class="text" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" style="width:120px" />&nbsp;&nbsp;
       	<label>进货单号：</label><input type="text" name="order" class="text" value="<!--{$olist[0][1]}-->" style="width:120px" />&nbsp;&nbsp;
     	</p>
       <p>
@@ -140,4 +143,6 @@ $('#ckgood').bind('click', function(){
 	});
 });
 </script>
+<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
+<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
 <!--{include file="footer.tpl"}-->
