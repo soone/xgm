@@ -9,8 +9,8 @@ class Control_Card extends N8_Core_Control
 	public $db;
 	public function __init()
 	{
-		$this->db = new N8_Dblayer_Dblayer();
-		$this->db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+		$this->dbLayer = new N8_Dblayer_Dblayer();
+		$this->db = $this->dbLayer->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
 	}
 
 	public function order()

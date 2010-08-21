@@ -9,8 +9,8 @@ class Control_Good extends N8_Core_Control
 	public $db;
 	public function __init()
 	{
-		$this->db = new N8_Dblayer_Dblayer();
-		$this->db->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+		$this->dbLayer = new N8_Dblayer_Dblayer();
+		$this->db = $this->dbLayer->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
 	}
 
 	public function cate()
@@ -811,13 +811,22 @@ class Control_Good extends N8_Core_Control
 	{
 		$oNo = $this->db->get(array(
 			'table' => 'xgm_goodorder',
-			'key' => array('go_order', 'go_id'),
-			'where' => array('and' => array('go_id' => $this->req['get']['id'], 'go_status' => 2), 'oper' => array('go_status' => '<>')),
+			'key' => array('go_order', 'go_id', 'go_status'),
+			'where' => array('and' => array('go_id' => $this->req['get']['id'])),
 			'limit' => array(0, 1)
 		));
 
 		if(!$oNo)
 			N8_Helper_Helper::showMessage('配送单不存在');
+
+		if($oNo[0][2] == 1)
+		{
+			$oRs = $this->db->callProc('wrongOrder', array(3, $oNo[0][0], NULL, NULL, NULL));
+			if($oRs)
+				N8_Helper_Helper::showMessage('操作成功');
+			else
+				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
+		}
 
 		$gInfo = $this->db->get(array(
 			'table' => 'xgm_goinfo',
