@@ -2,7 +2,7 @@
 /**
  * 物品处理控制器
  *
- * @author soone fengyue15#163.com
+ * @author soone(fengyue15#163.com)
  */
 class Control_Good extends N8_Core_Control
 {
@@ -821,9 +821,9 @@ class Control_Good extends N8_Core_Control
 
 		if($oNo[0][2] == 1)
 		{
-			$oRs = $this->db->callProc('wrongOrder', array(3, $oNo[0][0], NULL, NULL, NULL));
+			$oRs = $this->db->callProc('wrongOrder', array(3, $oNo[0][0], NULL, NULL));
 			if($oRs)
-				N8_Helper_Helper::showMessage('操作成功');
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=orderlist');
 			else
 				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 		}
@@ -836,17 +836,16 @@ class Control_Good extends N8_Core_Control
 
 		if($this->req['post']['submit'])
 		{
-			if($this->req['post']['type'] == 2)//全部退货
-				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], NULL, NULL, NULL));
-			else if($this->req['post']['type'] == 1)//部分送达
+			if($this->req['post']['t'] == 2)//全部退货
+				$oRs = $this->db->callProc('wrongOrder', array(2, $oNo[0][0], NULL, NULL));
+			else if($this->req['post']['t'] == 1)//部分送达
 			{
 				foreach($gInfo as $v)
 				{
-					if($v[1] <= $this->req['post']['oknum'][$v[0]])
+					if($v[1] < $this->req['post']['oknum'][$v[0]])
 						N8_Helper_Helper::showMessage('输入的送达数量大于配送单中的数量，请检查');
 
 					$okNums .= $spe . $v[0] . ',' . intval($this->req['post']['oknum'][$v[0]]);
-					$leaveNums .= $spe .$v[0] . ',' . $v[2] . ',' . ($v[1] - $okNums[$v[0]][1]);
 					$spe = '|';
 				}
 
@@ -869,11 +868,11 @@ class Control_Good extends N8_Core_Control
 				}
 	 
 				$wrongNo = $fName.sprintf('%03d', $fNo);
-				$oRs = $this->db->callProc('wrongOrder', array($this->req['post']['type'], $oNo[0][0], $wrongNo, $okNums));
+				$oRs = $this->db->callProc('wrongOrder', array(1, $oNo[0][0], $wrongNo, $okNums));
 			}
 
 			if($oRs)
-				N8_Helper_Helper::showMessage('操作成功');
+				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=orderlist');
 			else
 				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 		}
