@@ -673,12 +673,19 @@ class Control_Good extends N8_Core_Control
 			);
 			$this->req['get']['cphone'] ? $and['ou_phone'] = $this->req['get']['cphone'] : '';
 			$this->req['get']['cname'] ? $and['ou_truename'] = $this->req['get']['cname'] : '';
-			$this->req['get']['cdate'] ? $and['go_date'] = $this->req['get']['cdate'] : '';
+			$this->req['get']['cdate'] ? $and['go_date'] = $this->req['get']['cdate'] . ' 00:00:00' : '';
+			$this->req['get']['cdate'] ? $and['go_date'] = $this->req['get']['cdate'] . ' 23:59:59' : '';
+			$this->req['get']['sdate'] ? $and['go_sdate'] = $this->req['get']['sdate'] . ' 00:00:00' : '';
+			$this->req['get']['sdate'] ? $and['go_sdate'] = $this->req['get']['sdate'] . ' 23:59:59' : '';
 			$this->req['get']['cstatus'] ? $and['go_status'] = $this->req['get']['cstatus'] : '';
 			if($and)
 			{
 				$cWhere['where']['and'] = $and;
 				$dWhere['where']['and'] = $and;
+				$cWhere['where']['oper'] = array('go_date' => '>=', 'go_date' => '<=');
+				$cWhere['where']['oper'] = array('go_date' => '>=', 'go_date' => '<=');
+				$dWhere['where']['oper'] = array('go_sdate' => '>=', 'go_sdate' => '<=');
+				$dWhere['where']['oper'] = array('go_sdate' => '>=', 'go_sdate' => '<=');
 			}
 
 			$allNums = $this->db->get($cWhere);
@@ -958,6 +965,164 @@ class Control_Good extends N8_Core_Control
 							'aCll' => $aCll,
 							'aGll' => $aGll,
 							'cNos' => $allCarNo
+		));
+	}
+
+	public function wrongin()
+	{
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+        $perNum = 30;
+        $start = ($page-1)*$perNum;
+        $allNums = $this->db->get(array(
+        	'table' => 'xgm_goodexception',
+        	'key' => array('count(*)'),
+        ));
+                                                                                
+        $data = $this->db->get(array(
+        	'table' => 'xgm_goodexception',
+        	'key' => array('ge_id', 'go_order', 'ge_status', 'ge_type', 'ge_cdate'),
+        	'limit' => array($start, $perNum),
+        	'order' => array('desc' => array('ge_id'))
+        ));
+                                                                                
+        $page =	N8_Helper_Helper::setPage(array(
+        			'allNums' => $allNums[0][0], 
+        			'curPage' => $page,
+        			'perNum' => $perNum));
+                                                                                
+        $this->render(array('tplDir' => $this->conf->get('view->rDir'),
+        					'gelist' => $data,
+        					'page' => $page
+        ));
+	}
+
+	public function gowrongin()
+	{
+		$orderCon = $this->db->get(array(
+			'table' => 'xgm_goodorder',
+			'key' => array('go_outinfomark'),
+			'where' => array('and' => array(
+				'go_order' => $this->req['get']['order'],
+				'go_status' => 3),
+				'oper' => array('go_status' => '=')
+			),
+			'limit' => array(0, 1)
+		));
+
+		if(!$orderCon)
+			N8_Helper_Helper::showMessage('数据出错');
+		else
+		{
+			if($this->req['post']['submit'])
+			{
+				$keys = array_keys($this->req['post']['yl']);
+				for($k = 0, $x = count($keys); $k < $x; $k++)
+				{
+					$bInfo[] = $keys[$k] . ',' . $this->req['post']['yl'][$keys[$k]];
+				}
+
+				$gRs = $this->db->callProc('goBackPro', array($this->req['get']['order'], implode('|', $bInfo)));
+				if($gRs)
+					N8_Helper_Helper::showMessage('回库成功', 'index.php?control=good&action=wrongin');
+				else
+					N8_Helper_Helper::showMessage('回库失败');
+			}
+
+			$oInfo = explode('|', $orderCon[0][0]);
+			for($i = 0, $j = count($oInfo); $i < $j; $i++)
+			{
+				$orderInfo[] = explode(',', $oInfo[$i]);
+			}
+
+			$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+								'orderInfo' => $orderInfo,
+								'order' => $this->req['get']['order']
+			));
+		}
+
+	}
+
+	public function ininfo()
+	{
+		$inInfo = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('*'),
+			'where' => array('and' => array('gl_order' => $this->req['get']['order']))
+		));
+
+		if(!$inInfo)
+			N8_Helper_Helper::showMessage('没有该资料，请检查');
+
+		//查找供货商
+		$sInfo = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('sp_id', 'sp_name'),
+		));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'inInfo' => $inInfo,
+							'sInfo' => $sInfo,
+							'order' => $this->req['get']['order']
+		));
+	}
+
+	public function egin()
+	{
+		$ginfo = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('gl_leaves', 'gl_name'),
+			'where' => array('and' => array('gi_id' => $this->req['post']['gid'])),
+			'limit' => array(0, 1)
+		));
+
+		if(!$ginfo)
+			N8_Helper_Helper::showMessage('没有该资料，请检查');
+
+		$sp = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('sp_name'),
+			'where' => array('and' => array('sp_id' => $this->req['post']['sp'])),
+			'limit' => array(0, 1)
+		));
+		$spName = $sp[0][0];
+
+		$rsGin = $this->db->set(array(
+			'table' => 'xgm_goodin',
+			'key' => array('gl_nums', 'gl_leaves', 'gl_inprice', 'gl_adprice', 'gl_edate', 'gl_prodate', 'sp_id', 'sp_name'),
+			'value' => array($this->req['post']['nums'], $this->req['post']['nums'], 
+			$this->req['post']['inprice'], $this->req['post']['inprice'], 
+			$this->req['post']['adprice'], $this->req['post']['edate'], 
+			$this->req['post']['prodate'], $this->req['post']['sp'], $spName),
+			'where' => array('and' => array('gi_id' => $this->req['post']['gid']))
+		));
+
+		if($rsGin && $ginfo[0][0] != $this->req['post']['nums'])
+		{
+			$left = $this->req['post']['nums']-$ginfo[0][0];
+			$rsLib = $this->db->set(array(
+				'table' => 'xgm_goodlib',
+				'key' => array('gl_leaves'),
+				'value' => array('{{gl_leaves+'.$left.'}}'),
+				'where' => array('and' => array('gl_name' => $ginfo[0][1]))
+			));
+
+			N8_Helper_Helper::showMessage('修改成功');
+		}
+		else
+			N8_Helper_Helper::showMessage('修改失败');
+	}
+
+	public function ginlist()
+	{
+		$inOrderList = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('gl_order', 'gl_date'),
+			'where' => array('and' => array('gl_name' => $this->req['get']['name']))
+		));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'inOrderList' => $inOrderList,
+							'gName' => $this->req['get']['name']
 		));
 	}
 }

@@ -4,6 +4,7 @@
 <form>
 	<label>客户电话：</label><input type="text" class="text" name="cphone" style="width:120px;" value="<!--{$smarty.get.cphone}-->" />&nbsp;&nbsp;
 	<label>客户姓名：</label><input type="text" class="text" name="cname" style="width:120px;" value="<!--{$smarty.get.cname}-->" />&nbsp;&nbsp;
+	<label>配送日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" /><br />
 	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" /><br />
 	<label>订单状态：</label>
 	<select name="cstatus">
@@ -56,7 +57,7 @@
 		<tr>
 			<td><!--{$golist[l].1}--></td>
 			<td><!--{$golist[l].6}--></td>
-			<td><!--{if $golist[l].4 == 1}-->储物卡配送单<!--{else if $golist[l].4 == 2}-->储值卡配送单<!--{else if $golist[l].4 == 3}-->零散配送单<!--{else if $golist[l].4 == 4}-->补送配送单<!--{else if $golist[l].4 == 5}-->投诉补送配送单<!--{/if}--></td>
+			<td><!--{if $golist[l].4 == 1}-->储物卡配送单<!--{else if $golist[l].4 == 2}-->储值卡配送单<!--{else if $golist[l].4 == 3}-->零散配送单<!--{else if $golist[l].4 == 4}-->补送配送单<!--{else if $golist[l].4 == 5}-->投诉补送配送单<!--{else if $golist[l].4 == 7}-->返厂配送单<!--{/if}--></td>
 			<td><!--{$golist[l].2}--></td>
 			<td><!--{if $golist[l].3 == 1}-->未配送<!--{else if $golist[l].3 == 2}-->配送完成<!--{else if $golist[l].3 == 3}-->作废<!--{else if $golist[l].3 == 4}-->退货<!--{else if $golist[l].3 == 5}-->换货<!--{else if $golist[l].3 == 6}-->配送中<!--{/if}--></td>
 			<td><!--{$golist[l].5}--></td>

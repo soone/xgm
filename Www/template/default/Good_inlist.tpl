@@ -38,7 +38,7 @@
 			<td><!--{$iolist[l].3}--></td>
 			<td><!--{$iolist[l].2}--></td>
 			<td><!--{$iolist[l].4}--></td>
-			<td><a href="index.php?control=good&action=ioadd&ioid=<!--{$iolist[l].0}-->">修改</a></td>
+			<td><a href="index.php?control=good&action=ioadd&ioid=<!--{$iolist[l].0}-->">修改</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ininfo&order=<!--{$iolist[l].1}-->">详情</a></td>
 		</tr>
 		<!--{/section}-->
 	</tbody>
