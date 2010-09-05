@@ -8,6 +8,9 @@
         <label>进货时间：</label><input value="<!--{$info[3]}-->" type="text" name="io_date" class="text" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
 		  </p>
 	<p>
+        <label>付款时间：</label><input value="<!--{if $info[6] != '0000-00-00 00:00:00'}--><!--{$info[6]}--><!--{/if}-->" type="text" name="io_paytime" class="text" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
+	</p>
+	<p>
           <label>备注：</label><br />
 		  <textarea name="io_mark"><!--{$info[5]}--></textarea>
     	</p>

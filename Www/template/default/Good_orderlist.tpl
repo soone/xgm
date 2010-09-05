@@ -70,7 +70,7 @@
 				</select><br />
 				<input type="hidden" id="coid" value="<!--{$data[l].0}-->" />
 				<!--{/if}-->
-				<!--{if $golist[l].3 == 1}--><a href="index.php?control=good&action=gout&go=<!--{$golist[l].1}-->">出库配送</a><br /><!--{/if}--><a href="">查看详情</a>
+				<!--{if $golist[l].3 == 1}--><a href="index.php?control=good&action=gout&go=<!--{$golist[l].1}-->">出库配送</a><br /><!--{/if}--><a href="">查看详情</a><br /><!--{if $golist[l].3 == 6}--><a href="index.php?control=good&action=changecar&oid=<!--{$golist[l].1}-->">修改分车</a><!--{/if}-->
 			</td>
 		</tr>
 		<!--{/section}-->

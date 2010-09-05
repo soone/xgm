@@ -11,6 +11,21 @@ class Control_Other extends N8_Core_Control
 	{
 		$this->dbLayer = new N8_Dblayer_Dblayer();
 		$this->db = $this->dbLayer->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+		if(!$vExt = $this->conf->get('view->extend'))
+		{
+			require_once N8_ROOT . './Core/View.php';
+			$vExt = 'N8_Core_View';
+		}
+
+		$cView = new $vExt();
+		//创建视图实例
+		$this->view = $cView->createView($this->conf->get('view'));
+		$expNums = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('count(*)'),
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -3 MONTH)}}'), 'oper' => array('now()' => '>'))
+		));
+		$this->view->Assign(array('expnums' => $expNums[0][0]));
 	}
 
 	public function scman()

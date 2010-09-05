@@ -11,6 +11,21 @@ class Control_Good extends N8_Core_Control
 	{
 		$this->dbLayer = new N8_Dblayer_Dblayer();
 		$this->db = $this->dbLayer->setDs($this->conf->get('db->0->type'), $this->conf->get('db->0->option'));
+		if(!$vExt = $this->conf->get('view->extend'))
+		{
+			require_once N8_ROOT . './Core/View.php';
+			$vExt = 'N8_Core_View';
+		}
+
+		$cView = new $vExt();
+		//创建视图实例
+		$this->view = $cView->createView($this->conf->get('view'));
+		$expNums = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('count(*)'),
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -3 MONTH)}}'), 'oper' => array('now()' => '>'))
+		));
+		$this->view->Assign(array('expnums' => $expNums[0][0]));
 	}
 
 	public function cate()
@@ -301,7 +316,7 @@ class Control_Good extends N8_Core_Control
 
 		$data = $this->db->get(array(
 			'table' => 'xgm_inorder',
-			'key' => array('io_id', 'io_no', 'io_date', 'io_total', 'io_mark'),
+			'key' => array('io_id', 'io_no', 'io_date', 'io_total', 'io_mark', 'io_paytime'),
 			'limit' => array($start, $perNum),
 			'order' => array('desc' => array('io_id'))
 		));
@@ -325,8 +340,8 @@ class Control_Good extends N8_Core_Control
 			{
 				$re = $this->db->set(array(
 					'table' => 'xgm_inorder',
-					'key' => array('io_no', 'io_date', 'io_total', 'io_mark'),
-					'value' => array($this->req['post']['io_no'], $this->req['post']['io_date'], $this->req['post']['io_total'], $this->req['post']['io_mark']),
+					'key' => array('io_no', 'io_date', 'io_total', 'io_mark', 'io_paytime'),
+					'value' => array($this->req['post']['io_no'], $this->req['post']['io_date'], $this->req['post']['io_total'], $this->req['post']['io_mark'], (!$this->req['post']['io_paytime'] ? '0000-00-00 00:00:00' : $this->req['post']['io_paytime'])),
 					'where' => array('and' => array('io_id' => $this->req['post']['ioid']))
 				));
 			}
@@ -1124,5 +1139,64 @@ class Control_Good extends N8_Core_Control
 							'inOrderList' => $inOrderList,
 							'gName' => $this->req['get']['name']
 		));
+	}
+
+	public function changecar()
+	{
+		$order = $this->db->get(array(
+			'table' => 'xgm_goodorder',
+			'key' => array('car_no'),
+			'where' => array('and' => array('go_order' => $this->req['get']['oid'], 'go_status' => 6)),
+			'limit' => array(0, 1)
+		));
+
+		if(!$order)
+			N8_Helper_Helper::showMessage('数据错误');
+
+		if($this->req['post']['submit'])
+		{
+			if(!$this->req['post']['cp'])
+				N8_Helper_Helper::showMessage('请选择新的车牌');
+
+			$carsName = $this->db->get(array(
+				'table' => 'xgm_car',
+				'key' => array('car_no'),
+				'where' => array('and' => array('car_id' => $this->req['post']['cp'])),
+				'limit' => array(0, 1)
+			));
+
+			$oRs = $this->db->set(array(
+				'table' => 'xgm_goodorder',
+				'key' => array('car_no', 'car_id'),
+				'value' => array($carsName[0][0], $this->req['post']['cp']),
+				'where' => array('and' => array('go_order' => $this->req['get']['oid'], 'go_status' => 6))
+			));
+			if(!$oRs)
+				N8_Helper_Helper::showMessage('更新失败');
+			else
+				N8_Helper_Helper::showMessage('更新成功', 'index.php?control=good&action=orderlist&cstatus=6');
+		}
+
+		$cars = $this->db->get(array(
+			'table' => 'xgm_car',
+			'key' => array('car_id', 'car_no'),
+			'where' => array('and' => array('car_status' => 1))
+		));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'car' => $order[0][0],
+							'cpInfo' => $cars,
+							'oid' => $this->req['get']['oid']
+		));
+	}
+
+	public function expgood()
+	{
+		$expGoods = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('gl_name', 'gl_edate', 'gl_nums', 'gl_order', 'sp_name'),
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -3 MONTH)}}'), 'oper' => array('now()' => '>'))
+		));
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),	'liblist' => $expGoods,));
 	}
 }

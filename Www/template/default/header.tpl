@@ -47,6 +47,7 @@
         <div>
             <h4>库存管理</h4>
             <ul>
+                <li><a href="index.php?control=good&action=expgood">过期物品提示(<span><!--{$expnums}--></span>)</a></li>
                 <li><a href="index.php?control=good&action=toprint&date=<!--{($smarty.now+86400)|date_format:'%Y-%m-%d'}-->">出货汇总单</a></li>
                 <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
                 <li><a href="index.php?control=good&action=wrongin">异常配送单物品入库操作</a></li>

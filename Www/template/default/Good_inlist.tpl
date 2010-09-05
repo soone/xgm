@@ -6,6 +6,8 @@
 			<th>单号</th>
 			<th>总价</th>
 			<th>进货时间</th>
+			<th>付款状态</th>
+			<th>付款时间</th>
 			<th>备注</th>
 			<th>操作</th>
 		</tr>
@@ -37,6 +39,8 @@
 			<td><!--{$iolist[l].1}--></td>
 			<td><!--{$iolist[l].3}--></td>
 			<td><!--{$iolist[l].2}--></td>
+			<td><!--{if $iolist[l].5 == '0000-00-00 00:00:00'}-->未付款<!--{else}-->已付款<!--{/if}--></td>
+			<td><!--{if $iolist[l].5 !== '0000-00-00 00:00:00'}--><!--{$iolist[l].5}--><!--{/if}--></td>
 			<td><!--{$iolist[l].4}--></td>
 			<td><a href="index.php?control=good&action=ioadd&ioid=<!--{$iolist[l].0}-->">修改</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ininfo&order=<!--{$iolist[l].1}-->">详情</a></td>
 		</tr>
