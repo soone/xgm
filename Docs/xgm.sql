@@ -1,416 +1,720 @@
--- MySQL dump 10.13  Distrib 5.1.41, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: xgm
--- ------------------------------------------------------
--- Server version	5.1.41-3ubuntu12.6
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2010-9-11 9:29:21                            */
+/*==============================================================*/
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `xgm_car`
---
+drop procedure if exists createOrder;
 
-DROP TABLE IF EXISTS `xgm_car`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_car` (
-  `car_id` int(11) NOT NULL AUTO_INCREMENT,
-  `car_no` varchar(10) NOT NULL,
-  `car_status` tinyint(4) NOT NULL DEFAULT '1',
-  `car_addtime` datetime NOT NULL,
-  PRIMARY KEY (`car_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop procedure if exists goBackPro;
 
---
--- Table structure for table `xgm_cardinfo`
---
+drop procedure if exists outOrder;
 
-DROP TABLE IF EXISTS `xgm_cardinfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_cardinfo` (
-  `ci_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ci_name` varchar(20) NOT NULL,
-  `ci_money` varchar(10) NOT NULL,
-  `cview_id` int(11) DEFAULT NULL,
-  `cview_name` varchar(20) NOT NULL,
-  `ci_date` datetime NOT NULL,
-  `ci_type` tinyint(4) NOT NULL COMMENT '1-ÃŽÂªÂ´Â¢Ã–ÂµÂ¿Â¨Â£Â¬3-ÃŽÂªÂ´Â¢ÃŽÃ¯Â¿Â¨',
-  `ci_desc` text,
-  `ci_mark` text,
-  PRIMARY KEY (`ci_id`),
-  UNIQUE KEY `ci_name` (`ci_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop procedure if exists wrongOrder;
 
---
--- Table structure for table `xgm_cardlib`
---
+drop table if exists xgm_car;
 
-DROP TABLE IF EXISTS `xgm_cardlib`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_cardlib` (
-  `ci_id` int(11) DEFAULT NULL,
-  `cl_id` int(11) NOT NULL AUTO_INCREMENT,
-  `co_id` int(11) DEFAULT NULL,
-  `cl_num` varchar(12) NOT NULL,
-  `cl_date` datetime NOT NULL,
-  `cl_state` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-ÃŽÂªÂ¿Ã‰Ã“ÃƒÂ£Â¬0-ÃŽÂªÂ²Â»Â¿Ã‰Ã“Ãƒ',
-  `cl_otime` datetime NOT NULL,
-  `cl_expire` datetime NOT NULL,
-  `ci_money` varchar(10) NOT NULL,
-  `ci_balance` varchar(10) NOT NULL DEFAULT '0',
-  `co_order` varchar(20) NOT NULL,
-  PRIMARY KEY (`cl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_cardinfo;
 
---
--- Table structure for table `xgm_cardorder`
---
+drop table if exists xgm_cardlib;
 
-DROP TABLE IF EXISTS `xgm_cardorder`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_cardorder` (
-  `co_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cu_id` int(11) DEFAULT NULL,
-  `co_order` varchar(20) NOT NULL,
-  `co_totalnums` int(11) NOT NULL DEFAULT '0',
-  `co_total` varchar(10) NOT NULL,
-  `co_ava` varchar(20) NOT NULL,
-  `co_text` text NOT NULL COMMENT 'ÃÃ²ÃÃÂ»Â¯ÂµÃ„Â´Ã¦Â·Ã…ÃƒÂ¿Ã–Ã–Â¿Â¨ÂµÃ„ÃƒÃ»Â³Ã†Â£Â¬ÃƒÂ¿Ã–Ã–Â¿Â¨ÂµÃ„ÃŠÃ½ÃÂ¿Â£Â¬Ã’Ã”Â¼Â°Â¿Â¨ÂµÃ„ÂµÂ¥Â¼Ã›',
-  `co_invoice` varchar(255) NOT NULL COMMENT 'ÃŽÂªÂ¿Ã•Ã”Ã²Â²Â»ÃÃ¨Ã’ÂªÂ·Â¢Ã†Â±',
-  `co_mark` text,
-  `co_ctime` datetime NOT NULL,
-  `cu_name` varchar(20) NOT NULL,
-  `co_status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-ÃŽÂ´Â³Ã¶Â¿Â¨Â£Â¬3-Â³Ã¶Â¿Â¨ÃÃªÂ³Ã‰Â£Â¬5-Ã—Ã·Â·Ã',
-  `co_stime` datetime NOT NULL COMMENT 'Ã‰Ã¨Ã–ÃƒÂ¶Â©ÂµÂ¥Ã—Â´ÃŒÂ¬ÂµÃ„ÃŠÂ±Â¼Ã¤',
-  `cview_name` varchar(20) NOT NULL,
-  PRIMARY KEY (`co_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_cardorder;
 
---
--- Table structure for table `xgm_carduser`
---
+drop index cnameemail on xgm_carduser;
 
-DROP TABLE IF EXISTS `xgm_carduser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_carduser` (
-  `cu_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cu_name` varchar(20) NOT NULL,
-  `cu_py` varchar(40) NOT NULL,
-  `cu_company` varchar(50) NOT NULL,
-  `cu_sex` tinyint(4) NOT NULL,
-  `cu_job` varchar(20) DEFAULT NULL,
-  `cu_tel1` varchar(20) DEFAULT NULL,
-  `cu_tel2` varchar(20) DEFAULT NULL,
-  `cu_email` varchar(50) DEFAULT NULL,
-  `cu_website` varchar(100) DEFAULT NULL,
-  `cu_msn` varchar(50) DEFAULT NULL,
-  `cu_qq` varchar(20) DEFAULT NULL,
-  `cu_taobao` varchar(50) DEFAULT NULL,
-  `cu_fetion` varchar(50) DEFAULT NULL,
-  `cu_bank` varchar(20) DEFAULT NULL,
-  `cu_bankname` varchar(20) DEFAULT NULL,
-  `cu_mark` text,
-  `cu_atime` datetime NOT NULL,
-  PRIMARY KEY (`cu_id`),
-  UNIQUE KEY `cnameemail` (`cu_name`,`cu_email`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_carduser;
 
---
--- Table structure for table `xgm_cardview`
---
+drop table if exists xgm_cardview;
 
-DROP TABLE IF EXISTS `xgm_cardview`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_cardview` (
-  `cview_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cview_name` varchar(20) NOT NULL,
-  `cview_desc` text,
-  `cview_date` datetime NOT NULL,
-  PRIMARY KEY (`cview_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_getaddress;
 
---
--- Table structure for table `xgm_getaddress`
---
+drop table if exists xgm_goinfo;
 
-DROP TABLE IF EXISTS `xgm_getaddress`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_getaddress` (
-  `ga_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ou_id` int(11) DEFAULT NULL,
-  `ga_getter` varchar(20) NOT NULL,
-  `ga_address` varchar(60) NOT NULL,
-  `ga_phone` varchar(12) NOT NULL,
-  `ga_tel` varchar(20) NOT NULL,
-  PRIMARY KEY (`ga_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop index cname on xgm_goodcat;
 
---
--- Table structure for table `xgm_goinfo`
---
+drop table if exists xgm_goodcat;
 
-DROP TABLE IF EXISTS `xgm_goinfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_goinfo` (
-  `go_order` varchar(20) NOT NULL,
-  `gl_id` int(11) DEFAULT NULL,
-  `goi_nums` int(11) NOT NULL DEFAULT '0',
-  `gl_name` varchar(30) NOT NULL,
-  `goi_outinfo` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_goodexception;
 
---
--- Table structure for table `xgm_goodcat`
---
+drop table if exists xgm_goodin;
 
-DROP TABLE IF EXISTS `xgm_goodcat`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_goodcat` (
-  `gc_id` int(11) NOT NULL AUTO_INCREMENT,
-  `gc_name` varchar(20) NOT NULL,
-  `gc_time` datetime NOT NULL,
-  `gc_pid` int(11) NOT NULL DEFAULT '0',
-  `gc_mark` text NOT NULL,
-  PRIMARY KEY (`gc_id`),
-  UNIQUE KEY `cname` (`gc_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop index gname on xgm_goodlib;
 
---
--- Table structure for table `xgm_goodexception`
---
+drop table if exists xgm_goodlib;
 
-DROP TABLE IF EXISTS `xgm_goodexception`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_goodexception` (
-  `ge_id` int(11) NOT NULL AUTO_INCREMENT,
-  `go_id` int(11) DEFAULT NULL,
-  `go_order` varchar(20) NOT NULL,
-  `ge_status` tinyint(4) NOT NULL DEFAULT '0',
-  `ge_type` tinyint(4) NOT NULL DEFAULT '0',
-  `ge_date` datetime NOT NULL,
-  `ge_cdate` datetime NOT NULL,
-  `ge_content` text NOT NULL,
-  PRIMARY KEY (`ge_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_goodorder;
 
---
--- Table structure for table `xgm_goodin`
---
+drop table if exists xgm_inorder;
 
-DROP TABLE IF EXISTS `xgm_goodin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_goodin` (
-  `gi_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sp_id` int(11) DEFAULT NULL,
-  `gl_edate` date NOT NULL,
-  `gl_inprice` varchar(10) NOT NULL,
-  `gl_adprice` varchar(10) NOT NULL,
-  `gl_nums` int(11) NOT NULL DEFAULT '0',
-  `gl_order` varchar(20) NOT NULL,
-  `sp_name` varchar(50) NOT NULL,
-  `gl_date` datetime NOT NULL,
-  `gl_state` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-Â¿Ã‰Ã“ÃƒÂ£Â¬0-Â²Â»Â¿Ã‰Ã“Ãƒ ',
-  `gl_leaves` int(11) NOT NULL DEFAULT '0' COMMENT 'Â³Ã¶Â¿Ã¢ÂºÃ³ÃŠÂ£Ã“Ã ÃŠÃ½ÃÂ¿',
-  `gl_name` varchar(30) NOT NULL,
-  `gl_prodate` date NOT NULL,
-  PRIMARY KEY (`gi_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_orderuser;
 
---
--- Table structure for table `xgm_goodlib`
---
+drop table if exists xgm_sender;
 
-DROP TABLE IF EXISTS `xgm_goodlib`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_goodlib` (
-  `gl_id` int(11) NOT NULL AUTO_INCREMENT,
-  `gl_name` varchar(30) NOT NULL,
-  `gl_shortname` varchar(10) DEFAULT NULL,
-  `gc_id` int(11) DEFAULT NULL,
-  `gl_brand` varchar(20) NOT NULL,
-  `gl_from` varchar(20) NOT NULL,
-  `gl_pack` varchar(250) NOT NULL,
-  `gl_per` varchar(10) NOT NULL,
-  `gl_mprice` varchar(10) NOT NULL DEFAULT '0',
-  `gl_warn` varchar(10) NOT NULL DEFAULT '0',
-  `gl_warnper` tinyint(4) NOT NULL COMMENT '1-ÃŠÃ½ÃÂ¿Â£Â¬2-Ã–Ã˜ÃÂ¿',
-  `gl_mark` text,
-  `gl_type` tinyint(4) NOT NULL,
-  `gl_w` varchar(10) NOT NULL,
-  `gl_net` varchar(10) NOT NULL,
-  `gl_leaves` int(11) NOT NULL DEFAULT '0',
-  `gl_isspec` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-ÃŽÂªÃŒÃ˜Â¼Ã›Â£Â¬0-Â·Ã‡ÃŒÃ˜Â¼Ã›',
-  PRIMARY KEY (`gl_id`),
-  UNIQUE KEY `gname` (`gl_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+drop table if exists xgm_supplier;
 
---
--- Table structure for table `xgm_goodorder`
---
+/*==============================================================*/
+/* Table: xgm_car                                               */
+/*==============================================================*/
+create table xgm_car
+(
+   car_id               int not null,
+   car_no               varchar(10) not null,
+   car_status           tinyint not null default 1 comment '1-¿ÉÓÃ£¬2-²»¿ÉÓÃ',
+   car_addtime          datetime not null,
+   primary key (car_id)
+);
 
-DROP TABLE IF EXISTS `xgm_goodorder`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_goodorder` (
-  `go_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ou_id` int(11) NOT NULL,
-  `go_order` varchar(20) NOT NULL,
-  `go_date` datetime NOT NULL,
-  `ou_phone` varchar(18) NOT NULL,
-  `go_status` tinyint(4) NOT NULL COMMENT '1-Ã¦Å“ÂªÃ©â€¦ÂÃ©â‚¬ÂÃ¯Â¼Å’2-Ã©â€¦ÂÃ©â‚¬ÂÃ¥Â®Å’Ã¦Ë†ÂÃ¯Â¼Å’3-Ã¤Â½Å“Ã¥ÂºÅ¸Ã¯Â¼Å’4-Ã©â‚¬â‚¬Ã¨Â´Â§Ã¯Â¼Å’5-Ã¦ÂÂ¢Ã¨Â´Â§',
-  `cl_id` int(11) NOT NULL,
-  `go_sdate` date NOT NULL,
-  `go_mtype` tinyint(4) NOT NULL COMMENT '1-Ã¥ÂÂ¸Ã¦Å“ÂºÃ¤Â»Â£Ã¦â€Â¶Ã¯Â¼Å’2-Ã¦â€Â¯Ã¤Â»ËœÃ¥Â®ÂÃ¯Â¼Å’3-Ã¥â€¦Â¶Ã¤Â»â€“',
-  `go_mark` text NOT NULL,
-  `s_sender` varchar(20) NOT NULL,
-  `s_id` int(11) NOT NULL,
-  `car_no` varchar(10) NOT NULL,
-  `car_id` int(11) NOT NULL,
-  `go_sendmoney` varchar(10) NOT NULL,
-  `go_type` tinyint(4) NOT NULL COMMENT '1-Ã¥â€šÂ¨Ã§â€°Â©Ã¥ÂÂ¡Ã¨Â®Â¢Ã¥Ââ€¢Ã¯Â¼Å’2-Ã¥â€šÂ¨Ã¥â‚¬Â¼Ã¥ÂÂ¡Ã¨Â®Â¢Ã¥Ââ€¢Ã¯Â¼Å’3-Ã©â€ºÂ¶Ã¦â€¢Â£Ã©â€¦ÂÃ©â‚¬ÂÃ¥Ââ€¢Ã¯Â¼Å’4-Ã¨Â¡Â¥Ã©â‚¬ÂÃ©â€¦ÂÃ©â‚¬ÂÃ¥Ââ€¢Ã¯Â¼Å’5-Ã¦Å â€¢Ã¨Â¯â€°Ã¨Â¡Â¥Ã©â‚¬Â',
-  `ou_truename` varchar(20) NOT NULL,
-  `ou_oneaddress` text NOT NULL COMMENT 'Ã¥ÂºÂÃ¥Ë†â€”Ã¥Å’â€“Ã§Å¡â€žÃ¦â€Â¶Ã¨Â´Â§Ã¤ÂºÂºÃ¤Â¿Â¡Ã¦ÂÂ¯',
-  `go_allprice` varchar(8) NOT NULL,
-  `go_oprice` varchar(8) NOT NULL,
-  `go_rate` smallint(6) NOT NULL DEFAULT '0' COMMENT 'Ã¥Â­ËœÃ¦â€Â¾Ã¥Â½â€œÃ¥â€°ÂÃ¨Â¯Â¥Ã¨Â®Â¢Ã¥Ââ€¢Ã§Å¡â€žÃ¦Å ËœÃ¦â€°Â£',
-  `go_smark` text NOT NULL,
-  `go_fmark` text NOT NULL,
-  `go_omark` text NOT NULL,
-  `go_outinfomark` text NOT NULL,
-  PRIMARY KEY (`go_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*==============================================================*/
+/* Table: xgm_cardinfo                                          */
+/*==============================================================*/
+create table xgm_cardinfo
+(
+   ci_id                int not null auto_increment,
+   ci_name              varchar(20) not null,
+   ci_money             varchar(10) not null,
+   cview_id             int,
+   cview_name           varchar(20) not null,
+   ci_date              datetime not null,
+   ci_type              tinyint not null comment '2-Îª´¢Öµ¿¨£¬1-Îª´¢Îï¿¨',
+   ci_desc              text,
+   ci_mark              text,
+   primary key (ci_id)
+)
+type = MYISAM;
 
---
--- Table structure for table `xgm_inorder`
---
+/*==============================================================*/
+/* Table: xgm_cardlib                                           */
+/*==============================================================*/
+create table xgm_cardlib
+(
+   ci_id                int,
+   cl_id                int not null auto_increment,
+   co_id                int,
+   cl_num               varchar(12) not null,
+   cl_date              datetime not null,
+   cl_state             tinyint not null default 1 comment '1-Îª¿ÉÓÃ£¬0-Îª²»¿ÉÓÃ',
+   cl_otime             datetime not null,
+   cl_expire            datetime not null,
+   ci_money             varchar(10) not null,
+   ci_balance           varchar(10) not null default '0',
+   co_order             varchar(20) not null,
+   primary key (cl_id)
+)
+type = InnoDB;
 
-DROP TABLE IF EXISTS `xgm_inorder`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_inorder` (
-  `io_id` int(11) NOT NULL AUTO_INCREMENT,
-  `io_no` varchar(50) NOT NULL,
-  `io_adate` datetime NOT NULL,
-  `io_date` date NOT NULL,
-  `io_total` float NOT NULL,
-  `io_mark` text NOT NULL,
-  PRIMARY KEY (`io_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*==============================================================*/
+/* Table: xgm_cardorder                                         */
+/*==============================================================*/
+create table xgm_cardorder
+(
+   co_id                int not null auto_increment,
+   cu_id                int,
+   co_order             varchar(20) not null,
+   co_totalnums         int not null default 0,
+   co_total             varchar(10) not null,
+   co_ava               varchar(20) not null,
+   co_text              text not null comment 'ÐòÁÐ»¯µÄ´æ·ÅÃ¿ÖÖ¿¨µÄÃû³Æ£¬Ã¿ÖÖ¿¨µÄÊýÁ¿£¬ÒÔ¼°¿¨µÄµ¥¼Û',
+   co_invoice           varchar(255) not null comment 'Îª¿ÕÔò²»ÐèÒª·¢Æ±',
+   co_mark              text,
+   co_ctime             datetime not null,
+   cu_name              varchar(20) not null,
+   co_status            tinyint not null default 1 comment '1-Î´³ö¿¨£¬3-³ö¿¨Íê³É£¬5-×÷·Ï',
+   co_stime             datetime not null comment 'ÉèÖÃ¶©µ¥×´Ì¬µÄÊ±¼ä',
+   cview_name           varchar(20) not null,
+   primary key (co_id)
+)
+type = MYISAM;
 
---
--- Table structure for table `xgm_orderuser`
---
+/*==============================================================*/
+/* Table: xgm_carduser                                          */
+/*==============================================================*/
+create table xgm_carduser
+(
+   cu_id                int not null auto_increment,
+   cu_name              varchar(20) not null,
+   cu_py                varchar(40) not null,
+   cu_company           varchar(50) not null,
+   cu_sex               tinyint not null,
+   cu_job               varchar(20),
+   cu_tel1              varchar(20),
+   cu_tel2              varchar(20),
+   cu_email             varchar(50),
+   cu_website           varchar(100),
+   cu_msn               varchar(50),
+   cu_qq                varchar(20),
+   cu_taobao            varchar(50),
+   cu_fetion            varchar(50),
+   cu_bank              varchar(20),
+   cu_bankname          varchar(20),
+   cu_mark              text,
+   cu_atime             datetime not null,
+   primary key (cu_id)
+)
+type = MYISAM;
 
-DROP TABLE IF EXISTS `xgm_orderuser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_orderuser` (
-  `ou_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ou_username` varchar(20) NOT NULL,
-  `ou_truename` varchar(20) NOT NULL,
-  `ou_pinyin` varchar(20) NOT NULL,
-  `ou_phone` varchar(18) NOT NULL,
-  `ou_tel` varchar(20) NOT NULL,
-  `ou_total` varchar(10) NOT NULL DEFAULT '0',
-  `ou_address` text COMMENT 'ÃÃ²ÃÃÂ»Â¯Â´Ã¦Â·Ã…ÂµÃ„ÃŠÃ•Â»ÃµÃ‡Ã¥ÂµÂ¥',
-  `ou_date` datetime NOT NULL,
-  `ou_email` varchar(120) NOT NULL,
-  PRIMARY KEY (`ou_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*==============================================================*/
+/* Index: cnameemail                                            */
+/*==============================================================*/
+create unique index cnameemail on xgm_carduser
+(
+   cu_name,
+   cu_email
+);
 
---
--- Table structure for table `xgm_sender`
---
+/*==============================================================*/
+/* Table: xgm_cardview                                          */
+/*==============================================================*/
+create table xgm_cardview
+(
+   cview_id             int not null auto_increment,
+   cview_name           varchar(20) not null,
+   cview_desc           text,
+   cview_date           datetime not null,
+   primary key (cview_id)
+)
+type = MYISAM;
 
-DROP TABLE IF EXISTS `xgm_sender`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_sender` (
-  `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_sender` varchar(20) NOT NULL,
-  `s_status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1-Â¿Ã‰Ã“ÃƒÂ£Â¬2-ÃŽÂªÂ²Â»Â¿Ã‰Ã“Ãƒ',
-  `s_addtime` datetime NOT NULL,
-  PRIMARY KEY (`s_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*==============================================================*/
+/* Table: xgm_getaddress                                        */
+/*==============================================================*/
+create table xgm_getaddress
+(
+   ga_id                int not null auto_increment,
+   ou_id                int,
+   ga_getter            varchar(20) not null,
+   ga_address           varchar(60) not null,
+   ga_phone             varchar(12) not null,
+   ga_tel               varchar(20) not null,
+   primary key (ga_id)
+);
 
---
--- Table structure for table `xgm_supplier`
---
+/*==============================================================*/
+/* Table: xgm_goinfo                                            */
+/*==============================================================*/
+create table xgm_goinfo
+(
+   go_order             varchar(20) not null,
+   gl_id                int,
+   goi_nums             int not null default 0,
+   gl_name              varchar(30) not null,
+   goi_outinfo          text not null comment '´æ·ÅÎïÆ·³ö¿âµÄÏêÇé'
+)
+type = InnoDB;
 
-DROP TABLE IF EXISTS `xgm_supplier`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `xgm_supplier` (
-  `sp_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sp_name` varchar(50) NOT NULL,
-  `sp_conner1` varchar(20) NOT NULL,
-  `sp_conner2` varchar(20) NOT NULL,
-  `sp_c1tel1` varchar(20) NOT NULL,
-  `sp_c1tel2` varchar(20) NOT NULL,
-  `sp_c2tel1` varchar(20) NOT NULL,
-  `sp_c2tel2` varchar(20) NOT NULL,
-  `sp_manager` varchar(20) NOT NULL,
-  `sp_manmobile` varchar(20) NOT NULL,
-  `sp_manmsn` varchar(25) NOT NULL,
-  `sp_manqq` varchar(15) NOT NULL,
-  `sp_mantaobao` varchar(20) NOT NULL,
-  `sp_manfetion` varchar(20) NOT NULL,
-  `sp_office` varchar(80) NOT NULL,
-  `sp_svn` varchar(80) NOT NULL,
-  `sp_website` varchar(120) NOT NULL,
-  `sp_email` varchar(60) NOT NULL,
-  `sp_bankno` varchar(25) NOT NULL,
-  `sp_bankname` varchar(20) NOT NULL,
-  `sp_product` text,
-  `sp_mark` text,
-  `sp_time` datetime NOT NULL,
-  PRIMARY KEY (`sp_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+/*==============================================================*/
+/* Table: xgm_goodcat                                           */
+/*==============================================================*/
+create table xgm_goodcat
+(
+   gc_id                int not null auto_increment,
+   gc_name              varchar(20) not null,
+   gc_time              datetime not null,
+   gc_pid               int not null default 0,
+   gc_mark              text not null,
+   primary key (gc_id)
+)
+type = MYISAM;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*==============================================================*/
+/* Index: cname                                                 */
+/*==============================================================*/
+create unique index cname on xgm_goodcat
+(
+   gc_name
+);
 
--- Dump completed on 2010-09-02  1:29:05
+/*==============================================================*/
+/* Table: xgm_goodexception                                     */
+/*==============================================================*/
+create table xgm_goodexception
+(
+   ge_id                int not null auto_increment,
+   go_id                int,
+   go_order             varchar(20) not null,
+   ge_status            tinyint not null default 0 comment '1-´¦ÀíÍê³É 0-Î´´¦Àí',
+   ge_type              tinyint not null default 0 comment '1-²¿·ÖÍË»Ø£¬2-È«²¿ÍË»Ø',
+   ge_date              datetime not null,
+   ge_cdate             datetime not null,
+   ge_content           text not null comment '»ØÊÕÈë¿âµÄÎïÆ·id£¬Ãû³ÆÒÔ¼°Éú²úÈÕÆÚÊýÁ¿ÒÔ¶ººÅ¸ô¿ªid½«ÓÃ|¸ô¿ª´æ´¢',
+   primary key (ge_id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: xgm_goodin                                            */
+/*==============================================================*/
+create table xgm_goodin
+(
+   gi_id                int not null auto_increment,
+   sp_id                int,
+   gl_edate             date not null,
+   gl_inprice           varchar(10) not null,
+   gl_adprice           varchar(10) not null,
+   gl_nums              int not null default 0,
+   gl_order             varchar(20) not null,
+   sp_name              varchar(50) not null,
+   gl_date              datetime not null,
+   gl_state             tinyint not null default 1 comment '1-¿ÉÓÃ£¬0-²»¿ÉÓÃ ',
+   gl_leaves            int not null default 0 comment '³ö¿âºóÊ£ÓàÊýÁ¿',
+   gl_name              varchar(30) not null,
+   gl_prodate           date not null comment '²úÆ·µÄÉú²úÈÕÆÚ',
+   primary key (gi_id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: xgm_goodlib                                           */
+/*==============================================================*/
+create table xgm_goodlib
+(
+   gl_id                int not null auto_increment,
+   gl_name              varchar(30) not null,
+   gl_shortname         varchar(10),
+   gc_id                int,
+   gl_brand             varchar(20) not null,
+   gl_from              varchar(20) not null,
+   gl_pack              varchar(250) not null,
+   gl_per               varchar(10) not null,
+   gl_mprice            varchar(10) not null default '0',
+   gl_warn              varchar(10) not null default '0',
+   gl_warnper           tinyint not null comment '1-ÊýÁ¿£¬2-ÖØÁ¿',
+   gl_mark              text,
+   gl_type              tinyint not null,
+   gl_w                 varchar(10) not null,
+   gl_net               varchar(10) not null,
+   gl_leaves            int not null default 0,
+   gl_isspec            tinyint not null default 0 comment '1-ÎªÌØ¼Û£¬0-·ÇÌØ¼Û',
+   primary key (gl_id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: gname                                                 */
+/*==============================================================*/
+create unique index gname on xgm_goodlib
+(
+   gl_name
+);
+
+/*==============================================================*/
+/* Table: xgm_goodorder                                         */
+/*==============================================================*/
+create table xgm_goodorder
+(
+   go_id                int not null auto_increment,
+   ou_id                int not null,
+   go_order             varchar(20) not null,
+   go_date              datetime not null,
+   ou_phone             varchar(20) not null,
+   go_status            tinyint not null comment '1-Î´ÅäËÍ£¬2-ÅäËÍÍê³É£¬3-×÷·Ï£¬6-ÕýÔÚÅäËÍ',
+   cl_id                int not null,
+   go_sdate             date not null,
+   go_mtype             tinyint not null comment '1-Ë¾»ú´úÊÕ£¬2-Ö§¸¶±¦£¬3-ÆäËû',
+   go_mark              text not null,
+   s_sender             varchar(20) not null,
+   s_id                 int not null,
+   car_no               varchar(10) not null,
+   car_id               int not null,
+   go_sendmoney         varchar(10) not null,
+   go_type              tinyint not null comment '1-´¢Îï¿¨¶©µ¥£¬2-´¢Öµ¿¨¶©µ¥£¬3-ÁãÉ¢ÅäËÍµ¥£¬4-²¹ËÍÅäËÍµ¥£¬5-Í¶Ëß²¹ËÍ£¬6--Òì³£ÅäËÍµ¥£¬7-·µ³§ÅäËÍµ¥',
+   ou_truename          varchar(20) not null,
+   ou_oneaddress        text not null comment 'ÐòÁÐ»¯µÄÊÕ»õÈËÐÅÏ¢',
+   go_allprice          varchar(8) not null,
+   go_oprice            varchar(8) not null,
+   go_rate              smallint not null default 0 comment '´æ·Åµ±Ç°¸Ã¶©µ¥µÄÕÛ¿Û',
+   go_smark             text not null,
+   go_fmark             text not null,
+   go_omark             text not null,
+   go_outinfomark       text not null comment '¼ÇÂ¼ÅäËÍµÄÊ±ºòÎïÆ·µÄ½ø»õµ¥ºÅ¡¢id¡¢Éú²úÈÕÆÚ¡¢ÊýÁ¿',
+   primary key (go_id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: xgm_inorder                                           */
+/*==============================================================*/
+create table xgm_inorder
+(
+   io_id                int not null auto_increment,
+   io_no                varchar(50) not null,
+   io_adate             datetime not null,
+   io_date              date not null,
+   io_total             float not null,
+   io_mark              text not null,
+   io_paytime           date not null,
+   primary key (io_id)
+);
+
+/*==============================================================*/
+/* Table: xgm_orderuser                                         */
+/*==============================================================*/
+create table xgm_orderuser
+(
+   ou_id                int not null auto_increment,
+   ou_username          varchar(20) not null,
+   ou_truename          varchar(20) not null,
+   ou_pinyin            varchar(20) not null,
+   ou_phone             varchar(18) not null,
+   ou_tel               varchar(20) not null,
+   ou_total             varchar(10) not null default '0',
+   ou_address           text comment 'ÐòÁÐ»¯´æ·ÅµÄÊÕ»õÇåµ¥',
+   ou_date              datetime not null,
+   ou_email             varchar(120) not null,
+   primary key (ou_id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: xgm_sender                                            */
+/*==============================================================*/
+create table xgm_sender
+(
+   s_id                 int not null auto_increment,
+   s_sender             varchar(20) not null,
+   s_status             tinyint not null default 1 comment '1-¿ÉÓÃ£¬2-Îª²»¿ÉÓÃ',
+   s_addtime            datetime not null,
+   primary key (s_id)
+);
+
+/*==============================================================*/
+/* Table: xgm_supplier                                          */
+/*==============================================================*/
+create table xgm_supplier
+(
+   sp_id                int not null auto_increment,
+   sp_name              varchar(50) not null,
+   sp_conner1           varchar(20) not null,
+   sp_conner2           varchar(20) not null,
+   sp_c1tel1            varchar(20) not null,
+   sp_c1tel2            varchar(20) not null,
+   sp_c2tel1            varchar(20) not null,
+   sp_c2tel2            varchar(20) not null,
+   sp_manager           varchar(20) not null,
+   sp_manmobile         varchar(20) not null,
+   sp_manmsn            varchar(25) not null,
+   sp_manqq             varchar(15) not null,
+   sp_mantaobao         varchar(20) not null,
+   sp_manfetion         varchar(20) not null,
+   sp_office            varchar(80) not null,
+   sp_svn               varchar(80) not null,
+   sp_website           varchar(120) not null,
+   sp_email             varchar(60) not null,
+   sp_bankno            varchar(25) not null,
+   sp_bankname          varchar(20) not null,
+   sp_product           text,
+   sp_mark              text,
+   sp_time              datetime not null,
+   primary key (sp_id)
+)
+type = MYISAM;
+
+create procedure createOrder (IN uid int, IN goods varchar(800), IN orderNo varchar(25), IN orderType tinyint, IN rate smallint, IN cid int, IN smark text, IN fmark text, IN gmark text, IN gt int, IN omark text, IN phone varchar(20), IN tname varchar(50), IN oneAdd text, IN oprice varchar(10), IN sdate datetime, OUT goMoney int)
+soone_pro:BEGIN
+DECLARE allPrice int DEFAULT 0;
+DECLARE theFlag int DEFAULT 0;
+DECLARE oRate int DEFAULT 0;
+DECLARE leaInfo varchar(255);
+DECLARE gInfo varchar(20);
+DECLARE gid int;
+DECLARE gNum int DEFAULT 0;
+DECLARE gp int DEFAULT 0;
+DECLARE gl int DEFAULT 0;
+DECLARE gi tinyint;
+DECLARE gn varchar(30);
+DECLARE cls tinyint;
+DECLARE cle datetime;
+DECLARE cia int;
+
+SET goMoney = 1;
+IF (orderType=1 OR orderType=2) AND cid IS NULL THEN
+	SET goMoney = 0;
+	LEAVE soone_pro;
+END IF;
+
+IF rate IS NOT NULL THEN
+	SET oRate = rate;
+END IF;
+
+SET theFlag = locate('|', goods);
+SET leaInfo = goods;
+SET AUTOCOMMIT = 0;
+soone_loop:WHILE(theFlag >= 0) do
+	SET gInfo = SUBSTRING_INDEX(leaInfo, '|', 1);
+	SET gid = SUBSTRING_INDEX(gInfo, ',', 1);
+	SET gNum = SUBSTRING_INDEX(gInfo, ',', -1);
+
+	SELECT gl_mprice, gl_leaves, gl_isspec, gl_name INTO gp, gl, gi, gn FROM xgm_goodlib WHERE gl_id = gid FOR UPDATE;
+	IF gl < gNum THEN
+		SET goMoney = 0;
+		LEAVE soone_pro;
+	END IF;
+
+	IF gi = 1 THEN
+		SET allPrice = allPrice+(gp*gNum);
+	ELSE
+		SET allPrice = allPrice+(gp*gNum*(100-oRate));
+	END IF;
+
+	UPDATE xgm_goodlib SET gl_leaves = gl_leaves-gNum WHERE gl_id = gid;
+	INSERT INTO xgm_goinfo SET gl_id = gid, goi_nums = gNum, gl_name = gn, go_order = orderNo; 
+
+	IF theFlag = 0 THEN
+		LEAVE soone_loop;
+	END IF;
+	SET leaInfo = SUBSTRING(leaInfo, theFlag+1);
+	SET theFlag = locate('|', leaInfo);
+	SET gInfo = NULL;
+	SET gid = 0;
+	SET gNum = 0;
+	SET gp = NULL;
+	SET gl = NULL;
+	SET gi = NULL;
+	SET gn = NULL;
+END WHILE soone_loop;
+
+IF orderType=1 OR orderType=2 THEN
+	IF cid IS NULL THEN
+		SET goMoney = 0;
+		ROLLBACK;
+		LEAVE soone_pro;
+	END IF;
+	
+	SELECT cl_state, cl_expire, ci_balance INTO cls, cle, cia FROM xgm_cardlib WHERE cl_id = cid FOR UPDATE;
+	IF cls = 0 OR cle < now() OR cia = 0 THEN
+		SET goMoney = 0;
+		ROLLBACK;
+		LEAVE soone_pro;
+	END IF;
+
+	IF orderType = 1 OR (orderType = 2 AND allPrice > cia) THEN
+		UPDATE xgm_cardlib SET ci_balance = 0 WHERE cl_id = cid;
+	ELSEIF orderType = 2 THEN
+		UPDATE xgm_cardlib SET ci_balance = ci_balance - allPrice WHERE cl_id = cid;
+	END IF;
+ELSE
+	SET cid = 0;
+END IF;
+
+INSERT INTO xgm_goodorder SET ou_id = uid, go_order = orderNo, go_date = now(), go_status = 1, cl_id = cid, go_type = orderType, go_allprice = allPrice, go_rate = oRate, go_smark = smark, go_fmark = fmark, go_mark = gmark, go_mtype = gt, go_omark = omark, ou_phone = phone, ou_truename = tname, ou_oneaddress = oneAdd, go_sdate = sdate;
+
+IF orderType = 3 THEN
+	UPDATE xgm_orderuser SET ou_total = ou_total + allPrice WHERE ou_id = uid;
+END IF;
+
+IF @@ERROR_COUNT > 0 OR allPrice <= 0  OR goMoney = 0 THEN
+	SET goMoney = 0;
+	ROLLBACK;
+ELSE
+    SET goMoney = allPrice;
+	COMMIT;
+END IF;
+END soone_pro;
+
+
+create procedure goBackPro (IN orderNo varchar(25), IN backNums text, OUT tReturn tinyint)
+soone_pro:BEGIN
+
+DECLARE ges TINYINT DEFAULT 0;
+DECLARE theFlag int DEFAULT 0;
+DECLARE leaInfo varchar(255);
+DECLARE gInfo varchar(20);
+DECLARE gNum int DEFAULT 0;
+DECLARE gid int;
+
+SELECT ge_status INTO ges FROM xgm_goodexception WHERE go_order = orderNo LIMIT 1 FOR UPDATE;
+IF ges = 1 THEN
+	SET tReturn = 0;
+END IF;
+
+SET theFlag = locate('|', backNums);
+SET leaInfo = backNums;
+SET AUTOCOMMIT = 0;
+soone_loop:WHILE(theFlag >= 0) do
+	SET gInfo = SUBSTRING_INDEX(leaInfo, '|', 1);
+	SET gid = SUBSTRING_INDEX(gInfo, ',', 1);
+	SET gNum = SUBSTRING_INDEX(gInfo, ',', -1);
+
+	UPDATE xgm_goodin SET gl_leaves = gl_leaves + gNum WHERE gi_id = gid;
+
+	IF theFlag = 0 THEN
+		LEAVE soone_loop;
+	END IF;
+	SET leaInfo = SUBSTRING(leaInfo, theFlag+1);
+	SET theFlag = locate('|', leaInfo);
+	SET gInfo = NULL;
+	SET gid = 0;
+	SET gNum = 0;
+END WHILE soone_loop;
+
+UPDATE xgm_goodexception SET ge_content=backNums, ge_date=now(), ge_status=1 WHERE go_order = orderNo;
+
+IF @@ERROR_COUNT > 0 OR tReturn = 0 THEN
+	SET tReturn = 0;
+	ROLLBACK;
+ELSE
+	SET tReturn = 1;
+	COMMIT;
+END IF;
+END soone_pro;
+
+
+create procedure outOrder (IN orderNo varchar(25), IN goods varchar(255), IN cp int, IN yc int, IN omark text, OUT goMoney int)
+soone_pro:BEGIN
+DECLARE oid INT DEFAULT NULL;
+DECLARE gInfo VARCHAR(255);
+DECLARE gid INT;
+DECLARE gNum INT;
+DECLARE gl INT;
+DECLARE theFlag TINYINT;
+DECLARE sender varchar(20) DEFAULT NULL;
+DECLARE car varchar(20) DEFAULT NULL;
+DECLARE leaInfo varchar(800);
+DECLARE gOutInfo text DEFAULT NULL;
+DECLARE gOutId INT;
+DECLARE gOutProdate date;
+DECLARE gOutTemp text DEFAULT NULL;
+DECLARE gn varchar(30);
+
+SELECT go_id INTO oid FROM xgm_goodorder WHERE go_order = orderNo AND go_status = 1 LIMIT 1 FOR UPDATE;
+IF(oid IS NULL) THEN
+    SET goMoney = 0;
+	LEAVE soone_pro;
+END IF;
+
+SET theFlag = locate('|', goods);
+SET leaInfo = goods;
+SET AUTOCOMMIT = 0;
+soone_loop:WHILE(theFlag >= 0) do
+	SET gInfo = SUBSTRING_INDEX(leaInfo, '|', 1);
+	SET gid = SUBSTRING_INDEX(gInfo, ',', 1);
+	SET gNum = SUBSTRING_INDEX(gInfo, ',', -1);
+
+	SELECT gl_leaves, gl_prodate, gl_name INTO gl, gOutProdate, gn FROM xgm_goodin WHERE gi_id = gid FOR UPDATE;
+
+	IF gl < gNum THEN
+		SET goMoney = 0;
+		SET gOutInfo = NULL;
+		LEAVE soone_pro;
+	END IF;
+
+	SET gOutTemp = gOutInfo;
+	SET gOutInfo = CONCAT_WS('|', gOutTemp, CONCAT_WS(',', gid, gn, gOutProdate, gNum));
+	UPDATE xgm_goodin SET gl_leaves = gl_leaves-gNum WHERE gi_id = gid;
+
+	IF theFlag = 0 THEN
+		LEAVE soone_loop;
+	END IF;
+	SET leaInfo = SUBSTRING(leaInfo, theFlag+1);
+	SET theFlag = locate('|', leaInfo);
+	SET gInfo = NULL;
+	SET gid = 0;
+	SET gNum = 0;
+	SET gl = NULL;
+	SET gOutProdate = NULL;
+	SET gOutTemp = NULL;
+END WHILE soone_loop;
+
+SELECT car_no INTO car FROM xgm_car WHERE car_id = cp LIMIT 1;
+IF(car IS NOT NULL) THEN
+	UPDATE xgm_goodorder SET go_omark = omark, car_no = car, car_id = cp, go_sendmoney = yc, go_status = 6, go_outinfomark = gOutInfo WHERE go_order = orderNo AND go_status = 1;
+	SET goMoney = 1;
+ELSE
+	SET goMoney = 0;
+END IF;
+
+IF @@ERROR_COUNT > 0 OR goMoney = 0 THEN
+	SET goMoney = 0;
+	ROLLBACK;
+ELSE
+	COMMIT;
+END IF;
+END soone_pro;
+
+
+create procedure wrongOrder (IN wType tinyint, IN orderNo varchar(25), IN wrongNo varchar(25), IN okNums text, OUT tReturn tinyint)
+soone_pro:BEGIN
+
+DECLARE gId INT;
+DECLARE gNums INT;
+DECLARE theFlag int DEFAULT 0;
+DECLARE leaInfo varchar(255);
+DECLARE gInfo varchar(20);
+DECLARE okGid INT;
+DECLARE okGnum INT;
+DECLARE gp int DEFAULT 0;
+DECLARE gl int DEFAULT 0;
+DECLARE gi tinyint;
+DECLARE gn varchar(30);
+DECLARE oRate int DEFAULT 0;
+DECLARE done INT DEFAULT 0;
+DECLARE cur3 CURSOR FOR SELECT gl_id, goi_nums FROM xgm_goinfo WHERE go_order = orderNo;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
+
+SET AUTOCOMMIT = 0;
+IF (wType=3) THEN
+	OPEN cur3;
+	REPEAT
+		FETCH cur3 INTO gId, gNums;
+		IF NOT done THEN
+			UPDATE xgm_goodlib SET gl_leaves = gl_leaves+gNums WHERE gl_id = gId;
+			DELETE FROM xgm_goinfo WHERE go_order = orderNo AND gl_id = gId;
+		END IF;
+	UNTIL done END REPEAT;
+	UPDATE xgm_goodorder SET go_status = 3 WHERE go_order = orderNo;
+	SET tReturn = 1;
+	CLOSE cur3;
+	SET done = 0;
+END IF;
+
+IF (wType=1) THEN
+	SELECT go_rate INTO oRate FROM xgm_goodorder WHERE go_order = orderNo LIMIT 1 FOR UPDATE;
+	UPDATE xgm_goodorder SET go_status = 3 WHERE go_order = orderNo;
+	INSERT INTO xgm_goodorder SET go_order=wrongNo, go_omark=orderNo, go_date=now(), go_status=2;
+
+	SET theFlag = locate('|', okNums);
+	SET leaInfo = okNums;
+	soone_loop:WHILE(theFlag >= 0) do
+		SET gInfo = SUBSTRING_INDEX(leaInfo, '|', 1);
+		SET okGid = SUBSTRING_INDEX(gInfo, ',', 1);
+		SET okGnum = SUBSTRING_INDEX(gInfo, ',', -1);
+
+		SELECT gl_mprice, gl_leaves, gl_isspec, gl_name INTO gp, gl, gi, gn FROM xgm_goodlib WHERE gl_id = okGid FOR UPDATE;
+		IF gl < okGnum THEN
+			SET tReturn = 0;
+			LEAVE soone_pro;
+		END IF;
+
+		INSERT INTO xgm_goinfo SET gl_id = okGid, goi_nums = okGnum, gl_name = gn, go_order = wrongNo; 
+
+		IF theFlag = 0 THEN
+			LEAVE soone_loop;
+		END IF;
+		SET leaInfo = SUBSTRING(leaInfo, theFlag+1);
+		SET theFlag = locate('|', leaInfo);
+		SET gInfo = NULL;
+		SET okGid = 0;
+		SET okGnum = 0;
+		SET gp = NULL;
+		SET gl = NULL;
+		SET gi = NULL;
+		SET gn = NULL;
+	END WHILE soone_loop;
+	INSERT INTO xgm_goodexception SET go_order = orderNo, ge_type = 1, ge_cdate=now();
+	SET tReturn = 1;
+END IF;
+
+IF (wType=2) THEN
+	UPDATE xgm_goodorder SET go_status = 3 WHERE go_order = orderNo;
+	INSERT INTO xgm_goodexception SET go_order = orderNo, ge_type = 2, ge_cdate=now();
+	SET tReturn = 1;
+END IF;
+
+IF @@ERROR_COUNT > 0 OR tReturn = 0 THEN
+	SET tReturn = 0;
+	ROLLBACK;
+ELSE
+	SET tReturn = 1;
+	COMMIT;
+END IF;
+END soone_pro;
+
