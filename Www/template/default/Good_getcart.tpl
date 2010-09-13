@@ -11,7 +11,7 @@
 </p>
 <!--{/if}-->
 <form id="orderform" name="orderform" action="index.php" method="post">
-<table class="slist">
+<table class="slist" id="wkao">
 	<thead>
 		<tr>
 			<th>名称</th>
@@ -28,14 +28,14 @@
 <input type="hidden" name="action" value="corder" />
 </form>
 <script type="text/javascript" language="javascript" src="images/json.js"></script>
-<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
-<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" src="images/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript">
 var cuttax = 0;
 var allPrice = 0;
 var tax = 0;
 var shopCart = pInfo = '';
 var cInfo = new Array();
+var pInfo = new Array();
 $(document).ready(function(){
 	shopCart = $.cookie('shopCart');
 	pInfo = $.cookie('pInfo');
@@ -67,7 +67,7 @@ $(document).ready(function(){
 		}
 		
 		var p = '<h3 class="topmenu">订货人信息</h3>';
-        p += '<table class="slist">';
+        p += '<table class="lslist">';
         p += '<tr><th>配送单类型：</th><td colspan="5">' + oType + '</td></tr>';
         p += '<tr><th>订货人姓名：</th><td>' + pInfo['ou_truename'] + '</td>';
         p += '<th>订货人拼音：</th><td>' + pInfo['ou_pinyin'] + '</td>';
@@ -85,9 +85,9 @@ $(document).ready(function(){
         	p += '<th>当前礼品卡余额</th><td id="leftMoney">' + cInfo['balance'] + '</td>';
 			p += '</tr>';
         }
- 
+
         p += '<tr><th>额外收款金额：</th><td><input type="text" class="text" name="extmoney" id="extmoney" value="0" style="width:40px;" /></td>';
-        p += parseInt(pInfo['otype']) == 3 ? '<th>折扣率：</th><td><input type="text" class="text" style="width:40px;" id="cuttax" value="'+pInfo['total']+'" name="cuttax" />%</td><th>配送日期：</th><td colspan="2"><input type="text" class="text" style="width:160px;" name="sdate" onFocus="WdatePicker({lang:\'zh_cn\',skin:\'whyGreen\'})"  /></td>' : '<th>配送日期：</th><td colspan="4"><input type="text" class="text" style="width:160px;" name="sdate" onFocus="WdatePicker({lang:\'zh_cn\',skin:\'whyGreen\'})" /></td>';
+        p += parseInt(pInfo['otype']) == 3 ? '<th>折扣率：</th><td><input type="text" class="text" style="width:40px;" id="cuttax" onchange="cuttaxchange()" value="'+pInfo['total']+'" name="cuttax" />%</td><th>配送日期：</th><td colspan="2"><input type="text" class="text" style="width:160px;" name="sdate" onFocus="WdatePicker({lang:\'zh_cn\',skin:\'whyGreen\'})"  /></td>' : '<th>配送日期：</th><td colspan="4"><input type="text" class="text" style="width:160px;" name="sdate" onFocus="WdatePicker({lang:\'zh_cn\',skin:\'whyGreen\'})" /></td>';
         p += '</tr><tr><th>收货人信息：</th><td colspan="5">';
         if(pInfo['gadr'] != null)
         {
@@ -97,7 +97,6 @@ $(document).ready(function(){
         		p += '<input type="radio" name="oneAddress" value="'+pAdd[i][0]+'" />收货人：'+pAdd[i][2]+'&nbsp;&nbsp;收货地址：'+pAdd[i][3]+'&nbsp;&nbsp;联系手机：'+pAdd[i][4]+'&nbsp;&nbsp;联系电话：'+pAdd[i][5]+'<br />';
         	}
         }
-
         p += '<input type="radio" name="oneAddress" value="new" checked="checked" />收货人：<input type="text" class="text" style="width:90px;" name="addName" />&nbsp;&nbsp;收货地址：<input type="text" class="text" name="address" /><br />联系手机：<input type="text" class="text" name="addPho" style="width:120px;" />&nbsp;&nbsp;联系电话：<input style="width:120px;" type="text" class="text" name="addTel" /></td></tr>';
         p += '<tr><th>送货备注：</th><td colspan="2"><textarea name="smark" style="width:200px;height:150px;"></textarea></td>';
         p += '<th>远程备注：</th><td colspan="2"><textarea name="fmark" style="width:200px;height:150px;"></textarea></td></tr>';
@@ -106,8 +105,7 @@ $(document).ready(function(){
         p += '<tr><td colspan="4"><a href="index.php?control=good&action=liblist">继续添加物品</a></td>';
         p += '<td><a href="javascript:void(0)" id="clearShopCart">清空购物车</a></td>';
         p += '<td><a href="javascript:void(0);" onclick="javascript:$(\'#orderform\').submit();">生成配送单</a></td></tr></table>';
-
-        $('.slist').after(p);
+        $('#wkao').after(p);
 	}
 
 	if(!shopCart)
@@ -166,7 +164,6 @@ $(document).ready(function(){
 			location.href="index.php?control=good&action=liblist";
 		}
 	});
-
 	$('#freegood').bind('change', function(){
     	var fgid = parseInt($('#freegood').val());
     	if(isNaN(fgid)) return false;
@@ -206,12 +203,19 @@ $(document).ready(function(){
     	window.location.reload();
     });
 
-	$('#cuttax').bind('change', function(){
+//	$('#cuttax').bind('change', function(){
+//		pInfo['total'] = parseInt($('#cuttax').val());
+//		$.cookie('pInfo', pInfo.toJSONString(), 7200);
+//		window.location.reload();
+//	});
+});
+
+function cuttaxchange()
+{
 		pInfo['total'] = parseInt($('#cuttax').val());
 		$.cookie('pInfo', pInfo.toJSONString(), 7200);
 		window.location.reload();
-	});
-});
+}
 
 function cShopCart(id, type)
 {
@@ -288,4 +292,6 @@ function cShopCart(id, type)
 	$.cookie('shopCart', shopCart.toJSONString());
 }
 </script>
+<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
+<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
 <!--{include file="footer.tpl"}-->

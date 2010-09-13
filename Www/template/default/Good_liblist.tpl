@@ -3,7 +3,7 @@
 <div>
 <form>
 	<label>选择分类：</label>
-	<select name="ctype" id="bcate">
+	<select name="ctype" id="bcate" onchange="bcatechange()">
 		<option value="">请选择</option>
 		<!--{section name=t loop=$bigcate}-->
 		<option <!--{if $smarty.get.ctype == $bigcate[t].0}-->selected="selected" <!--{/if}-->value="<!--{$bigcate[t].0}-->"><!--{$bigcate[t].1}--></option>
@@ -58,6 +58,7 @@
 	</tbody>
 </table>
 <script type="text/javascript" language="javascript" src="images/json.js"></script>
+<script type="text/javascript" language="javascript" src="images/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript">
 var smallCate = '<!--{$smallcate}-->';
 var sCate = smallCate.parseJSON();
@@ -70,7 +71,9 @@ if(typeof(sCate[nbCate]) != "undefined")
 		$('#sct').append("<option "+(parseInt(nsCate) == parseInt(sCate[nbCate][i][0]) ? "selected='selected' " : '')+"value='"+sCate[nbCate][i][0]+"'>"+sCate[nbCate][i][1]+"</option>");
 	});
 }
-$('#bcate').bind('change', function(){
+
+function bcatechange()
+{
 	$('#sct').hide();
 	if(typeof(sCate[$('#bcate').val()]) != "undefined")
 	{
@@ -79,7 +82,7 @@ $('#bcate').bind('change', function(){
 			$('#sct').append("<option value='"+sCate[$('#bcate').val()][i][0]+"'>"+sCate[$('#bcate').val()][i][1]+"</option>");
 		});
 	}
-});
+}
 function addcart(id, name, price, maxNum, isspec)
 {
 	var n = parseInt($('#good'+id).val());

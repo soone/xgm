@@ -1,0 +1,30 @@
+table {border-collapse:collapse;border:solid #0099ff;border-width:1px 0 0 1px;}
+table caption {font-size:14px;font-weight:bolder;}
+table th,table td {border:solid #0099ff;border-width:0 1px 1px 0;padding:2px;}
+tfoot td, thead td, tbody td {text-align:center;}
+thead td{font-weight:bold}
+
+#menu{width:160px;border:1px solid #0099FF;height:550px;padding: 5px 0 0 15px;float:left}
+#content{float:left;width:80%;margin:0 5px;border:1px solid #0099FF;height:auto;min-height:550px;padding-top:5px}
+
+.topmenu, .page{margin:5px}
+.container{background-color:#DFF4FF;padding:0 10px;}
+
+.basetable{border:1px solid #ccc;margin:5px 10px;width:97%;background:#fff}
+.basetable tr{height:32px;line-height:32px;}
+.basetable td{border:1px solid #ccc;}
+
+.page ul{margin:0 auto;width:80%;height:32px;list-style:none;}
+.page ul li{width:24px;height:24px;line-height:24px;background:#fff;float:left;margin:0 5px;text-align:center;border:1px solid #ccc;}
+.page li a{text-decoration: none;}
+.page .all,.page .all:hover{width:70px;}
+.page li:hover, .page li a:hover, .curpage{background:#0000FF;width:24px;height:24px;color:#fff}
+
+.divform{clear:both;width:95%;height:100%;margin:0 auto;}
+.short{width:120px;}
+
+.slist{width:98%;margin:5px auto;}
+.slist tfoot td, .slist thead th,.slist tbody td{text-align:center;height:32px}
+
+#usecard, #uncard{width:98%;border:1px solid #999;margin:0 auto;height:200px;overflow:auto;word-break:break-all;}
+#uncard{height:100px;}
