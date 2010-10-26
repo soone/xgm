@@ -44,3 +44,5 @@ $pConfig['view'] = array(
 $pConfig['tmp'] = PROJECT_ROOT . './Cache/tmp/';
 
 $pConfig['oGood'] = array(16, 17);
+
+$pConfig['log'] = PROJECT_ROOT . './Cache/log/';

@@ -1,0 +1,86 @@
+<?php /* Smarty version Smarty3-b8, created on 2010-10-26 11:16:45
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_gedit.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:14765392324cc6481d654637-81413280%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '4d103931d770d97aabb9c97541a2c35f62ac76ac' => 
+    array (
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_gedit.tpl',
+      1 => 1288062958,
+    ),
+  ),
+  'nocache_hash' => '14765392324cc6481d654637-81413280',
+  'function' => 
+  array (
+  ),
+  'has_nocache_code' => false,
+)); /*/%%SmartyHeaderCode%%*/?>
+<?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+
+<h3 class="topmenu">物品详细信息</h3>
+<div class="divform">
+  	<p>
+      	<label>物品名称：</label><?php echo $_smarty_tpl->getVariable('gName')->value;?>
+
+    	</p>
+		<p>
+			<label>物品简称：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[2];?>
+
+		</p>
+		<p>
+			<label>品牌：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[4];?>
+
+			<label>产地：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[5];?>
+
+		</p>
+		<p>
+			<label>毛重：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[13];?>
+
+			<label>净重：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[14];?>
+
+		</p>
+		<p>
+			<label>单位：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[7];?>
+
+			<label>库存数量：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[15];?>
+
+		</p>
+		<p>
+			<label>包装：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[6];?>
+
+		</p>
+		<p>
+			<label>猫零售价：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[8];?>
+
+			<label>是否特价：</label><?php if ($_smarty_tpl->getVariable('libInfo')->value[16]==1){?>是<?php }else{ ?>否<?php }?>
+			<label>库存报警(<?php if ($_smarty_tpl->getVariable('libInfo')->value[10]==1){?>按数量<?php }else{ ?>按重量<?php }?>)：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[9];?>
+
+		</p>
+		<p>
+			<label>备注：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[11];?>
+
+		</p>
+  	<p>
+      	<label>进货价：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[3];?>
+
+    	</p>
+	<p>
+      	<label>供应商：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[7];?>
+
+		<label>生产日期：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[12];?>
+
+		</p>
+  	<p>
+      	<label>厂商建议价：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[4];?>
+
+      	<label>保质期：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[2];?>
+
+      	<label>进货单号：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[6];?>
+
+    	</p>
+</div>
+<?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+ echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
+

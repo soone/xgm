@@ -688,19 +688,17 @@ class Control_Good extends N8_Core_Control
 			);
 			$this->req['get']['cphone'] ? $and['ou_phone'] = $this->req['get']['cphone'] : '';
 			$this->req['get']['cname'] ? $and['ou_truename'] = $this->req['get']['cname'] : '';
-			$this->req['get']['cdate'] ? $and['go_date'] = $this->req['get']['cdate'] . ' 00:00:00' : '';
-			$this->req['get']['cdate'] ? $and['go_date'] = $this->req['get']['cdate'] . ' 23:59:59' : '';
-			$this->req['get']['sdate'] ? $and['go_sdate'] = $this->req['get']['sdate'] . ' 00:00:00' : '';
-			$this->req['get']['sdate'] ? $and['go_sdate'] = $this->req['get']['sdate'] . ' 23:59:59' : '';
+			$this->req['get']['cdate'] ? $and['go_date'] = array($this->req['get']['cdate'] . ' 00:00:00', $this->req['get']['cdate'] . ' 23:59:59') : '';
+			$this->req['get']['sdate'] ? $and['go_sdate'] = array($this->req['get']['sdate'] . ' 00:00:00', $this->req['get']['sdate'] . ' 23:59:59') : '';
 			$this->req['get']['cstatus'] ? $and['go_status'] = $this->req['get']['cstatus'] : '';
 			if($and)
 			{
 				$cWhere['where']['and'] = $and;
 				$dWhere['where']['and'] = $and;
-				$cWhere['where']['oper'] = array('go_date' => '>=', 'go_date' => '<=');
-				$cWhere['where']['oper'] = array('go_date' => '>=', 'go_date' => '<=');
-				$dWhere['where']['oper'] = array('go_sdate' => '>=', 'go_sdate' => '<=');
-				$dWhere['where']['oper'] = array('go_sdate' => '>=', 'go_sdate' => '<=');
+				$cWhere['where']['oper'] = array('go_date' => array('>=', '<='));
+				$cWhere['where']['oper'] = array('go_date' => array('>=', '<='));
+				$dWhere['where']['oper'] = array('go_sdate' => array('>=', '<='));
+				$dWhere['where']['oper'] = array('go_sdate' => array('>=', '<='));
 			}
 
 			$allNums = $this->db->get($cWhere);
@@ -1105,9 +1103,9 @@ class Control_Good extends N8_Core_Control
 			'table' => 'xgm_goodin',
 			'key' => array('gl_nums', 'gl_leaves', 'gl_inprice', 'gl_adprice', 'gl_edate', 'gl_prodate', 'sp_id', 'sp_name'),
 			'value' => array($this->req['post']['nums'], $this->req['post']['nums'], 
-			$this->req['post']['inprice'], $this->req['post']['inprice'], 
-			$this->req['post']['adprice'], $this->req['post']['edate'], 
-			$this->req['post']['prodate'], $this->req['post']['sp'], $spName),
+			$this->req['post']['inprice'], $this->req['post']['adprice'], 
+			$this->req['post']['edate'], $this->req['post']['prodate'], 
+			$this->req['post']['sp'], $spName),
 			'where' => array('and' => array('gi_id' => $this->req['post']['gid']))
 		));
 
@@ -1121,10 +1119,86 @@ class Control_Good extends N8_Core_Control
 				'where' => array('and' => array('gl_name' => $ginfo[0][1]))
 			));
 
-			N8_Helper_Helper::showMessage('修改成功');
 		}
+
+		if($rsGin)
+			N8_Helper_Helper::showMessage('修改成功');
 		else
 			N8_Helper_Helper::showMessage('修改失败');
+	}
+
+	public function gindel()
+	{
+		$ginfo = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('gl_leaves', 'gl_name', 'gi_id'),
+			'where' => array('and' => array('gl_name' => $this->req['get']['name'])),
+			'limit' => array(0, 1)
+		));
+
+		if(!$ginfo)
+			N8_Helper_Helper::showMessage('没有该资料，请检查');
+
+		$rsGin = $this->db->set(array(
+			'table' => 'xgm_goodin',
+			'key' => array('gl_state'),
+			'value' => array(0),
+			'where' => array('and' => array('gi_id' => $ginfo[0][2]))
+		));
+
+		if($rsGin)
+		{
+			$rsLib = $this->db->get(array(
+				'table' => 'xgm_goodlib',
+				'key' => array('*'),
+				'where' => array('and' => array('gl_name' => $ginfo[0][1]))
+			));
+			
+			$rsLibGood = implode(',', $rsLib[0]) . "\n";
+			//记录文本日志
+			$fp = fopen($this->conf->get('log') . 'delLib.log', 'a+');
+			fwrite($fp, $rsLibGood);
+			fclose($fp);
+
+			//删除库记录
+			$this->db->del(array(
+				'table' => 'xgm_goodlib',
+				'where' => array('and' => array('gl_name' => $ginfo[0][1]))
+			));
+
+			N8_Helper_Helper::showMessage('删除成功', 'index.php?control=good&action=liblist');
+		}
+		else
+			N8_Helper_Helper::showMessage('删除失败');
+	}
+
+	public function gedit()
+	{
+		$ginfo = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('*'),
+			'where' => array('and' => array('gl_name' => $this->req['get']['name'], 'gl_state' => 1)),
+			'limit' => array(0, 1)
+		));
+
+		if(!$ginfo)
+			N8_Helper_Helper::showMessage('没有该资料，请检查');
+
+		$libInfo = $this->db->get(array(
+			'table' => 'xgm_goodlib',
+			'key' => array('*'),
+			'where' => array('and' => array('gl_name' => $this->req['get']['name'])),
+			'limit' => array(0, 1)
+		));
+
+		if(!$libInfo)
+			N8_Helper_Helper::showMessage('没有该资料，请检查');
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'ginfo' => $ginfo[0],
+							'libInfo' => $libInfo[0],
+							'gName' => $this->req['get']['name']
+		));
 	}
 
 	public function ginlist()

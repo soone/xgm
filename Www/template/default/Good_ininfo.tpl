@@ -11,6 +11,7 @@
 			<th>建议价</th>
 			<th>生产日期</th>
 			<th>过期日期</th>
+			<th>状态</th>
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -32,7 +33,8 @@
 			<td><input type="text" style="width:60px;" name="adprice" value="<!--{$inInfo[l].4}-->" /></td>
 			<td><input type="text" style="width:90px;" name="prodate" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$inInfo[l].12}-->" /></td>
 			<td><input type="text" style="width:90px;" name="edate" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$inInfo[l].2}-->" /></td>
-			<td><input type="hidden" value="<!--{$inInfo[l].0}-->" name="gid" /><input type="submit" name="submit" value="修改" /></a>&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&gid=<!--{$inInfo[l].0}-->">删除</a></td>
+			<td><!--{if $inInfo[l].9 == 1}-->可用<!--{else}-->已删除<!--{/if}--></td>
+			<td><input type="hidden" value="<!--{$inInfo[l].0}-->" name="gid" /><input type="submit" name="submit" value="修改" /></a></td>
 		</tr>
 		</form>
 		<!--{/section}-->
