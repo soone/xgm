@@ -49,7 +49,7 @@ $('#freegood').change(function(){
     else
 		shopCart.push(nAr);
 
-    $.cookie('shopCart', shopCart.toJSONString(), 7200);
+    $.cookie('shopCart', shopCart.toJSONString(), {expires: 7200, path: '/'});
     window.location.reload();
 });
 </script>
@@ -148,7 +148,8 @@ $(document).ready(function(){
         p += '<th>其他备注：</th><td colspan="2"><textarea name="omark" style="width:200px;height:150px;"></textarea></td></tr>';
         p += '<tr><td colspan="4"><a href="index.php?control=good&action=liblist">继续添加物品</a></td>';
         p += '<td><a href="javascript:void(0)" id="clearShopCart">清空购物车</a></td>';
-        p += '<td><a href="javascript:void(0);" onclick="javascript:$(\'#orderform\').submit();">生成配送单</a></td></tr></table>';
+        //p += '<td><a href="javascript:void(0);" onclick="javascript:$(\'#orderform\').submit();">生成配送单</a></td></tr></table>';
+        p += '<td><input type="submit" name="submit" value="生成配送单" /></td></tr></table>';
         $('#wkao').after(p);
 	}
 
@@ -197,7 +198,7 @@ $(document).ready(function(){
 	$('#clearShopCart').click(function(){
 		if(confirm('确定清空购物车？？'))
 		{
-			$.cookie('shopCart', '');
+			$.cookie('shopCart', '', {path:'/'});
 			location.href="index.php?control=good&action=liblist";
 		}
 	});
@@ -212,7 +213,7 @@ $(document).ready(function(){
 function cuttaxchange()
 {
 		pInfo['total'] = parseInt($('#cuttax').val());
-		$.cookie('pInfo', pInfo.toJSONString(), 7200);
+		$.cookie('pInfo', pInfo.toJSONString(), {expires:7200, path: '/'});
 		window.location.reload();
 }
 
@@ -288,7 +289,7 @@ function cShopCart(id, type)
 	if(shopCart.length == 0)
 		window.location.reload();
 
-	$.cookie('shopCart', shopCart.toJSONString());
+	$.cookie('shopCart', shopCart.toJSONString(), {path: '/'});
 }
 </script>
 <script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
