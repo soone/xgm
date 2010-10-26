@@ -567,7 +567,7 @@ class Control_Good extends N8_Core_Control
 			setcookie('sn', $this->req['post']['sn'], 1800);
 			//处理订货人的cookie
 			$orderPeople = $this->req['cookie']['pInfo'];
-			$oPe = json_decode($orderPeople, true);
+			$oPe = json_decode(stripslashes($orderPeople), true);
 			//处理收货人信息
 			if($this->req['post']['oneAddress'] == 'new')
 			{
@@ -610,7 +610,7 @@ class Control_Good extends N8_Core_Control
 
 			$orderNo = $fName.sprintf('%03d', $fNo);
 			$cuttax = $this->req['post']['cuttax'] ? $this->req['post']['cuttax'] : 0;
-			$good = json_decode($this->req['cookie']['shopCart'], true);
+			$good = json_decode(stripslashes($this->req['cookie']['shopCart']), true);
 			foreach($good as $eGood)
 			{
 				$goodArr .= $spe . $eGood[0] . ',' . $eGood[2];
@@ -620,7 +620,7 @@ class Control_Good extends N8_Core_Control
 			$cId = '';
 			if($oPe['otype'] == 1 || $oPe['otype'] == 2)
 			{
-				$cardInfo = json_decode($this->req['cookie']['cardInfo'], true);
+				$cardInfo = json_decode(stripslashes($this->req['cookie']['cardInfo']), true);
 				$cId = $cardInfo['id'];
 				if(!$cId)
 					N8_Helper_Helper::showMessage('请先确认卡号');

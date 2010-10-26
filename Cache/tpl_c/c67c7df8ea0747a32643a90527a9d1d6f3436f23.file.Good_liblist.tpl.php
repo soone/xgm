@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-10-26 11:16:15
+<?php /* Smarty version Smarty3-b8, created on 2010-10-26 12:26:12
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:14824761034cc647ff04aea9-83256843%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:12712649264cc65864ce94b6-39215936%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -10,7 +10,7 @@ $_smarty_tpl->decodeProperties(array (
       1 => 1288062227,
     ),
   ),
-  'nocache_hash' => '14824761034cc647ff04aea9-83256843',
+  'nocache_hash' => '12712649264cc65864ce94b6-39215936',
   'function' => 
   array (
   ),

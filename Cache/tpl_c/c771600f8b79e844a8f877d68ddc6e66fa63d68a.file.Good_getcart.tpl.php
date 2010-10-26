@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-10-26 00:44:57
+<?php /* Smarty version Smarty3-b8, created on 2010-10-26 12:26:18
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:21290968294cc5b4097dfad5-90018602%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:8132959854cc6586a49a9b4-07709232%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c771600f8b79e844a8f877d68ddc6e66fa63d68a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl',
-      1 => 1288025090,
+      1 => 1288067044,
     ),
   ),
-  'nocache_hash' => '21290968294cc5b4097dfad5-90018602',
+  'nocache_hash' => '8132959854cc6586a49a9b4-07709232',
   'function' => 
   array (
   ),
@@ -220,7 +220,8 @@ $(document).ready(function(){
         p += '<th>其他备注：</th><td colspan="2"><textarea name="omark" style="width:200px;height:150px;"></textarea></td></tr>';
         p += '<tr><td colspan="4"><a href="index.php?control=good&action=liblist">继续添加物品</a></td>';
         p += '<td><a href="javascript:void(0)" id="clearShopCart">清空购物车</a></td>';
-        p += '<td><a href="javascript:void(0);" onclick="javascript:$(\'#orderform\').submit();">生成配送单</a></td></tr></table>';
+        //p += '<td><a href="javascript:void(0);" onclick="javascript:$(\'#orderform\').submit();">生成配送单</a></td></tr></table>';
+        p += '<td><input type="submit" name="submit" value="生成配送单" /></td></tr></table>';
         $('#wkao').after(p);
 	}
 
