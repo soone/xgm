@@ -747,23 +747,33 @@ class Control_Good extends N8_Core_Control
 			{
 				foreach($subInfo as $k => $v)
 				{
-					$sum = array_sum($this->req['post']['yl'][$k]);
-					if($sum != $v['goiNum'])
-					{
-						N8_Helper_Helper::showMessage('数量错误');
-						break;
-					}
+					//$sum = array_sum($this->req['post']['yl'][$k]);
+					//if($sum != $v['goiNum'])
+					//{
+					//	N8_Helper_Helper::showMessage('数量错误');
+					//	break;
+					//}
 
+					$left = $v['goiNum'];
 					foreach($v['inInfo'] as $ik => $iv)
 					{
-						if($iv[2] < $this->req['post']['yl'][$k][$iv[0]])
+						//if($iv[2] < $this->req['post']['yl'][$k][$iv[0]])
+						//{
+						//	N8_Helper_Helper::showMessage('物品数量错误');
+						//	break;
+						//}
+
+						if($iv[2] >= $left)
 						{
-							N8_Helper_Helper::showMessage('物品数量错误');
+							$goodArr .= $spe . $iv[0] . ',' . $left;
+							$spe = '|';
 							break;
 						}
-						
-						$this->req['post']['yl'][$k][$iv[0]] > 0 ? $goodArr .= $spe . $iv[0] . ',' . $this->req['post']['yl'][$k][$iv[0]] : '';
-						$spe = '|';
+						else
+						{
+							$goodArr .= $spe . $iv[0] . ',' . $iv[2];
+							$left = $left - $iv[2];
+						}
 					}
 				}
 
@@ -906,79 +916,79 @@ class Control_Good extends N8_Core_Control
 
 	public function toprint()
 	{
+		$this->render(array('tplDir' => $this->conf->get('view->rDir')));
+	}
+
+	public function toprint1()
+	{
 		if($this->req['get']['date'])
 		{
 			$oInfo = $this->db->get(array(
 				'table' => 'xgm_goodorder',
-				'key' => array('go_order', 'car_no'),
+				'key' => array('go_order', 'car_no', 'ou_phone', 
+								'cl_id', 'go_mtype', 'go_mark', 
+								'go_sendmoney', 'go_type', 'ou_truename',
+								'ou_oneaddress', 'go_smark', 'go_fmark', 
+								'go_date', 'go_oprice'),
 				'where' => array('and' => array('go_status' => 6, 'go_sdate' => $this->req['get']['date']))
 			));
 
 			if($oInfo)
 			{
 				$allCarNo = $cOrder = $gArr = $end = $allGood = $aCll = $aGll = array();
+				$allOrder = $carOrder = $allCarGood = $allGood = $cars = array();
 				foreach($oInfo as $k => $v)
-				{
-					$allCarNo[] = $v[1];
-					$cOrder[$v[1]][] = $v[0];
-				}
-
-				$allCarNo = array_values(array_unique($allCarNo));
-
-				foreach($allCarNo as $v)
 				{
 					$cInfo = $this->db->get(array(
 						'table' => 'xgm_goinfo',
-						'key' => array('{{sum(goi_nums)}}', 'gl_name', 'gl_id'),
-						'group' => array('by' => 'gl_id'),
-						'where' => array('and' => array('go_order' => $cOrder[$v]))
+                        'key' => array('goi_nums', 'gl_name', 'gl_id'),
+                        'where' => array('and' => array('go_order' => $v[0]))
 					));
-
-					if($cInfo)
+					$v[14] = $cInfo;
+					$addInfo = json_decode($v[9], true);
+					$v[15] = $addInfo[2];
+					$v[16] = $addInfo[3];
+					$v[17] = $addInfo[4];
+					if($v[3] > 0)
 					{
-						foreach($cInfo as $ck => $cv)
-						{
-							if(!isset($gArr[$cv[2]]))
-								$gArr[$cv[2]] = $cv[1];
+						$cardName = $this->db->get(array(
+							'table' => 'xgm_cardlib',
+							'key' => array('cl_num'),
+							'where' => array('and' => array('cl_id' => $v[3]))
+						));
+						$v[18] = $cardName[0][0];
+					}
+					$allOrder[] = $v;
+					if(!in_array($v[1], $cars))
+						$cars[] = $v[1];
+					$carOrder[$v[1]][] = $v;
 
-							$end[$cv[2]][] = $cv[0];
-							$allGood[$cv[2]] += $cv[0];
-						}
+					foreach($cInfo as $ck => $cv)
+					{
+						if(!isset($allGood[$cv[2]]))
+							$allGood[$cv[2]] = $cv;
+						else
+							$allGood[$cv[2]][0] += $cv[0];
+
+						if(!isset($allCarGood[$v[1]][$cv[2]]))
+							$allCarGood[$v[1]][$cv[2]] = $cv;
+						else
+							$allCarGood[$v[1]][$cv[2]][0] += $cv[0];
+						sort($allCarGood[$v[1]]);
 					}
 				}
+				sort($allGood);
 
-				$gArrKey = array_keys($gArr);
-
-				$s = 0;
-				foreach($gArrKey as $gv)
-				{
-					$temp = $end[$gv];
-					array_unshift($temp, $gArr[$gv]);
-					$x = count($temp);
-					if($x > $s) $s = $x;
-					$aTempGll[] = $temp;
-					$aCll[] = array($gArr[$gv], $allGood[$gv]);
-				}
-
-				foreach($aTempGll as $av)
-				{
-					$tSize = count($av);
-					if($tSize < $s)
-					{
-						$in = $s - $tSize;
-						$aGll[] = array_merge($av, array_fill($in, $in, 0));
-					}
-					else
-						$aGll[] = $av;
-				}
+				$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+									'allOrder' => $allOrder,
+									'allGood' => $allGood,
+									'carOrder' => $carOrder,
+									'allCarGood' => $allCarGood,
+									'cars' => $cars
+				));
 			}
 		}
 
-		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
-							'aCll' => $aCll,
-							'aGll' => $aGll,
-							'cNos' => $allCarNo
-		));
 	}
 
 	public function wrongin()

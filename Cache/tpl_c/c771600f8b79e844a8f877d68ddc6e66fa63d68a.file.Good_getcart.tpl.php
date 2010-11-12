@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-10-26 12:26:18
+<?php /* Smarty version Smarty3-b8, created on 2010-11-09 23:55:52
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:8132959854cc6586a49a9b4-07709232%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1781388864cd96f084b7ae7-84220654%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c771600f8b79e844a8f877d68ddc6e66fa63d68a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl',
-      1 => 1288067044,
+      1 => 1288067310,
     ),
   ),
-  'nocache_hash' => '8132959854cc6586a49a9b4-07709232',
+  'nocache_hash' => '1781388864cd96f084b7ae7-84220654',
   'function' => 
   array (
   ),
@@ -120,7 +120,7 @@ $('#freegood').change(function(){
     else
 		shopCart.push(nAr);
 
-    $.cookie('shopCart', shopCart.toJSONString(), 7200);
+    $.cookie('shopCart', shopCart.toJSONString(), {expires: 7200, path: '/'});
     window.location.reload();
 });
 </script>
@@ -270,7 +270,7 @@ $(document).ready(function(){
 	$('#clearShopCart').click(function(){
 		if(confirm('确定清空购物车？？'))
 		{
-			$.cookie('shopCart', '');
+			$.cookie('shopCart', '', {path:'/'});
 			location.href="index.php?control=good&action=liblist";
 		}
 	});
@@ -285,7 +285,7 @@ $(document).ready(function(){
 function cuttaxchange()
 {
 		pInfo['total'] = parseInt($('#cuttax').val());
-		$.cookie('pInfo', pInfo.toJSONString(), 7200);
+		$.cookie('pInfo', pInfo.toJSONString(), {expires:7200, path: '/'});
 		window.location.reload();
 }
 
@@ -361,7 +361,7 @@ function cShopCart(id, type)
 	if(shopCart.length == 0)
 		window.location.reload();
 
-	$.cookie('shopCart', shopCart.toJSONString());
+	$.cookie('shopCart', shopCart.toJSONString(), {path: '/'});
 }
 </script>
 <script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
