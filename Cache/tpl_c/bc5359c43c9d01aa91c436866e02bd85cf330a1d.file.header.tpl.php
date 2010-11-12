@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 15:23:54
+<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:29:24
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:16679172024cdceb8ace6753-46126584%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:7138889014cdd413453db94-64011935%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1288022740,
+      1 => 1289567601,
     ),
   ),
-  'nocache_hash' => '16679172024cdceb8ace6753-46126584',
+  'nocache_hash' => '7138889014cdd413453db94-64011935',
   'function' => 
   array (
   ),
@@ -51,9 +51,9 @@ images/style.css" type="text/css" media="screen, projection">
         <div>
             <h4>礼品卡管理</h4>
             <ul>
+                <li><a href="index.php?action=cardface">卡外观定义</a></li>
                 <li><a href="index.php?action=gcarddef">礼品卡定义</a></li>
                 <li><a href="index.php?action=gcardlist">礼品卡列表</a></li>
-                <li><a href="index.php?action=cardface">卡外观定义</a></li>
             </ul>
         </div>
         <div>

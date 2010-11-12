@@ -28,9 +28,9 @@
         <div>
             <h4>礼品卡管理</h4>
             <ul>
+                <li><a href="index.php?action=cardface">卡外观定义</a></li>
                 <li><a href="index.php?action=gcarddef">礼品卡定义</a></li>
                 <li><a href="index.php?action=gcardlist">礼品卡列表</a></li>
-                <li><a href="index.php?action=cardface">卡外观定义</a></li>
             </ul>
         </div>
         <div>
@@ -47,13 +47,13 @@
         <div>
             <h4>库存管理</h4>
             <ul>
-                <li><a href="index.php?control=good&action=expgood">过期物品提示(<span><!--{$expnums}--></span>)</a></li>
-                <li><a href="index.php?control=good&action=toprint&date=<!--{($smarty.now+86400)|date_format:'%Y-%m-%d'}-->">出货汇总单</a></li>
-                <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
-                <li><a href="index.php?control=good&action=wrongin">异常配送单物品入库操作</a></li>
-                <li><a href="index.php?control=good&action=liblist">库存列表</a></li>
-                <li><a href="index.php?control=good&action=inlist">进货单列表</a></li>
                 <li><a href="index.php?control=good&action=cate">物品分类管理</a></li>
+                <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
+                <li><a href="index.php?control=good&action=inlist">进货单列表</a></li>
+                <li><a href="index.php?control=good&action=liblist">库存列表</a></li>
+                <li><a href="index.php?control=good&action=toprint&date=<!--{($smarty.now+86400)|date_format:'%Y-%m-%d'}-->">出货汇总单</a></li>
+                <li><a href="index.php?control=good&action=wrongin">异常配送单物品入库操作</a></li>
+                <li><a href="index.php?control=good&action=expgood">过期物品提示(<span><!--{$expnums}--></span>)</a></li>
                 <li><a href="index.php?control=other&action=scman">司机和车牌管理</a></li>
             </ul>
         </div>

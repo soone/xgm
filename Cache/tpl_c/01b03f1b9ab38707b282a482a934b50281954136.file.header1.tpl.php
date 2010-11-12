@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 15:26:02
+<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:10:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header1.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:4283291214cdcec0a3e9f58-94466098%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2946149684cdd3cc1b39c64-79874858%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '01b03f1b9ab38707b282a482a934b50281954136' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header1.tpl',
-      1 => 1289546761,
+      1 => 1289546788,
     ),
   ),
-  'nocache_hash' => '4283291214cdcec0a3e9f58-94466098',
+  'nocache_hash' => '2946149684cdd3cc1b39c64-79874858',
   'function' => 
   array (
   ),

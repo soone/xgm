@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 15:26:01
+<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:10:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_toprint1.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:6033806754cdcec09d7baf4-97630215%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1796413604cdd3cc14d8d38-48610240%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '355671d21bee84a7d38d7401cd2b06fc3f341c62' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_toprint1.tpl',
-      1 => 1289546644,
+      1 => 1289567424,
     ),
   ),
-  'nocache_hash' => '6033806754cdcec09d7baf4-97630215',
+  'nocache_hash' => '1796413604cdd3cc14d8d38-48610240',
   'function' => 
   array (
   ),
@@ -70,7 +70,36 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['ao']['last']       = ($_smar
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][18];?>
 </td>
-			<td>订单内容</td>
+			<td>
+				<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['in']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['name'] = 'in';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][14]) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total']);
+?>
+				<?php echo $_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][14][$_smarty_tpl->getVariable('smarty')->value['section']['in']['index']][1];?>
+:<?php echo $_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][14][$_smarty_tpl->getVariable('smarty')->value['section']['in']['index']][0];?>
+;
+				<?php endfor; endif; ?>
+			</td>
 			<td>
 				<?php if ($_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==1){?>储物卡<?php }?>
 				<?php if ($_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==2){?>储值卡<?php }?>
@@ -220,7 +249,37 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['ao']['last']       = ($_smar
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][18];?>
 </td>
-			<td>订单内容</td>
+				
+			<td>
+				<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['in']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['name'] = 'in';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][14]) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['in']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['in']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['total']);
+?>
+				<?php echo $_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][14][$_smarty_tpl->getVariable('smarty')->value['section']['in']['index']][1];?>
+:<?php echo $_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][14][$_smarty_tpl->getVariable('smarty')->value['section']['in']['index']][0];?>
+;
+				<?php endfor; endif; ?>
+			</td>
 			<td>
 				<?php if ($_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==1){?>储物卡<?php }?>
 				<?php if ($_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==2){?>储值卡<?php }?>

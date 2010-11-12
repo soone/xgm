@@ -39,6 +39,10 @@
 			<td colspan="5"><!--{$card[10]}--></td>
 		</tr>
 		<tr>
+			<td><b>订卡客户名称</b></td>
+			<td colspan="11"><!--{$cardOrder[10]}--></td>
+		</tr>
+		<tr>
 			<td><b>配置信息</b></td>
 			<td colspan="11"><!--{$cType[7]}--></td>
 		</tr>

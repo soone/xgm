@@ -24,7 +24,11 @@
 		<tr>
 			<td><!--{$allOrder[ao].12}--></td>
 			<td><!--{$allOrder[ao].18}--></td>
-			<td>订单内容</td>
+			<td>
+				<!--{section name=in loop=$allOrder[ao].14}-->
+				<!--{$allOrder[ao].14[in].1}-->:<!--{$allOrder[ao].14[in].0}-->;
+				<!--{/section}-->
+			</td>
 			<td>
 				<!--{if $allOrder[ao].7 == 1}-->储物卡<!--{/if}-->
 				<!--{if $allOrder[ao].7 == 2}-->储值卡<!--{/if}-->
@@ -92,7 +96,12 @@
 		<tr>
 			<td><!--{$carOrder[$cars[cc]][ao].12}--></td>
 			<td><!--{$carOrder[$cars[cc]][ao].18}--></td>
-			<td>订单内容</td>
+				
+			<td>
+				<!--{section name=in loop=$carOrder[$cars[cc]][ao].14}-->
+				<!--{$carOrder[$cars[cc]][ao].14[in].1}-->:<!--{$carOrder[$cars[cc]][ao].14[in].0}-->;
+				<!--{/section}-->
+			</td>
 			<td>
 				<!--{if $carOrder[$cars[cc]][ao].7 == 1}-->储物卡<!--{/if}-->
 				<!--{if $carOrder[$cars[cc]][ao].7 == 2}-->储值卡<!--{/if}-->

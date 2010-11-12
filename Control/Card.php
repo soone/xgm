@@ -307,11 +307,17 @@ class Control_Card extends N8_Core_Control
 					'limit' => array(0, 1)
 				));
 
+				$cardOrder = $this->db->get(array(
+					'table' => 'xgm_cardorder',
+					'key' => array('*'),
+					'where' => array('and' => array('co_order' => $card[0][10])),
+					'limit' => array(0, 1)
+				));
+
 				$orders = $this->db->get(array(
 					'table' => 'xgm_goodorder',
 					'key' => array('go_id', 'go_order', 'go_date', 'go_sdate', 'go_status'),
 					'where' => array('and' => array('cl_id' => $card[0][1])),
-
 				));
 			}
 			else
@@ -324,7 +330,8 @@ class Control_Card extends N8_Core_Control
 			'card' => $card[0],
 			'cType' => $cType[0],
 			'orders' => $orders,
-			'eTime' => strtotime($card[0][7])
+			'eTime' => strtotime($card[0][7]),
+			'cardOrder' => $cardOrder[0]
 		));
 	}
 }
