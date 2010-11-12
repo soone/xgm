@@ -935,7 +935,6 @@ class Control_Good extends N8_Core_Control
 
 			if($oInfo)
 			{
-				$allCarNo = $cOrder = $gArr = $end = $allGood = $aCll = $aGll = array();
 				$allOrder = $carOrder = $allCarGood = $allGood = $cars = array();
 				foreach($oInfo as $k => $v)
 				{
@@ -970,14 +969,17 @@ class Control_Good extends N8_Core_Control
 						else
 							$allGood[$cv[2]][0] += $cv[0];
 
-						if(!isset($allCarGood[$v[1]][$cv[2]]))
+						if(!$allCarGood[$v[1]][$cv[2]])
 							$allCarGood[$v[1]][$cv[2]] = $cv;
 						else
 							$allCarGood[$v[1]][$cv[2]][0] += $cv[0];
-						sort($allCarGood[$v[1]]);
 					}
 				}
 				sort($allGood);
+				foreach($allCarGood as $sK => $sV)
+				{
+					sort($allCarGood[$sK]);
+				}
 
 				$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 									'allOrder' => $allOrder,
