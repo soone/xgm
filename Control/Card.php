@@ -101,6 +101,19 @@ class Control_Card extends N8_Core_Control
 
 				N8_Helper_Helper::showMessage('您选择的卡号有的已售出，请确认。\\n已售卡号：\\n' . $badCard);
 			}
+
+			//查卡外观
+			$vdata = $this->db->get(array(
+				'table' => 'xgm_cardview',
+				'key' => array('cview_id', 'cview_name'),
+				'where' => array('and' => array('cview_id' => $this->req['post']['cvid'])),
+				'limit' => array(0, 1)
+			));
+			if($vdata === false)
+				N8_Helper_Helper::showMessage('请选择卡外观');
+
+			$oset['cview_id'] = $vdata[0][0];
+			$oset['cview_name'] = $vdata[0][1];
 			
 			//查卡资料
 			$data = $this->db->get(array(
@@ -125,7 +138,6 @@ class Control_Card extends N8_Core_Control
 				N8_Helper_Helper::showMessage('操作失败，数据缺少');
 
 			$oset['co_ctime'] = $set['cu_atime'];
-			$oset['cview_name'] = $data[0][1];
 			$oset['co_order'] = date('YmdHis') . sprintf('%04s', mt_rand(1, 8000));
 			$rs = $this->db->create(array(
 				'table' => 'xgm_cardorder',
@@ -168,8 +180,14 @@ class Control_Card extends N8_Core_Control
 			'key' => array('ci_id', 'ci_name', 'ci_money'),
 		));
 
+		$vdata = $this->db->get(array(
+			'table' => 'xgm_cardview',
+			'key' => array('cview_id', 'cview_name')
+		));
+
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
-				'cdata' => $data
+				'cdata' => $data,
+				'vdata' => $vdata
 		));
 	}
 
@@ -259,7 +277,7 @@ class Control_Card extends N8_Core_Control
 
 		$cardNum = $this->db->get(array(
 			'table' => 'xgm_cardlib',
-			'key' => array('cl_num'),
+			'key' => array('cl_num', 'cl_expire'),
 			'where' => array('and' => array('co_id' => $this->req['get']['coid'])),
 		));
 		if($cardNum)
@@ -268,10 +286,10 @@ class Control_Card extends N8_Core_Control
 			foreach($cardNum as $cn)
 			{
 				$i++;
-				$cNums .= $sp . $cn[0];
+				$cNums .= $sp . $cn[0] . '(' . $cn[1] . ')';
 				$sp = ',';
 				$br = '<br />';
-				if($i == 10)
+				if($i == 5)
 				{
 					$cNums .= $br;
 					$sp = $br = '';

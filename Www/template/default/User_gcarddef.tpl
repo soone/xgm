@@ -16,14 +16,6 @@
 		  </select>
     	</p>
   	<p>
-      	<label>卡外观：</label>
-		<select name="cviewid">
-			<!--{section name=v loop=$cview}-->
-			<option <!--{if $data[2] == $cview[v].0}-->selected="selected" <!--{/if}-->value="<!--{$cview[v].0}-->"><!--{$cview[v].1}--></option>
-			<!--{/section}-->
-		</select>
-    	</p>
-  	<p>
           <label>配置信息：</label><br /><textarea name="cidesc"><!--{$data[6]}--></textarea>
     	</p>
   	<p>
@@ -31,7 +23,6 @@
     	</p>
       <p>
 	  	<input type="hidden" name="action" value="gcarddef" />
-		<input type="hidden" name="cviewinfo" value='<!--{$cviewinfo}-->' />
 	  <!--{if $edit == 1}-->
 	  	<input type="hidden" name="ciid" value="<!--{$data[0]}-->" />
       	<input type="submit" name="submit" value="修改" />

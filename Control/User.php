@@ -299,16 +299,14 @@ class Control_User extends N8_Core_Control
 			{
 				$rs = $this->db->create(array(
 					'table' => 'xgm_cardinfo',
-					'key' => array('ci_name', 'ci_money', 'cview_id', 'cview_name', 'ci_date', 'ci_type', 'ci_desc', 'ci_mark'),
-					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',' . $this->req['post']['cviewid'] . ',' . $cviewInfo[$this->req['post']['cviewid']] . ',{{now()}},' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
+					'key' => array('ci_name', 'ci_money', 'ci_date', 'ci_type', 'ci_desc', 'ci_mark'),
+					'value' => array($this->req['post']['ciname'] . ',' . $this->req['post']['cimoney'] . ',{{now()}},' . $this->req['post']['citype'] . ',' . $this->req['post']['cidesc'] . ',' . $this->req['post']['cimark'])
 				));
 			}
 			else
 			{
 				$this->req['post']['ciname'] ? $set['ci_name'] = $this->req['post']['ciname'] : '';
 				$this->req['post']['cimoney'] ? $set['ci_money'] = $this->req['post']['cimoney'] : '';
-				$this->req['post']['cviewid'] ? $set['cview_id'] = $this->req['post']['cviewid'] : '';
-				$this->req['post']['cviewid'] ? $set['cview_name'] =$cviewInfo[$this->req['post']['cviewid']] : '';
 				$this->req['post']['citype'] ? $set['ci_type'] = $this->req['post']['citype'] : '';
 				$this->req['post']['cidesc'] ? $set['ci_desc'] = $this->req['post']['cidesc'] : '';
 				$this->req['post']['cimark'] ? $set['ci_mark'] = $this->req['post']['cimark'] : '';
@@ -348,25 +346,10 @@ class Control_User extends N8_Core_Control
 			$edit = 1;
 		}
 
-		$cview = $this->db->get(array(
-			'table' => 'xgm_cardview',
-			'key' => array('cview_id', 'cview_name'),
-		));
-
-		$sizeCview = sizeof($cview);
-		for($i = 0; $i < $sizeCview; $i++)
-		{
-			$cviewInfo[$cview[$i][0]] = $cview[$i][1];
-		}
-
-		$cviewInfo = serialize($cviewInfo);
-
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 				'data' => $data[0],
 				'ciid' => $this->req['get']['ciid'],
 				'edit' => $edit,
-				'cview' => $cview,
-				'cviewinfo' => $cviewInfo
 		));
 	}
 

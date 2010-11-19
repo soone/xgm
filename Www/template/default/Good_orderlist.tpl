@@ -55,7 +55,7 @@
 	<tbody>
 		<!--{section name=l loop=$golist}-->
 		<tr>
-			<td><!--{$golist[l].1}--></td>
+			<td><!--{if $golist[l].8}-->卡号：<!--{$golist[l].8}--><!--{else}--><!--{$golist[l].1}--><!--{/if}--></td>
 			<td><!--{$golist[l].6}--></td>
 			<td><!--{if $golist[l].4 == 1}-->储物卡配送单<!--{else if $golist[l].4 == 2}-->储值卡配送单<!--{else if $golist[l].4 == 3}-->零散配送单<!--{else if $golist[l].4 == 4}-->补送配送单<!--{else if $golist[l].4 == 5}-->投诉补送配送单<!--{else if $golist[l].4 == 7}-->返厂配送单<!--{/if}--></td>
 			<td><!--{$golist[l].2}--></td>

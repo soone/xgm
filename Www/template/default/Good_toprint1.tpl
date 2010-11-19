@@ -6,6 +6,7 @@
 		<tr>
 			<th>下单日期</th>
 			<th>礼品卡号</th>
+			<th>物品简称</th>
 			<th>订单内容</th>
 			<th>订单类型</th>
 			<th>订货人</th>
@@ -24,6 +25,11 @@
 		<tr>
 			<td><!--{$allOrder[ao].12}--></td>
 			<td><!--{$allOrder[ao].18}--></td>
+			<td>
+				<!--{section name=s loop=$allOrder[ao].19}-->
+				<!--{$allOrder[ao].19[s].0}-->:<!--{$allOrder[ao].19[s].1}-->;
+				<!--{/section}-->
+			</td>
 			<td>
 				<!--{section name=in loop=$allOrder[ao].14}-->
 				<!--{$allOrder[ao].14[in].1}-->:<!--{$allOrder[ao].14[in].0}-->;
@@ -78,6 +84,7 @@
 		<tr>
 			<th>下单日期</th>
 			<th>礼品卡号</th>
+			<th>物品简称</th>
 			<th>订单内容</th>
 			<th>订单类型</th>
 			<th>订货人</th>
@@ -96,7 +103,11 @@
 		<tr>
 			<td><!--{$carOrder[$cars[cc]][ao].12}--></td>
 			<td><!--{$carOrder[$cars[cc]][ao].18}--></td>
-				
+			<td>
+				<!--{section name=s loop=$carOrder[$cars[cc]][ao].19}-->
+				<!--{$carOrder[$cars[cc]][ao].19[s].0}-->:<!--{$carOrder[$cars[cc]][ao].19[s].1}-->;
+				<!--{/section}-->
+			</td>
 			<td>
 				<!--{section name=in loop=$carOrder[$cars[cc]][ao].14}-->
 				<!--{$carOrder[$cars[cc]][ao].14[in].1}-->:<!--{$carOrder[$cars[cc]][ao].14[in].0}-->;

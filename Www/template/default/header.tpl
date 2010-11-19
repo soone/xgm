@@ -57,5 +57,13 @@
                 <li><a href="index.php?control=other&action=scman">司机和车牌管理</a></li>
             </ul>
         </div>
+		<div>
+			<h4>数据统计</h4>
+			<ul>
+				<li>进货统计</li>
+				<li>出货统计</li>
+				<li>零散订单统计</li>
+			</ul>
+		</div>
     </div>
     <div id="content">

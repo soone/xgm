@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:17:18
+<?php /* Smarty version Smarty3-b8, created on 2010-11-20 01:27:58
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/User_gcarddef.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:7826787604cdd3e5e56ac72-72239685%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:11346611214ce6b39e3cebc7-05907238%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '66e79058d8ddceb6476f9da374f22e7272ee7acf' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/User_gcarddef.tpl',
-      1 => 1288022740,
+      1 => 1290187633,
     ),
   ),
-  'nocache_hash' => '7826787604cdd3e5e56ac72-72239685',
+  'nocache_hash' => '11346611214ce6b39e3cebc7-05907238',
   'function' => 
   array (
   ),
@@ -38,39 +38,6 @@ $_smarty_tpl->decodeProperties(array (
 		  </select>
     	</p>
   	<p>
-      	<label>卡外观：</label>
-		<select name="cviewid">
-			<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['v']);
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['name'] = 'v';
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('cview')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['show'] = true;
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['loop'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['step'] = 1;
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['loop']-1;
-if ($_smarty_tpl->tpl_vars['smarty']->value['section']['v']['show']) {
-    $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['loop'];
-    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['v']['total'] == 0)
-        $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['show'] = false;
-} else
-    $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['total'] = 0;
-if ($_smarty_tpl->tpl_vars['smarty']->value['section']['v']['show']):
-
-            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['v']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['iteration'] = 1;
-                 $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['total'];
-                 $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['iteration']++):
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['iteration'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['step'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['step'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['v']['iteration'] == 1);
-$_smarty_tpl->tpl_vars['smarty']->value['section']['v']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['v']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['total']);
-?>
-			<option <?php if ($_smarty_tpl->getVariable('data')->value[2]==$_smarty_tpl->getVariable('cview')->value[$_smarty_tpl->getVariable('smarty')->value['section']['v']['index']][0]){?>selected="selected" <?php }?>value="<?php echo $_smarty_tpl->getVariable('cview')->value[$_smarty_tpl->getVariable('smarty')->value['section']['v']['index']][0];?>
-"><?php echo $_smarty_tpl->getVariable('cview')->value[$_smarty_tpl->getVariable('smarty')->value['section']['v']['index']][1];?>
-</option>
-			<?php endfor; endif; ?>
-		</select>
-    	</p>
-  	<p>
           <label>配置信息：</label><br /><textarea name="cidesc"><?php echo $_smarty_tpl->getVariable('data')->value[6];?>
 </textarea>
     	</p>
@@ -80,8 +47,6 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['v']['last']       = ($_smart
     	</p>
       <p>
 	  	<input type="hidden" name="action" value="gcarddef" />
-		<input type="hidden" name="cviewinfo" value='<?php echo $_smarty_tpl->getVariable('cviewinfo')->value;?>
-' />
 	  <?php if ($_smarty_tpl->getVariable('edit')->value==1){?>
 	  	<input type="hidden" name="ciid" value="<?php echo $_smarty_tpl->getVariable('data')->value[0];?>
 " />

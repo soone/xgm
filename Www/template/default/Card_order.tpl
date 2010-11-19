@@ -45,6 +45,13 @@
 			<!--{/section}-->
 		</select>
 		&nbsp;&nbsp;
+      	<label>礼品卡外观：</label>
+		<select name="cvid" id="cvid">
+			<!--{section name=c loop=$vdata}-->
+			<option value="<!--{$vdata[c].0}-->"><!--{$vdata[c].1}--></option>
+			<!--{/section}-->
+		</select>
+		&nbsp;&nbsp;
 		面值：
 		<!--{section name=m loop=$cdata}-->
 		<span id="ciid<!--{$cdata[m].0}-->" class="r" <!--{if $smarty.section.m.index != 0}-->style="display:none"<!--{/if}-->><input type="text" name="cmoney" value="<!--{$cdata[m].2}-->" class="text" style="width:120px" readonly="readonly" /></span>

@@ -52,7 +52,7 @@
 			<td><!--{$liblist[l].3}--></td>
 			<td><!--{$liblist[l].4}-->(<!--{$liblist[l].2}-->)</td>
 			<td><!--{$liblist[l].5}--></td>
-			<td><!--{if $pInfo == 1}--><input type="text" class="text" style="width:30px" value="1" id="good<!--{$liblist[l].0}-->"/><a href="javascript:void(0);" onclick="addcart('<!--{$liblist[l].0}-->', '<!--{$liblist[l].1}-->', '<!--{$liblist[l].3}-->', '<!--{$liblist[l].4}-->', '<!--{$liblist[l].6}-->');">添加到购物车</a>&nbsp;|&nbsp;<!--{/if}--><a href="index.php?control=good&action=gedit&name=<!--{$liblist[l].1}-->">查看详情</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<!--{$liblist[l].1}-->">查看对应进货列表</a>&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&name=<!--{$liblist[l].1}-->">删除</a></td>
+			<td><!--{if $pInfo == 1}--><input type="text" class="text" style="width:30px" value="1" id="good<!--{$liblist[l].0}-->"/><a href="javascript:void(0);" onclick="addcart('<!--{$liblist[l].0}-->', '<!--{$liblist[l].1}-->', '<!--{$liblist[l].3}-->', '<!--{$liblist[l].4}-->', '<!--{$liblist[l].6}-->');">添加到购物车</a>&nbsp;|&nbsp;<!--{/if}--><a href="index.php?control=good&action=gedit&name=<!--{$liblist[l].1}-->">查看详情</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<!--{$liblist[l].1}-->">查看对应进货列表</a><!--{if $pInfo != 1}-->&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&name=<!--{$liblist[l].1}-->">删除</a><!--{/if}--></td>
 		</tr>
 		<!--{/section}-->
 	</tbody>

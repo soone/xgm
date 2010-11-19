@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:29:24
+<?php /* Smarty version Smarty3-b8, created on 2010-11-20 01:56:55
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:7138889014cdd413453db94-64011935%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3694108254ce6ba671f01c0-78711839%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1289567601,
+      1 => 1289568815,
     ),
   ),
-  'nocache_hash' => '7138889014cdd413453db94-64011935',
+  'nocache_hash' => '3694108254ce6ba671f01c0-78711839',
   'function' => 
   array (
   ),
@@ -70,15 +70,15 @@ images/style.css" type="text/css" media="screen, projection">
         <div>
             <h4>库存管理</h4>
             <ul>
-                <li><a href="index.php?control=good&action=expgood">过期物品提示(<span><?php echo $_smarty_tpl->getVariable('expnums')->value;?>
-</span>)</a></li>
+                <li><a href="index.php?control=good&action=cate">物品分类管理</a></li>
+                <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
+                <li><a href="index.php?control=good&action=inlist">进货单列表</a></li>
+                <li><a href="index.php?control=good&action=liblist">库存列表</a></li>
                 <li><a href="index.php?control=good&action=toprint&date=<?php echo smarty_modifier_date_format((time()+86400),'%Y-%m-%d');?>
 ">出货汇总单</a></li>
-                <li><a href="index.php?control=good&action=goodin">入库操作</a></li>
                 <li><a href="index.php?control=good&action=wrongin">异常配送单物品入库操作</a></li>
-                <li><a href="index.php?control=good&action=liblist">库存列表</a></li>
-                <li><a href="index.php?control=good&action=inlist">进货单列表</a></li>
-                <li><a href="index.php?control=good&action=cate">物品分类管理</a></li>
+                <li><a href="index.php?control=good&action=expgood">过期物品提示(<span><?php echo $_smarty_tpl->getVariable('expnums')->value;?>
+</span>)</a></li>
                 <li><a href="index.php?control=other&action=scman">司机和车牌管理</a></li>
             </ul>
         </div>

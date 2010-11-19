@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:21:59
+<?php /* Smarty version Smarty3-b8, created on 2010-11-20 01:36:47
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/User_gcardlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:13526204914cdd3f77aa4086-87928412%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:6637899324ce6b5af57f4e4-52381362%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'a6840b924723c433ede9ffe1e627e9900caef72b' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/User_gcardlist.tpl',
-      1 => 1289568113,
+      1 => 1290187797,
     ),
   ),
-  'nocache_hash' => '13526204914cdd3f77aa4086-87928412',
+  'nocache_hash' => '6637899324ce6b5af57f4e4-52381362',
   'function' => 
   array (
   ),
@@ -25,7 +25,6 @@ $_smarty_tpl->decodeProperties(array (
 		<tr>
 			<th>名称</th>
 			<th>面值</th>
-			<th>卡外观</th>
 			<th>类型</th>
 			<th>配置</th>
 			<th>备注</th>
@@ -118,8 +117,6 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][2];?>
-</td>
-			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3];?>
 </td>
 			<td><?php if ($_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][5]==2){?>储值卡<?php }else{ ?>储物卡<?php }?></td>
 			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>

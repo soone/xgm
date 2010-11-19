@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-11 23:54:23
+<?php /* Smarty version Smarty3-b8, created on 2010-11-20 01:39:01
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:13599173674cdc11af392816-76838190%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:4291853904ce6b635e186e8-13623102%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c67c7df8ea0747a32643a90527a9d1d6f3436f23' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl',
-      1 => 1288062227,
+      1 => 1290188337,
     ),
   ),
-  'nocache_hash' => '13599173674cdc11af392816-76838190',
+  'nocache_hash' => '4291853904ce6b635e186e8-13623102',
   'function' => 
   array (
   ),
@@ -169,8 +169,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 ', '<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>
 ');">添加到购物车</a>&nbsp;|&nbsp;<?php }?><a href="index.php?control=good&action=gedit&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
 ">查看详情</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
-">查看对应进货列表</a>&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
-">删除</a></td>
+">查看对应进货列表</a><?php if ($_smarty_tpl->getVariable('pInfo')->value!=1){?>&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
+">删除</a><?php }?></td>
 		</tr>
 		<?php endfor; endif; ?>
 	</tbody>

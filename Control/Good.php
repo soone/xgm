@@ -682,7 +682,7 @@ class Control_Good extends N8_Core_Control
 			);
 			$dWhere = array(
 				'table' => 'xgm_goodorder',
-				'key' => array('go_id', 'go_order', 'ou_truename', 'go_status', 'go_type', 'go_sdate', 'go_allprice'),
+				'key' => array('go_id', 'go_order', 'ou_truename', 'go_status', 'go_type', 'go_sdate', 'go_allprice', 'cl_id'),
 				'limit' => array($start, $perNum),
 				'order' => array('desc' => array('go_sdate'))
 			);
@@ -703,6 +703,17 @@ class Control_Good extends N8_Core_Control
 
 			$allNums = $this->db->get($cWhere);
 			$data = $this->db->get($dWhere);
+			for($i = 0, $l = sizeof($data); $i < $l; $i++)
+			{
+				$clNo = $this->db->get(array(
+					'table' => 'xgm_cardlib',
+					'key' => array('cl_num'),
+					'where' => array('and' => array('cl_id' => $data[$i][7])),
+					'limit' => array(0, 1)
+				));
+
+				$data[$i][8] = $clNo[0][0];
+			}
 			$page =	N8_Helper_Helper::setPage(array(
 						'allNums' => $allNums[0][0], 
 						'curPage' => $page,
@@ -957,13 +968,18 @@ class Control_Good extends N8_Core_Control
 						));
 						$v[18] = $cardName[0][0];
 					}
-					$allOrder[] = $v;
 					if(!in_array($v[1], $cars))
 						$cars[] = $v[1];
-					$carOrder[$v[1]][] = $v;
 
 					foreach($cInfo as $ck => $cv)
 					{
+						$gLibInfo = $this->db->get(array(
+							'table' => 'xgm_goodlib',
+							'key' => array('gl_shortname'),
+							'where' => array('and' => array('gl_id' => $cv[2]))
+						));
+
+						$glArr[] = array($gLibInfo[0][0], $cv[0]);
 						if(!isset($allGood[$cv[2]]))
 							$allGood[$cv[2]] = $cv;
 						else
@@ -974,6 +990,9 @@ class Control_Good extends N8_Core_Control
 						else
 							$allCarGood[$v[1]][$cv[2]][0] += $cv[0];
 					}
+					$v[19] = $glArr;
+					$carOrder[$v[1]][] = $v;
+					$allOrder[] = $v;
 				}
 				sort($allGood);
 				foreach($allCarGood as $sK => $sV)
