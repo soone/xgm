@@ -11,7 +11,7 @@
 				<option value="3">零散配送单</option>
 				<option value="4">补送配送单</option>
 				<option value="5">投诉补送配送单</option>
-				<option value="6">异常配送单</option>
+				<option value="6">报损配送单</option>
 				<option value="7">返厂配送单</option>
 			</select>
 		</p>

@@ -1,5 +1,5 @@
 <!--{include file="header.tpl"}-->
-<h3 class="topmenu">异常配送单列表</h3>
+<h3 class="topmenu">作废配送单列表</h3>
 <table class="slist">
 	<thead>
 		<tr>
