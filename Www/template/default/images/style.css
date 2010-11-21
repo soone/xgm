@@ -4,8 +4,8 @@ table th,table td {border:solid #0099ff;border-width:0 1px 1px 0;padding:2px;}
 tfoot td, thead td, tbody td {text-align:center;}
 thead td{font-weight:bold}
 
-#menu{width:160px;border:1px solid #0099FF;height:550px;padding: 5px 0 0 15px;float:left}
-#content{float:left;width:80%;margin:0 5px;border:1px solid #0099FF;height:auto;min-height:550px;padding-top:5px}
+#menu{width:160px;border:1px solid #0099FF;height:700px;padding: 5px 0 0 15px;float:left}
+#content{float:left;width:80%;margin:0 5px;border:1px solid #0099FF;height:auto;min-height:700px;padding-top:5px}
 
 .topmenu, .page{margin:5px}
 .container{background-color:#DFF4FF;padding:0 10px;}

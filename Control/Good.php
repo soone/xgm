@@ -462,7 +462,7 @@ class Control_Good extends N8_Core_Control
 			$cInfo = $this->db->get(array(
 				'table' => 'xgm_orderuser',
 				'key' => array('ou_id', 'ou_address'),
-				'where' => array('and' => array('ou_email' => $this->req['post']['email'])),
+				'where' => array('and' => array('ou_phone' => $this->req['post']['phone'])),
 				'limit' => array(0, 1)
 			));
 
