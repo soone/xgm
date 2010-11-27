@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-10-26 12:17:52
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:45:22
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_ginlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:6617428704cc656706933a4-46200540%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:6683403084cf00042ed3d31-38512509%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '7b671d126eae10c2026f5e1cee6ef8268974d76f' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_ginlist.tpl',
-      1 => 1288022740,
+      1 => 1290797086,
     ),
   ),
-  'nocache_hash' => '6617428704cc656706933a4-46200540',
+  'nocache_hash' => '6683403084cf00042ed3d31-38512509',
   'function' => 
   array (
   ),
@@ -25,6 +25,11 @@ $_smarty_tpl->decodeProperties(array (
 	<thead>
 		<tr>
 			<th>进货单号</th>
+			<th>进货价</th>
+			<th>供应商</th>
+			<th>生产日期</th>
+			<th>厂商建议价</th>
+			<th>保质期</th>
 			<th>进货日期</th>
 		</tr>
 	</thead>
@@ -55,6 +60,16 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 ?>
 		<tr>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][0];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][2];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][7];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][4];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][5];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
 </td>

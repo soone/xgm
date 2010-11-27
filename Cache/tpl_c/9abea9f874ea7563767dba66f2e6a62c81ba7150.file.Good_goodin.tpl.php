@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-10-26 13:40:45
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:21:27
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_goodin.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:20011895784cc669dde96ce1-69508958%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:17270133824ceffaa7764e48-35947170%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '9abea9f874ea7563767dba66f2e6a62c81ba7150' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_goodin.tpl',
-      1 => 1288022740,
+      1 => 1290790896,
     ),
   ),
-  'nocache_hash' => '20011895784cc669dde96ce1-69508958',
+  'nocache_hash' => '17270133824ceffaa7764e48-35947170',
   'function' => 
   array (
   ),
@@ -73,37 +73,6 @@ $_smarty_tpl->decodeProperties(array (
 		</select>
     	</p>
 	<p>
-      	<label>供应商：</label>
-		<select name="sp_id">
-			<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['s']);
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['name'] = 's';
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('slist')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['show'] = true;
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['loop'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['step'] = 1;
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['loop']-1;
-if ($_smarty_tpl->tpl_vars['smarty']->value['section']['s']['show']) {
-    $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['loop'];
-    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['s']['total'] == 0)
-        $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['show'] = false;
-} else
-    $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['total'] = 0;
-if ($_smarty_tpl->tpl_vars['smarty']->value['section']['s']['show']):
-
-            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['s']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['iteration'] = 1;
-                 $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['total'];
-                 $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['iteration']++):
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['iteration'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['step'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['step'];
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['s']['iteration'] == 1);
-$_smarty_tpl->tpl_vars['smarty']->value['section']['s']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['s']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['total']);
-?>
-			<option value="<?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['s']['index']][0];?>
-"><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['s']['index']][1];?>
-</option>
-			<?php endfor; endif; ?>
-		</select>&nbsp;&nbsp;
 		<label>生产日期：</label><input type="text" name="createdate" class="text" style="width:120px" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
 		</p>
   	<p>

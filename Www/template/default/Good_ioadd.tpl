@@ -8,6 +8,12 @@
         <label>进货时间：</label><input value="<!--{$info[3]}-->" type="text" name="io_date" class="text" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
 		  </p>
 	<p>
+		<label>供货商：</label>
+		<select name="sp_id">
+			<!--{section name=sl loop=$slist}-->
+			<option value="<!--{$slist[sl].0}-->"><!--{$slist[sl].1}--></option>
+			<!--{/section}-->
+		</select>&nbsp;&nbsp;
         <label>付款时间：</label><input value="<!--{if $info[6] != '0000-00-00 00:00:00'}--><!--{$info[6]}--><!--{/if}-->" type="text" name="io_paytime" class="text" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
 	</p>
 	<p>

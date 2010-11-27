@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-12 21:28:03
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:20:54
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_search.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:5404467284cdd40e3c91eb3-48599228%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:9975360394ceffa86ca2755-85126879%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'ee15f0c1fd6fe236c67dc13f3519c3e10d551a03' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_search.tpl',
-      1 => 1289568481,
+      1 => 1290789081,
     ),
   ),
-  'nocache_hash' => '5404467284cdd40e3c91eb3-48599228',
+  'nocache_hash' => '9975360394ceffa86ca2755-85126879',
   'function' => 
   array (
   ),
@@ -50,7 +50,7 @@ $_smarty_tpl->decodeProperties(array (
 			<td><?php echo $_smarty_tpl->getVariable('card')->value[9];?>
 </td>
 			<td><b>卡状态</b></td>
-			<td><?php if ($_smarty_tpl->getVariable('card')->value[5]==1){?>可用<?php }else{ ?>不可用<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[6]=='0000-00-00 00:00:00'){?>(未出卡)<?php }?></td>
+			<td><?php if ($_smarty_tpl->getVariable('card')->value[5]==1){?>正常<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[5]==2){?>不可用<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[5]==3){?>fdasfa<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[6]=='0000-00-00 00:00:00'){?>(未出卡)<?php }?></td>
 			<td><b>卡名称</b></td>
 			<td><?php echo $_smarty_tpl->getVariable('cType')->value[1];?>
 </td>

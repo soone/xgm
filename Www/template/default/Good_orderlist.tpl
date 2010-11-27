@@ -4,11 +4,32 @@
 <form>
 	<label>客户电话：</label><input type="text" class="text" name="cphone" style="width:120px;" value="<!--{$smarty.get.cphone}-->" />&nbsp;&nbsp;
 	<label>客户姓名：</label><input type="text" class="text" name="cname" style="width:120px;" value="<!--{$smarty.get.cname}-->" />&nbsp;&nbsp;
-	<label>配送日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" /><br />
-	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" /><br />
+	<label>配送日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.sdate}-->" /><br />
+	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" />
+	<label>订单号：</label><input type="text" class="text" name="ono" style="width:120px;" value="<!--{$smarty.get.ono}-->" />
+	<label>分车号：</label>
+	<select name="carno">
+		<option value="">请选择</option>
+		<!--{section name=cn loop=$cNo}-->
+		<option <!--{if $smarty.get.carno == $cNo[cn].0}-->selected="selected" <!--{/if}-->value="<!--{$cNo[cn].0}-->"><!--{$cNo[cn].0}--></option>
+		<!--{/section}-->
+	</select>
+	<br />
+	<label>配送单类型：</label>
+	<select name="otype">
+		<option value="">请选择</option>
+		<option <!--{if $smarty.get.otype == 1}-->selected="selected" <!--{/if}-->value="1">储物卡配送单</option>
+		<option <!--{if $smarty.get.otype == 2}-->selected="selected" <!--{/if}-->value="2">储值卡配送单</option>
+		<option <!--{if $smarty.get.otype == 3}-->selected="selected" <!--{/if}-->value="3">零散配送单</option>
+		<option <!--{if $smarty.get.otype == 4}-->selected="selected" <!--{/if}-->value="4">补送配送单</option>
+		<option <!--{if $smarty.get.otype == 5}-->selected="selected" <!--{/if}-->value="5">投诉补送配送单</option>
+		<option <!--{if $smarty.get.otype == 6}-->selected="selected" <!--{/if}-->value="6">报损配送单</option>
+		<option <!--{if $smarty.get.otype == 7}-->selected="selected" <!--{/if}-->value="7">返厂配送单</option>
+	</select>
 	<label>订单状态：</label>
 	<select name="cstatus">
 		<option value="">请选择</option>
+		<option <!--{if $smarty.get.cstatus == 100}-->selected="selected" <!--{/if}-->value="100">全部</option>
 		<option <!--{if $smarty.get.cstatus == 1}-->selected="selected" <!--{/if}-->value="1">未配送</option>
 		<option <!--{if $smarty.get.cstatus == 2}-->selected="selected" <!--{/if}-->value="2">配送完成</option>
 		<option <!--{if $smarty.get.cstatus == 3}-->selected="selected" <!--{/if}-->value="3">作废</option>

@@ -53,12 +53,6 @@
 		</select>
     	</p>
 	<p>
-      	<label>供应商：</label>
-		<select name="sp_id">
-			<!--{section name=s loop=$slist}-->
-			<option value="<!--{$slist[s].0}-->"><!--{$slist[s].1}--></option>
-			<!--{/section}-->
-		</select>&nbsp;&nbsp;
 		<label>生产日期：</label><input type="text" name="createdate" class="text" style="width:120px" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" />
 		</p>
   	<p>

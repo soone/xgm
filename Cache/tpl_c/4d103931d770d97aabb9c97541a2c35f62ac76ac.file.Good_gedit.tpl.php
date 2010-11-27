@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-10-26 11:16:45
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:35:12
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_gedit.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:14765392324cc6481d654637-81413280%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:19722750394ceffde0920a00-52729666%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '4d103931d770d97aabb9c97541a2c35f62ac76ac' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_gedit.tpl',
-      1 => 1288062958,
+      1 => 1290796506,
     ),
   ),
-  'nocache_hash' => '14765392324cc6481d654637-81413280',
+  'nocache_hash' => '19722750394ceffde0920a00-52729666',
   'function' => 
   array (
   ),
@@ -23,7 +23,8 @@ $_smarty_tpl->decodeProperties(array (
 <div class="divform">
   	<p>
       	<label>物品名称：</label><?php echo $_smarty_tpl->getVariable('gName')->value;?>
-
+&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<?php echo $_smarty_tpl->getVariable('gName')->value;?>
+">(查看进货信息)</a>
     	</p>
 		<p>
 			<label>物品简称：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[2];?>

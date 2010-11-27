@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-09 23:55:52
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 01:59:17
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1781388864cd96f084b7ae7-84220654%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3106561474ceff575317a19-15521747%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c771600f8b79e844a8f877d68ddc6e66fa63d68a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_getcart.tpl',
-      1 => 1288067310,
+      1 => 1290793469,
     ),
   ),
-  'nocache_hash' => '1781388864cd96f084b7ae7-84220654',
+  'nocache_hash' => '3106561474ceff575317a19-15521747',
   'function' => 
   array (
   ),
@@ -271,6 +271,8 @@ $(document).ready(function(){
 		if(confirm('确定清空购物车？？'))
 		{
 			$.cookie('shopCart', '', {path:'/'});
+			$.cookie('pInfo', '', {path:'/'});
+			$.cookie('cardInfo', '', {path:'/'});
 			location.href="index.php?control=good&action=liblist";
 		}
 	});

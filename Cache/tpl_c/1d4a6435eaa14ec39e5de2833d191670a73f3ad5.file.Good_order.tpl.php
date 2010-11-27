@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-09 23:54:47
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:20:57
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_order.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:8711186724cd96ec79931a1-88666121%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:14562152344ceffa896d3be5-02018664%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1d4a6435eaa14ec39e5de2833d191670a73f3ad5' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_order.tpl',
-      1 => 1288024880,
+      1 => 1290793472,
     ),
   ),
-  'nocache_hash' => '8711186724cd96ec79931a1-88666121',
+  'nocache_hash' => '14562152344ceffa896d3be5-02018664',
   'function' => 
   array (
   ),
@@ -31,7 +31,7 @@ $_smarty_tpl->decodeProperties(array (
 				<option value="3">零散配送单</option>
 				<option value="4">补送配送单</option>
 				<option value="5">投诉补送配送单</option>
-				<option value="6">异常配送单</option>
+				<option value="6">报损配送单</option>
 				<option value="7">返厂配送单</option>
 			</select>
 		</p>

@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-20 11:56:55
+<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:20:58
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:18236995404ce74707c6cf71-75989180%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:8461235784ceffa8ac1c914-70584302%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f66a682c0e07a17f24fdbdd86f9898ab70ec351a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl',
-      1 => 1290189410,
+      1 => 1290793470,
     ),
   ),
-  'nocache_hash' => '18236995404ce74707c6cf71-75989180',
+  'nocache_hash' => '8461235784ceffa8ac1c914-70584302',
   'function' => 
   array (
   ),
@@ -26,13 +26,60 @@ $_smarty_tpl->decodeProperties(array (
 " />&nbsp;&nbsp;
 	<label>客户姓名：</label><input type="text" class="text" name="cname" style="width:120px;" value="<?php echo $_GET['cname'];?>
 " />&nbsp;&nbsp;
-	<label>配送日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<?php echo $_GET['cdate'];?>
+	<label>配送日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<?php echo $_GET['sdate'];?>
 " /><br />
 	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<?php echo $_GET['cdate'];?>
-" /><br />
+" />
+	<label>订单号：</label><input type="text" class="text" name="ono" style="width:120px;" value="<?php echo $_GET['ono'];?>
+" />
+	<label>分车号：</label>
+	<select name="carno">
+		<option value="">请选择</option>
+		<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['name'] = 'cn';
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('cNo')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['show'] = true;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['loop'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['step'] = 1;
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['start'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['step'] > 0 ? 0 : $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['loop']-1;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['show']) {
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['total'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['loop'];
+    if ($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['total'] == 0)
+        $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['show'] = false;
+} else
+    $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['total'] = 0;
+if ($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['show']):
+
+            for ($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['index'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['start'], $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['iteration'] = 1;
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['iteration'] <= $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['total'];
+                 $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['index'] += $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['step'], $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['iteration']++):
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['rownum'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['iteration'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['index_prev'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['index'] - $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['index_next'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['index'] + $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['step'];
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['iteration'] == 1);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['total']);
+?>
+		<option <?php if ($_GET['carno']==$_smarty_tpl->getVariable('cNo')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cn']['index']][0]){?>selected="selected" <?php }?>value="<?php echo $_smarty_tpl->getVariable('cNo')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cn']['index']][0];?>
+"><?php echo $_smarty_tpl->getVariable('cNo')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cn']['index']][0];?>
+</option>
+		<?php endfor; endif; ?>
+	</select>
+	<br />
+	<label>配送单类型：</label>
+	<select name="otype">
+		<option value="">请选择</option>
+		<option <?php if ($_GET['otype']==1){?>selected="selected" <?php }?>value="1">储物卡配送单</option>
+		<option <?php if ($_GET['otype']==2){?>selected="selected" <?php }?>value="2">储值卡配送单</option>
+		<option <?php if ($_GET['otype']==3){?>selected="selected" <?php }?>value="3">零散配送单</option>
+		<option <?php if ($_GET['otype']==4){?>selected="selected" <?php }?>value="4">补送配送单</option>
+		<option <?php if ($_GET['otype']==5){?>selected="selected" <?php }?>value="5">投诉补送配送单</option>
+		<option <?php if ($_GET['otype']==6){?>selected="selected" <?php }?>value="6">报损配送单</option>
+		<option <?php if ($_GET['otype']==7){?>selected="selected" <?php }?>value="7">返厂配送单</option>
+	</select>
 	<label>订单状态：</label>
 	<select name="cstatus">
 		<option value="">请选择</option>
+		<option <?php if ($_GET['cstatus']==100){?>selected="selected" <?php }?>value="100">全部</option>
 		<option <?php if ($_GET['cstatus']==1){?>selected="selected" <?php }?>value="1">未配送</option>
 		<option <?php if ($_GET['cstatus']==2){?>selected="selected" <?php }?>value="2">配送完成</option>
 		<option <?php if ($_GET['cstatus']==3){?>selected="selected" <?php }?>value="3">作废</option>

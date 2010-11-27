@@ -23,7 +23,8 @@ class Control_Good extends N8_Core_Control
 		$expNums = $this->db->get(array(
 			'table' => 'xgm_goodin',
 			'key' => array('count(*)'),
-			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -3 MONTH)}}'), 'oper' => array('now()' => '>'))
+			//'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}', 'gl_edate' => '{{IS NULL}}'), 'oper' => array('now()' => '>', 'gl_edate' => ' '))
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}', 'oper' => array('now()' => '>')))
 		));
 		$this->view->Assign(array('expnums' => $expNums[0][0]));
 	}
@@ -143,11 +144,23 @@ class Control_Good extends N8_Core_Control
 			$this->req['post']['weight'] ? $set['gl_w'] = $this->req['post']['weight'] : '';
 			$this->req['post']['netweight'] ? $set['gl_net'] = $this->req['post']['netweight'] : '';
 
+			//取得供应商id
+			$spId = $this->db->get(array(
+				'table' => 'xgm_inorder',
+				'key' => array('sp_id'),
+				'where' => array('and' => array('io_no' => $this->req['post']['order'])),
+				'limit' => array(0, 1)
+			));
+
+			if($spId === false)
+				N8_Helper_Helper::showMessage('进货单号不存在');
+
+			$supId = $spId[0][0];
 			//取得公司名称
 			$supplier = $this->db->get(array(
 				'table' => 'xgm_supplier',
 				'key' => array('sp_name'),
-				'where' => array('and' => array('sp_id' => $this->req['post']['sp_id'])),
+				'where' => array('and' => array('sp_id' => $supId)),
 				'limit' => array(0, 1)
 			));
 
@@ -160,7 +173,7 @@ class Control_Good extends N8_Core_Control
 				$inrs = $this->db->create(array(
 					'table' => 'xgm_goodin',
 					'key' => array('sp_id', 'gl_edate', 'gl_inprice', 'gl_adprice', 'gl_nums', 'gl_order', 'sp_name', 'gl_date', 'gl_state', 'gl_leaves', 'gl_name', 'gl_prodate'),
-					'value' => array($this->req['post']['sp_id'] . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'] . ',' . $this->req['post']['createdate'])
+					'value' => array($supId . ',' . $this->req['post']['expirdate'] . ',' . $this->req['post']['oprice'] . ',' . $this->req['post']['adprice'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['order'] . ',' . $supplier[0][0] . ',{{now()}},' . $this->req['post']['state'] . ',' . $this->req['post']['nums'] . ',' . $this->req['post']['goodname'] . ',' . $this->req['post']['createdate'])
 				));
 
 				if($inrs === false)
@@ -216,12 +229,12 @@ class Control_Good extends N8_Core_Control
 				$this->req['post']['goodname'] ? $inSet['gl_name'] = $this->req['post']['goodname'] : '';
 				$this->req['post']['nums'] ? $inSet['gl_nums'] = $this->req['post']['nums'] : '';
 				$this->req['post']['oprice'] ? $inSet['gl_inprice'] = $this->req['post']['oprice'] : '';
-				$this->req['post']['sp_id'] ? $inSet['sp_id'] = $this->req['post']['sp_id'] : '';
 				$this->req['post']['adprice'] ? $inSet['gl_adprice'] = $this->req['post']['adprice'] : '';
 				$this->req['post']['expirdate'] ? $inSet['gl_edate'] = $this->req['post']['expirdate'] : '';
 				$this->req['post']['order'] ? $inSet['gl_order'] = $this->req['post']['order'] : '';
 				$inSet['sp_name'] = $supplier[0][0];
 				$inSet['gl_leaves'] = $inSet['gl_nums']-($inNums[0][0]-$inNums[0][1]);
+				$inSet['sp_id'] = $supId;
 
 				$upinrs = $this->db->set(array(
 					'table' => 'xgm_goodin',
@@ -340,8 +353,8 @@ class Control_Good extends N8_Core_Control
 			{
 				$re = $this->db->set(array(
 					'table' => 'xgm_inorder',
-					'key' => array('io_no', 'io_date', 'io_total', 'io_mark', 'io_paytime'),
-					'value' => array($this->req['post']['io_no'], $this->req['post']['io_date'], $this->req['post']['io_total'], $this->req['post']['io_mark'], (!$this->req['post']['io_paytime'] ? '0000-00-00 00:00:00' : $this->req['post']['io_paytime'])),
+					'key' => array('io_no', 'io_date', 'io_total', 'io_mark', 'io_paytime', 'sp_id'),
+					'value' => array($this->req['post']['io_no'], $this->req['post']['io_date'], $this->req['post']['io_total'], $this->req['post']['io_mark'], (!$this->req['post']['io_paytime'] ? '0000-00-00 00:00:00' : $this->req['post']['io_paytime']), $this->req['post']['sp_id']),
 					'where' => array('and' => array('io_id' => $this->req['post']['ioid']))
 				));
 			}
@@ -349,8 +362,8 @@ class Control_Good extends N8_Core_Control
 			{
 				$rs = $this->db->create(array(
 					'table' => 'xgm_inorder',
-					'key' => array('io_no', 'io_date', 'io_total', 'io_mark', 'io_adate'),
-					'value' => array($this->req['post']['io_no'] . ',' . $this->req['post']['io_date'] . ',' . $this->req['post']['io_total'] . ',' . $this->req['post']['io_mark'] . ',' . '{{now()}}')
+					'key' => array('io_no', 'io_date', 'io_total', 'io_mark', 'io_adate', 'sp_id'),
+					'value' => array($this->req['post']['io_no'] . ',' . $this->req['post']['io_date'] . ',' . $this->req['post']['io_total'] . ',' . $this->req['post']['io_mark'] . ',' . '{{now()}}' . ',' . $this->req['post']['sp_id'])
 				));
 			}
 
@@ -370,8 +383,14 @@ class Control_Good extends N8_Core_Control
 			));
 		}
 
+		//供货商列表
+		$slist = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('sp_id', 'sp_name'),
+		));
+
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
-			'info' => $info[0]
+			'info' => $info[0], 'slist' => $slist
 		));
 	}
 
@@ -462,7 +481,7 @@ class Control_Good extends N8_Core_Control
 			$cInfo = $this->db->get(array(
 				'table' => 'xgm_orderuser',
 				'key' => array('ou_id', 'ou_address'),
-				'where' => array('and' => array('ou_phone' => $this->req['post']['phone'])),
+				'where' => array('and' => array('ou_phone' => $this->req['post']['mobile'])),
 				'limit' => array(0, 1)
 			));
 
@@ -562,11 +581,29 @@ class Control_Good extends N8_Core_Control
 
 	public function corder()
 	{
+		//处理订货人的cookie
+		$orderPeople = $this->req['cookie']['pInfo'];
+		if(!$orderPeople)
+			N8_Helper_Helper::showMessage('订货人信息丢失');
+
+		if($this->req['post']['oneAddress'] == 'new')
+		{
+			if(!$this->req['post']['addName'] || 
+				!$this->req['post']['address'] ||
+				(!$this->req['post']['addPho'] && 
+				!$this->req['post']['addTel']))
+				N8_Helper_Helper::showMessage('请选择或者填写送货人信息');
+		}
+
+		if(!$this->req['post']['sdate'])
+			N8_Helper_Helper::showMessage('请填写配送日期');
+
+		if(!$this->req['cookie']['shopCart'])
+			N8_Helper_Helper::showMessage('购物车不能为空');
+
 		if($this->req['post']['sn'] != $this->req['cookie']['sn'])
 		{
 			setcookie('sn', $this->req['post']['sn'], 1800);
-			//处理订货人的cookie
-			$orderPeople = $this->req['cookie']['pInfo'];
 			$oPe = json_decode(stripslashes($orderPeople), true);
 			//处理收货人信息
 			if($this->req['post']['oneAddress'] == 'new')
@@ -671,7 +708,7 @@ class Control_Good extends N8_Core_Control
 
 	public function orderlist()
 	{
-		if($this->req['get']['cphone'] || $this->req['get']['cname'] || $this->req['get']['cdate'] || $this->req['get']['cstatus'])
+		if($this->req['get']['otype'] || $this->req['get']['carno'] || $this->req['get']['cphone'] || $this->req['get']['cname'] || $this->req['get']['cdate'] || $this->req['get']['cstatus'] || $this->req['get']['sdate'] || $this->req['get']['ono'] || $this->req['get']['cstatus'] != '')
 		{
 			$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
 			$perNum = 30;
@@ -690,15 +727,18 @@ class Control_Good extends N8_Core_Control
 			$this->req['get']['cname'] ? $and['ou_truename'] = $this->req['get']['cname'] : '';
 			$this->req['get']['cdate'] ? $and['go_date'] = array($this->req['get']['cdate'] . ' 00:00:00', $this->req['get']['cdate'] . ' 23:59:59') : '';
 			$this->req['get']['sdate'] ? $and['go_sdate'] = array($this->req['get']['sdate'] . ' 00:00:00', $this->req['get']['sdate'] . ' 23:59:59') : '';
-			$this->req['get']['cstatus'] ? $and['go_status'] = $this->req['get']['cstatus'] : '';
+			$this->req['get']['ono'] ? $and['go_order'] = $this->req['get']['ono'] : '';
+			$this->req['get']['carno'] ? $and['car_no'] = $this->req['get']['carno'] : '';
+			$this->req['get']['otype'] ? $and['go_type'] = $this->req['get']['otype'] : '';
+			$this->req['get']['cstatus'] && $this->req['get']['cstatus'] != 100 ? $and['go_status'] = $this->req['get']['cstatus'] : '';
 			if($and)
 			{
 				$cWhere['where']['and'] = $and;
 				$dWhere['where']['and'] = $and;
-				$cWhere['where']['oper'] = array('go_date' => array('>=', '<='));
-				$cWhere['where']['oper'] = array('go_date' => array('>=', '<='));
-				$dWhere['where']['oper'] = array('go_sdate' => array('>=', '<='));
-				$dWhere['where']['oper'] = array('go_sdate' => array('>=', '<='));
+				$cWhere['where']['oper']['go_date'] = array('>=', '<=');
+				$dWhere['where']['oper']['go_date'] = array('>=', '<=');
+				$cWhere['where']['oper']['go_sdate'] = array('>=', '<=');
+				$dWhere['where']['oper']['go_sdate'] = array('>=', '<=');
 			}
 
 			$allNums = $this->db->get($cWhere);
@@ -719,9 +759,15 @@ class Control_Good extends N8_Core_Control
 						'curPage' => $page,
 						'perNum' => $perNum));
 		}
-                                                                                
+        //车牌列表
+		$carNo = $this->db->get(array(
+			'table' => 'xgm_car',
+			'key' => array('car_no'),
+			'where' => array('and' => array('car_status' => 1))
+		));
         $this->render(array('tplDir' => $this->conf->get('view->rDir'),
         					'golist' => $data,
+							'cNo' => $carNo,
         					'page' => $page
         ));
 	}
@@ -1205,16 +1251,6 @@ class Control_Good extends N8_Core_Control
 
 	public function gedit()
 	{
-		$ginfo = $this->db->get(array(
-			'table' => 'xgm_goodin',
-			'key' => array('*'),
-			'where' => array('and' => array('gl_name' => $this->req['get']['name'], 'gl_state' => 1)),
-			'limit' => array(0, 1)
-		));
-
-		if(!$ginfo)
-			N8_Helper_Helper::showMessage('没有该资料，请检查');
-
 		$libInfo = $this->db->get(array(
 			'table' => 'xgm_goodlib',
 			'key' => array('*'),
@@ -1226,7 +1262,6 @@ class Control_Good extends N8_Core_Control
 			N8_Helper_Helper::showMessage('没有该资料，请检查');
 
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
-							'ginfo' => $ginfo[0],
 							'libInfo' => $libInfo[0],
 							'gName' => $this->req['get']['name']
 		));
@@ -1236,9 +1271,24 @@ class Control_Good extends N8_Core_Control
 	{
 		$inOrderList = $this->db->get(array(
 			'table' => 'xgm_goodin',
-			'key' => array('gl_order', 'gl_date'),
+			'key' => array('gl_order', 'gl_date', 'gl_inprice', 'sp_id', 'gl_prodate', 'gl_adprice', 'gl_edate'),
 			'where' => array('and' => array('gl_name' => $this->req['get']['name']))
 		));
+
+		if($inOrderList)//取供应商
+		{
+			for($i = 0, $j = sizeof($inOrderList); $i < $j; $i++)
+			{
+				$sp = $this->db->get(array(
+					'table' => 'xgm_supplier',
+					'key' => array('sp_name'),
+					'where' => array('and' => array('sp_id' => $inOrderList[$i][3])),
+					'limit' => array(0, 1)
+				));
+				if($sp)
+					$inOrderList[$i][] = $sp[0][0];
+			}
+		}
 
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 							'inOrderList' => $inOrderList,
@@ -1300,7 +1350,7 @@ class Control_Good extends N8_Core_Control
 		$expGoods = $this->db->get(array(
 			'table' => 'xgm_goodin',
 			'key' => array('gl_name', 'gl_edate', 'gl_nums', 'gl_order', 'sp_name'),
-			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -3 MONTH)}}'), 'oper' => array('now()' => '>'))
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}'), 'oper' => array('now()' => '>'))
 		));
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),	'liblist' => $expGoods,));
 	}

@@ -2,7 +2,7 @@
 <h3 class="topmenu">物品详细信息</h3>
 <div class="divform">
   	<p>
-      	<label>物品名称：</label><!--{$gName}-->
+      	<label>物品名称：</label><!--{$gName}-->&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<!--{$gName}-->">(查看进货信息)</a>
     	</p>
 		<p>
 			<label>物品简称：</label><!--{$libInfo.2}-->
@@ -30,17 +30,5 @@
 		<p>
 			<label>备注：</label><!--{$libInfo.11}-->
 		</p>
-  	<p>
-      	<label>进货价：</label><!--{$ginfo.3}-->
-    	</p>
-	<p>
-      	<label>供应商：</label><!--{$ginfo.7}-->
-		<label>生产日期：</label><!--{$ginfo.12}-->
-		</p>
-  	<p>
-      	<label>厂商建议价：</label><!--{$ginfo.4}-->
-      	<label>保质期：</label><!--{$ginfo.2}-->
-      	<label>进货单号：</label><!--{$ginfo.6}-->
-    	</p>
 </div>
 <!--{include file="footer.tpl"}-->

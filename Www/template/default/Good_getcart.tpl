@@ -199,6 +199,8 @@ $(document).ready(function(){
 		if(confirm('确定清空购物车？？'))
 		{
 			$.cookie('shopCart', '', {path:'/'});
+			$.cookie('pInfo', '', {path:'/'});
+			$.cookie('cardInfo', '', {path:'/'});
 			location.href="index.php?control=good&action=liblist";
 		}
 	});

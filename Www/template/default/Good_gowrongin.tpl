@@ -14,7 +14,8 @@
 		<td><!--{$orderInfo[s].3}--></td>
 		<td><!--{$orderInfo[s].2}--></td>
 		<td>
-			<input type="text" name="yl[<!--{$orderInfo[s].0}-->]" value="<!--{$orderInfo[s].3}-->" class="text" style="width:50px;" />
+			<input type="text" name="yll[<!--{$orderInfo[s].0}-->]" disabled="disabled" value="<!--{$orderInfo[s].3}-->" class="text" style="width:50px;" />
+			<input type="hidden" name="yl[<!--{$orderInfo[s].0}-->]" value="<!--{$orderInfo[s].3}-->" class="text" style="width:50px;" />
 		</td>
 	</tr>
 	<!--{/section}-->
