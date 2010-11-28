@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:20:54
+<?php /* Smarty version Smarty3-b8, created on 2010-11-28 14:35:27
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_search.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:9975360394ceffa86ca2755-85126879%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:13436020604cf1f82fe14ee1-28341066%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'ee15f0c1fd6fe236c67dc13f3519c3e10d551a03' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_search.tpl',
-      1 => 1290789081,
+      1 => 1290926118,
     ),
   ),
-  'nocache_hash' => '9975360394ceffa86ca2755-85126879',
+  'nocache_hash' => '13436020604cf1f82fe14ee1-28341066',
   'function' => 
   array (
   ),
@@ -31,7 +31,7 @@ $_smarty_tpl->decodeProperties(array (
 		</p>
 	</form>
 	<?php if ($_smarty_tpl->getVariable('card')->value){?>
-	<?php if ($_smarty_tpl->getVariable('card')->value[9]>0&&$_smarty_tpl->getVariable('card')->value[5]==1&&$_smarty_tpl->getVariable('eTime')->value>=time()){?>
+	<?php if ($_smarty_tpl->getVariable('card')->value[9]>0&&$_smarty_tpl->getVariable('card')->value[5]==1){?>
 	<h5>点击<a href="index.php?control=good&action=order&clnum=<?php echo $_smarty_tpl->getVariable('card')->value[3];?>
 &clid=<?php echo $_smarty_tpl->getVariable('card')->value[1];?>
 &balance=<?php echo $_smarty_tpl->getVariable('card')->value[9];?>
@@ -50,7 +50,7 @@ $_smarty_tpl->decodeProperties(array (
 			<td><?php echo $_smarty_tpl->getVariable('card')->value[9];?>
 </td>
 			<td><b>卡状态</b></td>
-			<td><?php if ($_smarty_tpl->getVariable('card')->value[5]==1){?>正常<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[5]==2){?>不可用<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[5]==3){?>fdasfa<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[6]=='0000-00-00 00:00:00'){?>(未出卡)<?php }?></td>
+			<td><?php if ($_smarty_tpl->getVariable('card')->value[5]==1){?>已出卡可用<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[5]==0){?>作废<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[5]==2){?>回收<?php }?><?php if ($_smarty_tpl->getVariable('card')->value[6]=='0000-00-00 00:00:00'){?>(未出卡)<?php }?></td>
 			<td><b>卡名称</b></td>
 			<td><?php echo $_smarty_tpl->getVariable('cType')->value[1];?>
 </td>
@@ -73,7 +73,10 @@ $_smarty_tpl->decodeProperties(array (
 		</tr>
 		<tr>
 			<td><b>订卡客户名称</b></td>
-			<td colspan="11"><?php echo $_smarty_tpl->getVariable('cardOrder')->value[10];?>
+			<td colspan="4"><?php echo $_smarty_tpl->getVariable('cardOrder')->value[10];?>
+</td>
+			<td><b>套餐编号</b></td>
+			<td colspan="6"><?php echo $_smarty_tpl->getVariable('card')->value[11];?>
 </td>
 		</tr>
 		<tr>
@@ -133,6 +136,25 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['o']['last']       = ($_smart
 					</tbody>
 				</table>
 				<?php }?>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="12">
+			<form action="index.php" method="GET">
+				<b>套餐编号</b>
+				<input type="text" name="cl_flag" value="<?php echo $_smarty_tpl->getVariable('card')->value[11];?>
+" />
+				<b>卡状态修改</b>
+				<select name="cl_state">
+					<option value="2">回收</option>
+					<option value="0">作废</option>
+				</select>
+				<input type="hidden" name="cl_id" value="<?php echo $_smarty_tpl->getVariable('card')->value[1];?>
+" />
+				<input type="hidden" name="control" value="card" />
+				<input type="hidden" name="action" value="chstatus" />
+				<input type="submit" name="gosubmit" value="提交修改" onclick="return confirm('确定提交？');" />
+			</form>
 			</td>
 		</tr>
 	</table>

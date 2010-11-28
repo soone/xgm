@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:20:58
+<?php /* Smarty version Smarty3-b8, created on 2010-11-29 00:53:32
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:8461235784ceffa8ac1c914-70584302%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2239489684cf2890cd0f422-29777300%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f66a682c0e07a17f24fdbdd86f9898ab70ec351a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl',
-      1 => 1290793470,
+      1 => 1290961031,
     ),
   ),
-  'nocache_hash' => '8461235784ceffa8ac1c914-70584302',
+  'nocache_hash' => '2239489684cf2890cd0f422-29777300',
   'function' => 
   array (
   ),
@@ -208,7 +208,8 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 " />
 				<?php }?>
 				<?php if ($_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3]==1){?><a href="index.php?control=good&action=gout&go=<?php echo $_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
-">出库配送</a><br /><?php }?><a href="">查看详情</a><br /><?php if ($_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3]==6){?><a href="index.php?control=good&action=changecar&oid=<?php echo $_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
+">出库配送</a><br /><?php }?><a href="index.php?control=good&action=orderinfo&go=<?php echo $_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
+">查看详情</a><br /><?php if ($_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3]==6){?><a href="index.php?control=good&action=changecar&oid=<?php echo $_smarty_tpl->getVariable('golist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
 ">修改分车</a><?php }?>
 			</td>
 		</tr>

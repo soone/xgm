@@ -352,4 +352,22 @@ class Control_Card extends N8_Core_Control
 			'cardOrder' => $cardOrder[0]
 		));
 	}
+
+	public function chstatus()
+	{
+		if($this->req['get']['gosubmit'])
+		{
+			$this->req['get']['cl_flag'] = intval(trim($this->req['get']['cl_flag']));
+			$this->db->set(array(
+				'table' => 'xgm_cardlib',
+				'key' => array('cl_flag', 'cl_state'),
+				'value' => array($this->req['get']['cl_flag'], $this->req['get']['cl_state']),
+				'where' => array('and' => array('cl_id' => $this->req['get']['cl_id']))
+			));
+
+			N8_Helper_Helper::showMessage('修改成功');
+		}
+		else
+			N8_Helper_Helper::showMessage('非法提交');
+	}
 }

@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:14:07
+<?php /* Smarty version Smarty3-b8, created on 2010-11-28 23:11:17
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_gout.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:16727904614ceff8ef911b23-40639957%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:18512964014cf271156632f0-31685896%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -10,7 +10,7 @@ $_smarty_tpl->decodeProperties(array (
       1 => 1288022740,
     ),
   ),
-  'nocache_hash' => '16727904614ceff8ef911b23-40639957',
+  'nocache_hash' => '18512964014cf271156632f0-31685896',
   'function' => 
   array (
   ),

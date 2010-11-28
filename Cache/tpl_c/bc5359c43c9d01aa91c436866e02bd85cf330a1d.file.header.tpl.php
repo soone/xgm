@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:45:23
+<?php /* Smarty version Smarty3-b8, created on 2010-11-29 01:32:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:20798113774cf000430b5a89-81075587%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:13337286514cf2922985b558-69646212%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -10,7 +10,7 @@ $_smarty_tpl->decodeProperties(array (
       1 => 1290244936,
     ),
   ),
-  'nocache_hash' => '20798113774cf000430b5a89-81075587',
+  'nocache_hash' => '13337286514cf2922985b558-69646212',
   'function' => 
   array (
   ),

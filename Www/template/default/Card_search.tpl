@@ -10,7 +10,7 @@
 		</p>
 	</form>
 	<!--{if $card}-->
-	<!--{if $card[9] > 0 && $card[5] == 1 && $eTime >= $smarty.now}-->
+	<!--{if $card[9] > 0 && $card[5] == 1}-->
 	<h5>点击<a href="index.php?control=good&action=order&clnum=<!--{$card[3]}-->&clid=<!--{$card[1]}-->&balance=<!--{$card[9]}-->&ctype=<!--{$cType[6]}-->">这里</a>开始登记配送单信息</h5>
 	<!--{/if}-->
 	<table class="slist">
@@ -22,7 +22,7 @@
 			<td><b>卡余额</b></td>
 			<td><!--{$card[9]}--></td>
 			<td><b>卡状态</b></td>
-			<td><!--{if $card[5] == 1}-->正常<!--{/if}--><!--{if $card[5] == 2}-->不可用<!--{/if}--><!--{if $card[5] == 3}-->fdasfa<!--{/if}--><!--{if $card[6] == '0000-00-00 00:00:00'}-->(未出卡)<!--{/if}--></td>
+			<td><!--{if $card[5] == 1}-->已出卡可用<!--{/if}--><!--{if $card[5] == 0}-->作废<!--{/if}--><!--{if $card[5] == 2}-->回收<!--{/if}--><!--{if $card[6] == '0000-00-00 00:00:00'}-->(未出卡)<!--{/if}--></td>
 			<td><b>卡名称</b></td>
 			<td><!--{$cType[1]}--></td>
 			<td><b>卡类型</b></td>
@@ -40,7 +40,9 @@
 		</tr>
 		<tr>
 			<td><b>订卡客户名称</b></td>
-			<td colspan="11"><!--{$cardOrder[10]}--></td>
+			<td colspan="4"><!--{$cardOrder[10]}--></td>
+			<td><b>套餐编号</b></td>
+			<td colspan="6"><!--{$card[11]}--></td>
 		</tr>
 		<tr>
 			<td><b>配置信息</b></td>
@@ -71,6 +73,23 @@
 					</tbody>
 				</table>
 				<!--{/if}-->
+			</td>
+		</tr>
+		<tr>
+			<td colspan="12">
+			<form action="index.php" method="GET">
+				<b>套餐编号</b>
+				<input type="text" name="cl_flag" value="<!--{$card[11]}-->" />
+				<b>卡状态修改</b>
+				<select name="cl_state">
+					<option value="2">回收</option>
+					<option value="0">作废</option>
+				</select>
+				<input type="hidden" name="cl_id" value="<!--{$card[1]}-->" />
+				<input type="hidden" name="control" value="card" />
+				<input type="hidden" name="action" value="chstatus" />
+				<input type="submit" name="gosubmit" value="提交修改" onclick="return confirm('确定提交？');" />
+			</form>
 			</td>
 		</tr>
 	</table>

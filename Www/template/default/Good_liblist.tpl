@@ -1,5 +1,5 @@
 <!--{include file="header.tpl"}-->
-<h3 class="topmenu">库存列表(<a href="index.php?control=good&action=getcart">查看购物车</a>)<span></h3>
+<h3 class="topmenu">库存列表(<a href="index.php?control=good&action=getcart">查看购物车</a>)&nbsp;&nbsp;(总库存余量价值：<!--{$leaveMoney}-->)</h3>
 <div>
 <form>
 	<label>选择分类：</label>

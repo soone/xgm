@@ -24,8 +24,9 @@ class Control_Good extends N8_Core_Control
 			'table' => 'xgm_goodin',
 			'key' => array('count(*)'),
 			//'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}', 'gl_edate' => '{{IS NULL}}'), 'oper' => array('now()' => '>', 'gl_edate' => ' '))
-			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}', 'oper' => array('now()' => '>')))
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}'), 'oper' => array('now()' => '>'))
 		));
+
 		$this->view->Assign(array('expnums' => $expNums[0][0]));
 	}
 
@@ -319,6 +320,39 @@ class Control_Good extends N8_Core_Control
 
 	public function inlist()
 	{
+		$sp = $this->db->get(array(
+			'table' => 'xgm_supplier',
+			'key' => array('sp_id', 'sp_name')
+		));
+
+		if($this->req['get']['sp_id'])
+			$where['and']['sp_id'] = $this->req['get']['sp_id'];
+
+		if($this->req['get']['sdate'])
+		{
+			if($this->req['get']['edate'])
+			{
+				$where['and']['io_date'][] = $this->req['get']['sdate'];
+				$where['oper']['io_date'] = array('>=', '<=');
+			}
+			else
+			{
+				$where['and']['io_date'] = $this->req['get']['sdate'];
+				$where['oper']['io_date'] = '>=';
+			}
+		}
+
+		if($this->req['get']['edate'])
+		{
+			if($this->req['get']['sdate'])
+				$where['and']['io_date'][] = $this->req['get']['edate'];
+			else
+			{
+				$where['and']['io_date'] = $this->req['get']['edate'];
+				$where['oper']['io_date'] = '<=';
+			}
+		}
+
 		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
 		$perNum = 30;
 		$start = ($page-1)*$perNum;
@@ -330,6 +364,7 @@ class Control_Good extends N8_Core_Control
 		$data = $this->db->get(array(
 			'table' => 'xgm_inorder',
 			'key' => array('io_id', 'io_no', 'io_date', 'io_total', 'io_mark', 'io_paytime'),
+			'where' => $where,
 			'limit' => array($start, $perNum),
 			'order' => array('desc' => array('io_id'))
 		));
@@ -341,6 +376,7 @@ class Control_Good extends N8_Core_Control
 
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
 							'iolist' => $data,
+							'sp' => $sp,
 							'page' => $page
 		));
 	}
@@ -396,6 +432,13 @@ class Control_Good extends N8_Core_Control
 
 	public function liblist()
 	{
+		//库存总价值余量
+		$leaveMoney = $this->db->get(array(
+			'table' => 'xgm_goodin',
+			'key' => array('sum(gl_leaves*gl_inprice)'),
+			'where' => array('and' => array('gl_leaves' => 0), 'oper' => array('gl_leaves' => '>'))
+		));
+
 		//显示库存列表
 		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
         $perNum = 30;
@@ -450,6 +493,7 @@ class Control_Good extends N8_Core_Control
 							'pInfo' => $pInfo,
         					'page' => $page,
 							'bigcate' => $bigCate,
+							'leaveMoney' => $leaveMoney[0][0],
 							'smallcate' => json_encode($smallCate)
         ));
 	}
@@ -986,7 +1030,7 @@ class Control_Good extends N8_Core_Control
 								'cl_id', 'go_mtype', 'go_mark', 
 								'go_sendmoney', 'go_type', 'ou_truename',
 								'ou_oneaddress', 'go_smark', 'go_fmark', 
-								'go_date', 'go_oprice'),
+								'go_date', 'go_oprice', 'go_omark'),
 				'where' => array('and' => array('go_status' => 6, 'go_sdate' => $this->req['get']['date']))
 			));
 
@@ -1000,11 +1044,11 @@ class Control_Good extends N8_Core_Control
                         'key' => array('goi_nums', 'gl_name', 'gl_id'),
                         'where' => array('and' => array('go_order' => $v[0]))
 					));
-					$v[14] = $cInfo;
+					$v[15] = $cInfo;
 					$addInfo = json_decode($v[9], true);
-					$v[15] = $addInfo[2];
-					$v[16] = $addInfo[3];
-					$v[17] = $addInfo[4];
+					$v[16] = $addInfo[2];
+					$v[17] = $addInfo[3];
+					$v[18] = $addInfo[4];
 					if($v[3] > 0)
 					{
 						$cardName = $this->db->get(array(
@@ -1012,8 +1056,10 @@ class Control_Good extends N8_Core_Control
 							'key' => array('cl_num'),
 							'where' => array('and' => array('cl_id' => $v[3]))
 						));
-						$v[18] = $cardName[0][0];
+						$v[19] = $cardName[0][0];
 					}
+					else
+						$v[19] = $v[0];
 					if(!in_array($v[1], $cars))
 						$cars[] = $v[1];
 
@@ -1021,11 +1067,21 @@ class Control_Good extends N8_Core_Control
 					{
 						$gLibInfo = $this->db->get(array(
 							'table' => 'xgm_goodlib',
-							'key' => array('gl_shortname'),
-							'where' => array('and' => array('gl_id' => $cv[2]))
+							'key' => array('gl_shortname', 'gc_id'),
+							'where' => array('and' => array('gl_id' => $cv[2])),
+							'limit' => array(0, 1)
 						));
 
 						$glArr[] = array($gLibInfo[0][0], $cv[0]);
+						$cateName = $this->db->get(array(
+							'table' => 'xgm_goodcat',
+							'key' => array('gc_name'),
+							'where' => array('and' => array('gc_id' => $gLibInfo[0][1])),
+							'limit' => array(0, 1)
+						));
+						$cv[] = $cateName[0][0];
+						$cv[] = $gLibInfo[0][0];
+
 						if(!isset($allGood[$cv[2]]))
 							$allGood[$cv[2]] = $cv;
 						else
@@ -1036,7 +1092,7 @@ class Control_Good extends N8_Core_Control
 						else
 							$allCarGood[$v[1]][$cv[2]][0] += $cv[0];
 					}
-					$v[19] = $glArr;
+					$v[20] = $glArr;
 					$carOrder[$v[1]][] = $v;
 					$allOrder[] = $v;
 				}
@@ -1054,8 +1110,11 @@ class Control_Good extends N8_Core_Control
 									'cars' => $cars
 				));
 			}
+			else
+				N8_Helper_Helper::showMessage('没有数据');
 		}
-
+		else
+			N8_Helper_Helper::showMessage('没有数据');
 	}
 
 	public function wrongin()
@@ -1271,7 +1330,7 @@ class Control_Good extends N8_Core_Control
 	{
 		$inOrderList = $this->db->get(array(
 			'table' => 'xgm_goodin',
-			'key' => array('gl_order', 'gl_date', 'gl_inprice', 'sp_id', 'gl_prodate', 'gl_adprice', 'gl_edate'),
+			'key' => array('gl_order', 'gl_date', 'gl_inprice', 'sp_id', 'gl_prodate', 'gl_adprice', 'gl_edate', 'gl_leaves', '{{sum(gl_leaves*gl_inprice)}}', 'gl_nums'),
 			'where' => array('and' => array('gl_name' => $this->req['get']['name']))
 		));
 
@@ -1353,5 +1412,44 @@ class Control_Good extends N8_Core_Control
 			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}'), 'oper' => array('now()' => '>'))
 		));
 		$this->render(array('tplDir' => $this->conf->get('view->rDir'),	'liblist' => $expGoods,));
+	}
+
+	public function orderinfo()
+	{
+		$orderInfo = $this->db->get(array(
+			'table' => 'xgm_goodorder',
+			'key' => array('*'),
+			'where' => array('and' => array('go_order' => $this->req['get']['go'])),
+			'limit' => array(0, 1)
+		));
+
+		if($orderInfo)
+		{
+			$goInfo = $this->db->get(array(
+				'table' => 'xgm_goinfo',
+				'key' => array('gl_id', 'goi_nums', 'gl_name', 'goi_outinfo'),
+				'where' => array('and' => array('go_order' => $this->req['get']['go']))
+			));
+
+			if($orderInfo[0][6])
+			{
+				$cardNo = $this->db->get(array(
+					'table' => 'xgm_cardlib',
+					'key' => array('cl_num'),
+					'where' => array('and' => array('cl_id' => $orderInfo[0][6])),
+					'limit' => array(0, 1)
+				));
+			}
+
+			$orderInfo[0][17] = json_decode($orderInfo[0][17], true);
+
+			$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+								'orderInfo' => $orderInfo[0],
+								'goInfo' => $goInfo,
+								'cardNo' => $cardNo[0][0]
+			));
+		}
+		else
+			N8_Helper_Helper::showMessage('对不起，找不到该资料');
 	}
 }

@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:45:19
+<?php /* Smarty version Smarty3-b8, created on 2010-11-29 01:32:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:7400704cf0003f880bc1-85590269%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:12646353174cf292294cf8f4-92360377%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c67c7df8ea0747a32643a90527a9d1d6f3436f23' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl',
-      1 => 1290332499,
+      1 => 1290965519,
     ),
   ),
-  'nocache_hash' => '7400704cf0003f880bc1-85590269',
+  'nocache_hash' => '12646353174cf292294cf8f4-92360377',
   'function' => 
   array (
   ),
@@ -19,7 +19,8 @@ $_smarty_tpl->decodeProperties(array (
 <?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 
-<h3 class="topmenu">库存列表(<a href="index.php?control=good&action=getcart">查看购物车</a>)<span></h3>
+<h3 class="topmenu">库存列表(<a href="index.php?control=good&action=getcart">查看购物车</a>)&nbsp;&nbsp;(总库存余量价值：<?php echo $_smarty_tpl->getVariable('leaveMoney')->value;?>
+)</h3>
 <div>
 <form>
 	<label>选择分类：</label>

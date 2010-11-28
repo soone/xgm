@@ -1,5 +1,18 @@
 <!--{include file="header.tpl"}-->
 <h3 class="topmenu">进货单列表<span><a href="index.php?control=good&action=ioadd">(添加)</a></span></h3>
+<form>
+	<label>供应商名称：</label>
+	<select name="sp_id">
+		<!--{section name=s loop=$sp}-->
+		<option value="<!--{$sp[s].0}-->"><!--{$sp[s].1}--></option>
+		<!--{/section}-->
+	</select>&nbsp;&nbsp;
+	<label>开始日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.sdate}-->" />&nbsp;&nbsp;
+	<label>结束日期：</label><input type="text" class="text" name="edate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.edate}-->" />
+	<input type="hidden" name="control" value="good" />
+	<input type="hidden" name="action" value="inlist" />
+	<input type="submit" name="submit" value="查看" />
+</form>
 <table class="slist">
 	<thead>
 		<tr>
@@ -47,4 +60,6 @@
 		<!--{/section}-->
 	</tbody>
 </table>
+<script type="text/javascript" language="javascript" src="images/datePicker/WdatePicker.js"></script>
+<link href="images/datePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
 <!--{include file="footer.tpl"}-->

@@ -5,7 +5,7 @@
 	<thead>
 		<tr>
 			<th>下单日期</th>
-			<th>礼品卡号</th>
+			<th>卡号/配送单号</th>
 			<th>物品简称</th>
 			<th>订单内容</th>
 			<th>订单类型</th>
@@ -17,6 +17,7 @@
 			<th>远程费</th>
 			<th>代收金额</th>
 			<th>送货备注</th>
+			<th>远程备注</th>
 			<th>其他备注</th>
 		</tr>
 	</thead>
@@ -24,15 +25,15 @@
 		<!--{section name=ao loop=$allOrder}-->
 		<tr>
 			<td><!--{$allOrder[ao].12}--></td>
-			<td><!--{$allOrder[ao].18}--></td>
+			<td><!--{$allOrder[ao].19}--></td>
 			<td>
-				<!--{section name=s loop=$allOrder[ao].19}-->
-				<!--{$allOrder[ao].19[s].0}-->:<!--{$allOrder[ao].19[s].1}-->;
+				<!--{section name=s loop=$allOrder[ao].20}-->
+				<!--{$allOrder[ao].20[s].0}-->:<!--{$allOrder[ao].20[s].1}-->;
 				<!--{/section}-->
 			</td>
 			<td>
-				<!--{section name=in loop=$allOrder[ao].14}-->
-				<!--{$allOrder[ao].14[in].1}-->:<!--{$allOrder[ao].14[in].0}-->;
+				<!--{section name=in loop=$allOrder[ao].15}-->
+				<!--{$allOrder[ao].15[in].1}-->:<!--{$allOrder[ao].15[in].0}-->;
 				<!--{/section}-->
 			</td>
 			<td>
@@ -44,9 +45,9 @@
 				<!--{if $allOrder[ao].7 == 7}-->返厂配送单<!--{/if}-->
 			</td>
 			<td><!--{$allOrder[ao].8}--></td>
-			<td><!--{$allOrder[ao].15}--></td>
-			<td><!--{$allOrder[ao].17}--></td>
 			<td><!--{$allOrder[ao].16}--></td>
+			<td><!--{$allOrder[ao].18}--></td>
+			<td><!--{$allOrder[ao].17}--></td>
 			<td>
 				<!--{if $allOrder[ao].4 == 1}-->司机代收<!--{/if}-->
 				<!--{if $allOrder[ao].4 == 2}-->支付宝<!--{/if}-->
@@ -56,6 +57,7 @@
 			<td><!--{$allOrder[ao].13}--></td>
 			<td><!--{$allOrder[ao].10}--></td>
 			<td><!--{$allOrder[ao].11}--></td>
+			<td><!--{$allOrder[ao].14}--></td>
 		</tr>
 		<!--{/section}-->
 	</tbody>
@@ -63,14 +65,18 @@
 <table class="slist">
 	<thead>
 		<tr>
+			<th>分类</th>
 			<th>名称</th>
+			<th>简称</th>
 			<th>数量</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!--{section name=ag loop=$allGood}-->
 		<tr>
+			<td><!--{$allGood[ag].3}--></td>
 			<td><!--{$allGood[ag].1}--></td>
+			<td><!--{$allGood[ag].4}--></td>
 			<td><!--{$allGood[ag].0}--></td>
 		</tr>
 		<!--{/section}-->
@@ -83,7 +89,7 @@
 	<thead>
 		<tr>
 			<th>下单日期</th>
-			<th>礼品卡号</th>
+			<th>卡号/配送单号</th>
 			<th>物品简称</th>
 			<th>订单内容</th>
 			<th>订单类型</th>
@@ -95,6 +101,7 @@
 			<th>远程费</th>
 			<th>代收金额</th>
 			<th>送货备注</th>
+			<th>远程备注</th>
 			<th>其他备注</th>
 		</tr>
 	</thead>
@@ -102,15 +109,15 @@
 		<!--{section name=ao loop=$carOrder[$cars[cc]]}-->
 		<tr>
 			<td><!--{$carOrder[$cars[cc]][ao].12}--></td>
-			<td><!--{$carOrder[$cars[cc]][ao].18}--></td>
+			<td><!--{$carOrder[$cars[cc]][ao].19}--></td>
 			<td>
-				<!--{section name=s loop=$carOrder[$cars[cc]][ao].19}-->
-				<!--{$carOrder[$cars[cc]][ao].19[s].0}-->:<!--{$carOrder[$cars[cc]][ao].19[s].1}-->;
+				<!--{section name=s loop=$carOrder[$cars[cc]][ao].20}-->
+				<!--{$carOrder[$cars[cc]][ao].20[s].0}-->:<!--{$carOrder[$cars[cc]][ao].20[s].1}-->;
 				<!--{/section}-->
 			</td>
 			<td>
-				<!--{section name=in loop=$carOrder[$cars[cc]][ao].14}-->
-				<!--{$carOrder[$cars[cc]][ao].14[in].1}-->:<!--{$carOrder[$cars[cc]][ao].14[in].0}-->;
+				<!--{section name=in loop=$carOrder[$cars[cc]][ao].15}-->
+				<!--{$carOrder[$cars[cc]][ao].15[in].1}-->:<!--{$carOrder[$cars[cc]][ao].15[in].0}-->;
 				<!--{/section}-->
 			</td>
 			<td>
@@ -122,9 +129,9 @@
 				<!--{if $carOrder[$cars[cc]][ao].7 == 7}-->返厂配送单<!--{/if}-->
 			</td>
 			<td><!--{$carOrder[$cars[cc]][ao].8}--></td>
-			<td><!--{$carOrder[$cars[cc]][ao].15}--></td>
-			<td><!--{$carOrder[$cars[cc]][ao].17}--></td>
 			<td><!--{$carOrder[$cars[cc]][ao].16}--></td>
+			<td><!--{$carOrder[$cars[cc]][ao].18}--></td>
+			<td><!--{$carOrder[$cars[cc]][ao].17}--></td>
 			<td>
 				<!--{if $carOrder[$cars[cc]][ao].4 == 1}-->司机代收<!--{/if}-->
 				<!--{if $carOrder[$cars[cc]][ao].4 == 2}-->支付宝<!--{/if}-->
@@ -134,6 +141,7 @@
 			<td><!--{$carOrder[$cars[cc]][ao].13}--></td>
 			<td><!--{$carOrder[$cars[cc]][ao].10}--></td>
 			<td><!--{$carOrder[$cars[cc]][ao].11}--></td>
+			<td><!--{$carOrder[$cars[cc]][ao].14}--></td>
 		</tr>
 		<!--{/section}-->
 	</tbody>
@@ -141,14 +149,18 @@
 <table class="slist">
 	<thead>
 		<tr>
+			<th>分类</th>
 			<th>名称</th>
+			<th>简称</th>
 			<th>数量</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!--{section name=ag loop=$allCarGood[$cars[cc]]}-->
 		<tr>
+			<td><!--{$allCarGood[$cars[cc]][ag].3}--></td>
 			<td><!--{$allCarGood[$cars[cc]][ag].1}--></td>
+			<td><!--{$allCarGood[$cars[cc]][ag].4}--></td>
 			<td><!--{$allCarGood[$cars[cc]][ag].0}--></td>
 		</tr>
 		<!--{/section}-->

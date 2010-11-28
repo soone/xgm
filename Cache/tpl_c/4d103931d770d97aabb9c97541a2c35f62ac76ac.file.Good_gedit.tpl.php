@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-27 02:35:12
+<?php /* Smarty version Smarty3-b8, created on 2010-11-29 00:30:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_gedit.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:19722750394ceffde0920a00-52729666%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:20260646074cf283a112fbe6-30053153%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '4d103931d770d97aabb9c97541a2c35f62ac76ac' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_gedit.tpl',
-      1 => 1290796506,
+      1 => 1290796644,
     ),
   ),
-  'nocache_hash' => '19722750394ceffde0920a00-52729666',
+  'nocache_hash' => '20260646074cf283a112fbe6-30053153',
   'function' => 
   array (
   ),
@@ -63,24 +63,6 @@ $_smarty_tpl->decodeProperties(array (
 			<label>备注：</label><?php echo $_smarty_tpl->getVariable('libInfo')->value[11];?>
 
 		</p>
-  	<p>
-      	<label>进货价：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[3];?>
-
-    	</p>
-	<p>
-      	<label>供应商：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[7];?>
-
-		<label>生产日期：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[12];?>
-
-		</p>
-  	<p>
-      	<label>厂商建议价：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[4];?>
-
-      	<label>保质期：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[2];?>
-
-      	<label>进货单号：</label><?php echo $_smarty_tpl->getVariable('ginfo')->value[6];?>
-
-    	</p>
 </div>
 <?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
