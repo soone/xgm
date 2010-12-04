@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-29 01:26:39
+<?php /* Smarty version Smarty3-b8, created on 2010-12-04 16:58:40
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_ginlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1033694234cf290cfc1bfb4-48211189%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3098091674cfa02c0df2208-77683846%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '7b671d126eae10c2026f5e1cee6ef8268974d76f' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_ginlist.tpl',
-      1 => 1290965187,
+      1 => 1291453120,
     ),
   ),
-  'nocache_hash' => '1033694234cf290cfc1bfb4-48211189',
+  'nocache_hash' => '3098091674cfa02c0df2208-77683846',
   'function' => 
   array (
   ),
@@ -66,7 +66,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][2];?>
 </td>
-			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][10];?>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][9];?>
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][4];?>
 </td>
@@ -74,11 +74,11 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>
 </td>
-			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][9];?>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][8];?>
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][7];?>
 </td>
-			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][8];?>
+			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][2]*$_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][7];?>
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('inOrderList')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
 </td>

@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-29 00:53:32
+<?php /* Smarty version Smarty3-b8, created on 2010-12-04 16:36:17
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2239489684cf2890cd0f422-29777300%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:13893707514cf9fd817013a7-98142017%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f66a682c0e07a17f24fdbdd86f9898ab70ec351a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl',
-      1 => 1290961031,
+      1 => 1290963705,
     ),
   ),
-  'nocache_hash' => '2239489684cf2890cd0f422-29777300',
+  'nocache_hash' => '13893707514cf9fd817013a7-98142017',
   'function' => 
   array (
   ),

@@ -1129,11 +1129,11 @@ class Control_Good extends N8_Core_Control
                                                                                 
         $data = $this->db->get(array(
         	'table' => 'xgm_goodexception',
-        	'key' => array('ge_id', 'go_order', 'ge_status', 'ge_type', 'ge_cdate'),
+        	'key' => array('ge_id', 'go_order', 'ge_status', 'ge_type', 'ge_cdate', 'go_worder'),
         	'limit' => array($start, $perNum),
         	'order' => array('desc' => array('ge_id'))
         ));
-                                                                                
+
         $page =	N8_Helper_Helper::setPage(array(
         			'allNums' => $allNums[0][0], 
         			'curPage' => $page,
@@ -1152,8 +1152,7 @@ class Control_Good extends N8_Core_Control
 			'key' => array('go_outinfomark'),
 			'where' => array('and' => array(
 				'go_order' => $this->req['get']['order'],
-				'go_status' => 3),
-				'oper' => array('go_status' => '=')
+				'go_status' => 3)
 			),
 			'limit' => array(0, 1)
 		));
@@ -1177,10 +1176,39 @@ class Control_Good extends N8_Core_Control
 					N8_Helper_Helper::showMessage('回库失败');
 			}
 
+			$wOrderNo = $this->db->get(array(
+				'table' => 'xgm_goodexception',
+				'key' => array('go_worder'),
+				'where' => array('and' => array(
+					'go_order' => $this->req['get']['order']
+				),
+				'limit' => array(0, 1))
+			));
+			if(!$wOrderNo)
+				N8_Helper_Helper::showMessage('数据出错');
+			else
+			{
+				$wGoInfo = $this->db->get(array(
+					'table' => 'xgm_goinfo',
+					'key' => array('gl_id'),
+					'where' => array('and' => array(
+						'go_order' => $wOrderNo[0][0]
+					))
+				));
+
+				$wArr = array();
+				for($i = 0, $j = count($wGoInfo); $i < $j; $i++)
+				{
+					$wArr[] = $wGoInfo[$i][0];
+				}
+			}
+
 			$oInfo = explode('|', $orderCon[0][0]);
 			for($i = 0, $j = count($oInfo); $i < $j; $i++)
 			{
-				$orderInfo[] = explode(',', $oInfo[$i]);
+				$tempInfo = explode(',', $oInfo[$i]);
+				if(in_array($tempInfo[0], $wArr))
+					$orderInfo[] = $tempInfo;
 			}
 
 			$this->render(array('tplDir' => $this->conf->get('view->rDir'),
@@ -1330,7 +1358,7 @@ class Control_Good extends N8_Core_Control
 	{
 		$inOrderList = $this->db->get(array(
 			'table' => 'xgm_goodin',
-			'key' => array('gl_order', 'gl_date', 'gl_inprice', 'sp_id', 'gl_prodate', 'gl_adprice', 'gl_edate', 'gl_leaves', '{{sum(gl_leaves*gl_inprice)}}', 'gl_nums'),
+			'key' => array('gl_order', 'gl_date', 'gl_inprice', 'sp_id', 'gl_prodate', 'gl_adprice', 'gl_edate', 'gl_leaves', 'gl_nums'),
 			'where' => array('and' => array('gl_name' => $this->req['get']['name']))
 		));
 

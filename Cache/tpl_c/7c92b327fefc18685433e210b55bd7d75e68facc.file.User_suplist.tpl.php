@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-04 16:36:50
-         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_wrongin.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:14910900994cf9fda2c344a5-69395693%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty3-b8, created on 2010-12-04 15:03:05
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/User_suplist.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:3061782814cf9e7a969e722-78123967%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '1b86f120c810a1972873a54cafbe7cd99a23c1bc' => 
+    '7c92b327fefc18685433e210b55bd7d75e68facc' => 
     array (
-      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_wrongin.tpl',
-      1 => 1291451808,
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/User_suplist.tpl',
+      1 => 1288022740,
     ),
   ),
-  'nocache_hash' => '14910900994cf9fda2c344a5-69395693',
+  'nocache_hash' => '3061782814cf9e7a969e722-78123967',
   'function' => 
   array (
   ),
@@ -19,14 +19,17 @@ $_smarty_tpl->decodeProperties(array (
 <?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 
-<h3 class="topmenu">作废配送单列表</h3>
+<h3 class="topmenu">供应商列表</h3>
 <table class="slist">
 	<thead>
 		<tr>
-			<th>单号</th>
-			<th>类型</th>
-			<th>状态</th>
-			<th>生成时间</th>
+			<th>公司名称</th>
+			<th>联络人1</th>
+			<th>联络方式</th>
+			<th>联络人2</th>
+			<th>联络方式</th>
+			<th>主管</th>
+			<th>主管直线</th>
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -38,8 +41,8 @@ $_smarty_tpl->decodeProperties(array (
 					<ul>
 						<li class="all">总<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 页</li>
-						<li><a href="index.php?control=good&action=wrongin">|<</a></li>
-						<li><a href="index.php?control=good&action=wrongin&page=<?php echo $_smarty_tpl->getVariable('page')->value['prevPage'];?>
+						<li><a href="index.php?action=suplist">|<</a></li>
+						<li><a href="index.php?action=suplist&page=<?php echo $_smarty_tpl->getVariable('page')->value['prevPage'];?>
 "><<</a></li>
 						<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['p']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['name'] = 'p';
@@ -71,13 +74,13 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['index_next'] = $_smarty
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['p']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['p']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['total']);
 ?>
-						<li><a href="index.php?control=good&action=wrongin&page=<?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
+						<li><a href="index.php?action=suplist&page=<?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 "><?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 </a></li>
 						<?php endfor; endif; ?>
-						<li><a href="index.php?control=goodaction=wrongin&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
+						<li><a href="index.php?action=suplist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
 ">>></a></li>
-						<li><a href="index.php?control=goodaction=wrongin&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
+						<li><a href="index.php?action=suplist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 ">>|</a></li>
 					
 					</ul>
@@ -89,7 +92,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['last']       = ($_smart
 	<tbody>
 		<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['l']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['name'] = 'l';
-$_smarty_tpl->tpl_vars['smarty']->value['section']['l']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('gelist')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$_smarty_tpl->tpl_vars['smarty']->value['section']['l']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('slist')->value) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['show'] = true;
 $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['max'] = $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['loop'];
 $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['step'] = 1;
@@ -112,15 +115,24 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['first']      = ($_smart
 $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['l']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['total']);
 ?>
 		<tr>
-			<td><?php echo $_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
 </td>
-			<td><?php if ($_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3]==1){?>部分退货<?php }elseif($_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3]==2){?>全部退货<?php }?></td>
-			<td><?php if ($_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][2]==1){?>回收完成<?php }else{ ?>未完成回收<?php }?></td>
-			<td><?php echo $_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][4];?>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][2];?>
 </td>
-			<td><a href="index.php?control=good&action=gowrongin&order=<?php echo $_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
-&geid=<?php echo $_smarty_tpl->getVariable('gelist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][0];?>
-">退货入库操作</a></td>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3];?>
+<br /><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][4];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][5];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>
+<br /><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][7];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][8];?>
+</td>
+			<td><?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][9];?>
+</td>
+			<td><a href="index.php?action=supedit&spid=<?php echo $_smarty_tpl->getVariable('slist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][0];?>
+">修改</a></td>
 		</tr>
 		<?php endfor; endif; ?>
 	</tbody>

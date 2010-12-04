@@ -20,13 +20,13 @@
 		<tr>
 			<td><!--{$inOrderList[l].0}--></td>
 			<td><!--{$inOrderList[l].2}--></td>
-			<td><!--{$inOrderList[l].10}--></td>
+			<td><!--{$inOrderList[l].9}--></td>
 			<td><!--{$inOrderList[l].4}--></td>
 			<td><!--{$inOrderList[l].5}--></td>
 			<td><!--{$inOrderList[l].6}--></td>
-			<td><!--{$inOrderList[l].9}--></td>
-			<td><!--{$inOrderList[l].7}--></td>
 			<td><!--{$inOrderList[l].8}--></td>
+			<td><!--{$inOrderList[l].7}--></td>
+			<td><!--{$inOrderList[l].2*$inOrderList[l].7}--></td>
 			<td><!--{$inOrderList[l].1}--></td>
 		</tr>
 		<!--{/section}-->

@@ -1,23 +1,23 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-29 01:32:25
+<?php /* Smarty version Smarty3-b8, created on 2010-12-04 17:00:14
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:13337286514cf2922985b558-69646212%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3144272404cfa031ea76f93-37686764%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1290244936,
+      1 => 1291021935,
     ),
   ),
-  'nocache_hash' => '13337286514cf2922985b558-69646212',
+  'nocache_hash' => '3144272404cfa031ea76f93-37686764',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
 <?php if (!is_callable('smarty_modifier_date_format')) include '/media/work_study/work/soone/N8/View/Smarty/plugins/modifier.date_format.php';
-?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/xhtml1-loose.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/xhtml1-transitional.dtd">
 <html>
 <head>
 <title>西瓜猫管理系统</title>

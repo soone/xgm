@@ -2,7 +2,7 @@
 <h3 class="topmenu">物品详细信息</h3>
 <div class="divform">
   	<p>
-      	<label>物品名称：</label><!--{$gName}-->&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<!--{$gName}-->">(查看进货信息)</a>
+      	<label>物品名称：</label><!--{$gName}-->&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<!--{$gName|escape:'url'}-->">(查看进货信息)</a>
     	</p>
 		<p>
 			<label>物品简称：</label><!--{$libInfo.2}-->

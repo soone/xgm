@@ -1,22 +1,23 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-29 01:32:25
+<?php /* Smarty version Smarty3-b8, created on 2010-12-04 16:50:49
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:12646353174cf292294cf8f4-92360377%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:18616223584cfa00e9883cf4-56573584%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c67c7df8ea0747a32643a90527a9d1d6f3436f23' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl',
-      1 => 1290965519,
+      1 => 1291452123,
     ),
   ),
-  'nocache_hash' => '12646353174cf292294cf8f4-92360377',
+  'nocache_hash' => '18616223584cfa00e9883cf4-56573584',
   'function' => 
   array (
   ),
   'has_nocache_code' => false,
 )); /*/%%SmartyHeaderCode%%*/?>
-<?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
+<?php if (!is_callable('smarty_modifier_escape')) include '/media/work_study/work/soone/N8/View/Smarty/plugins/modifier.escape.php';
+?><?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 
 <h3 class="topmenu">库存列表(<a href="index.php?control=good&action=getcart">查看购物车</a>)&nbsp;&nbsp;(总库存余量价值：<?php echo $_smarty_tpl->getVariable('leaveMoney')->value;?>
@@ -168,9 +169,9 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 ', '<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][3];?>
 ', '<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][4];?>
 ', '<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>
-');">添加到购物车</a>&nbsp;|&nbsp;<?php }?><a href="index.php?control=good&action=gedit&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
-">查看详情</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
-">查看对应进货列表</a><?php if ($_smarty_tpl->getVariable('pInfo')->value!=1){?>&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&name=<?php echo $_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1];?>
+');">添加到购物车</a>&nbsp;|&nbsp;<?php }?><a href="index.php?control=good&action=gedit&name=<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1],'url');?>
+">查看详情</a>&nbsp;&nbsp;<a href="index.php?control=good&action=ginlist&name=<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1],'url');?>
+">查看对应进货列表</a><?php if ($_smarty_tpl->getVariable('pInfo')->value!=1){?>&nbsp;&nbsp;<a href="index.php?control=good&action=gindel&name=<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('liblist')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][1],'url');?>
 ">删除</a><?php }?></td>
 		</tr>
 		<?php endfor; endif; ?>
