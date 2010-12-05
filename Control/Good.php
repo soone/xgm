@@ -664,7 +664,7 @@ class Control_Good extends N8_Core_Control
 			{
 				$rs = $this->db->get(array(
 					'table' => 'xgm_getaddress',
-					'key' => array('*'),
+					'key' => array('ga_id', 'ga_getter', 'ga_address', 'ga_phone', 'ga_tel'),
 					'where' => array('and' => array('ga_id' => $this->req['post']['oneAddress'])),
 					'limit' => array(0, 1)
 				));
