@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-05 21:18:37
+<?php /* Smarty version Smarty3-b8, created on 2010-12-06 00:17:28
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:15566814364cfb912d5a78f3-63872969%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:14960727244cfbbb1821c184-59660415%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1291021935,
+      1 => 1291558800,
     ),
   ),
-  'nocache_hash' => '15566814364cfb912d5a78f3-63872969',
+  'nocache_hash' => '14960727244cfbbb1821c184-59660415',
   'function' => 
   array (
   ),
@@ -85,6 +85,7 @@ images/style.css" type="text/css" media="screen, projection">
 		<div>
 			<h4>数据统计</h4>
 			<ul>
+				<li><a href="index.php?control=stat&action=scard">售卡订单统计</a></li>
 				<li><a href="index.php?control=stat&action=gin">进货统计</a></li>
 				<li><a href="index.php?control=stat&action=gout">出货统计</a></li>
 				<li><a href="index.php?control=stat&action=sorder">零散订单统计</a></li>

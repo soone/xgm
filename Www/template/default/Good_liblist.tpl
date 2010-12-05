@@ -36,8 +36,8 @@
 						<!--{section name=p loop=$page['max']+$page['min'] start=$page['min'] max=$page['max']}-->
 						<li><a href="index.php?control=good&action=liblist&page=<!--{$smarty.section.p.index}-->"><!--{$smarty.section.p.index}--></a></li>
 						<!--{/section}-->
-						<li><a href="index.php?control=goodaction=liblist&page=<!--{$page['nextPage']}-->">>></a></li>
-						<li><a href="index.php?control=goodaction=liblist&page=<!--{$page['allPages']}-->">>|</a></li>
+						<li><a href="index.php?control=good&action=liblist&page=<!--{$page['nextPage']}-->">>></a></li>
+						<li><a href="index.php?control=good&action=liblist&page=<!--{$page['allPages']}-->">>|</a></li>
 					
 					</ul>
 				</div>

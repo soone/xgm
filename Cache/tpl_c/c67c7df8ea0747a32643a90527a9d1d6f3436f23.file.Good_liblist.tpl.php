@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-05 21:18:21
+<?php /* Smarty version Smarty3-b8, created on 2010-12-05 21:55:58
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3564407294cfb911daec671-03574110%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:7732163004cfb99eeaea2b9-37698723%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c67c7df8ea0747a32643a90527a9d1d6f3436f23' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_liblist.tpl',
-      1 => 1291452123,
+      1 => 1291557303,
     ),
   ),
-  'nocache_hash' => '3564407294cfb911daec671-03574110',
+  'nocache_hash' => '7732163004cfb99eeaea2b9-37698723',
   'function' => 
   array (
   ),
@@ -117,9 +117,9 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['last']       = ($_smart
 "><?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 </a></li>
 						<?php endfor; endif; ?>
-						<li><a href="index.php?control=goodaction=liblist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
+						<li><a href="index.php?control=good&action=liblist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
 ">>></a></li>
-						<li><a href="index.php?control=goodaction=liblist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
+						<li><a href="index.php?control=good&action=liblist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 ">>|</a></li>
 					
 					</ul>

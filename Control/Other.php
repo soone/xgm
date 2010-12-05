@@ -23,7 +23,7 @@ class Control_Other extends N8_Core_Control
 		$expNums = $this->db->get(array(
 			'table' => 'xgm_goodin',
 			'key' => array('count(*)'),
-			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -3 MONTH)}}'), 'oper' => array('now()' => '>'))
+			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}'), 'oper' => array('now()' => '>'))
 		));
 		$this->view->Assign(array('expnums' => $expNums[0][0]));
 	}

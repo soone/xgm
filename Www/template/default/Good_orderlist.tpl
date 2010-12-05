@@ -6,7 +6,7 @@
 	<label>客户姓名：</label><input type="text" class="text" name="cname" style="width:120px;" value="<!--{$smarty.get.cname}-->" />&nbsp;&nbsp;
 	<label>配送日期：</label><input type="text" class="text" name="sdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.sdate}-->" /><br />
 	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<!--{$smarty.get.cdate}-->" />
-	<label>订单号：</label><input type="text" class="text" name="ono" style="width:120px;" value="<!--{$smarty.get.ono}-->" />
+	<label>配送单号：</label><input type="text" class="text" name="ono" style="width:120px;" value="<!--{$smarty.get.ono}-->" />
 	<label>分车号：</label>
 	<select name="carno">
 		<option value="">请选择</option>
@@ -59,13 +59,13 @@
 				<div class="page">
 					<ul>
 						<li class="all">总<!--{$page['allPages']}-->页</li>
-						<li><a href="index.php?control=good&action=orderlist">|<</a></li>
-						<li><a href="index.php?control=good&action=orderlist&page=<!--{$page['prevPage']}-->"><<</a></li>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<!--{$smarty.get.cphone}-->&cname=<!--{$smarty.get.cname}-->&sdate=<!--{$smarty.get.sdate}-->&cdate=<!--{$smarty.get.cdate}-->&ono=<!--{$smarty.get.ono}-->&carno=<!--{$smarty.get.carno}-->&otype=<!--{$smarty.get.otype}-->&cstatus=<!--{$smarty.get.cstatus}-->">|<</a></li>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<!--{$smarty.get.cphone}-->&cname=<!--{$smarty.get.cname}-->&sdate=<!--{$smarty.get.sdate}-->&cdate=<!--{$smarty.get.cdate}-->&ono=<!--{$smarty.get.ono}-->&carno=<!--{$smarty.get.carno}-->&otype=<!--{$smarty.get.otype}-->&cstatus=<!--{$smarty.get.cstatus}-->&page=<!--{$page['prevPage']}-->"><<</a></li>
 						<!--{section name=p loop=$page['max']+$page['min'] start=$page['min'] max=$page['max']}-->
-						<li><a href="index.php?control=good&action=orderlist&page=<!--{$smarty.section.p.index}-->"><!--{$smarty.section.p.index}--></a></li>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<!--{$smarty.get.cphone}-->&cname=<!--{$smarty.get.cname}-->&sdate=<!--{$smarty.get.sdate}-->&cdate=<!--{$smarty.get.cdate}-->&ono=<!--{$smarty.get.ono}-->&carno=<!--{$smarty.get.carno}-->&otype=<!--{$smarty.get.otype}-->&cstatus=<!--{$smarty.get.cstatus}-->&page=<!--{$smarty.section.p.index}-->"><!--{$smarty.section.p.index}--></a></li>
 						<!--{/section}-->
-						<li><a href="index.php?control=goodaction=orderlist&page=<!--{$page['nextPage']}-->">>></a></li>
-						<li><a href="index.php?control=goodaction=orderlist&page=<!--{$page['allPages']}-->">>|</a></li>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<!--{$smarty.get.cphone}-->&cname=<!--{$smarty.get.cname}-->&sdate=<!--{$smarty.get.sdate}-->&cdate=<!--{$smarty.get.cdate}-->&ono=<!--{$smarty.get.ono}-->&carno=<!--{$smarty.get.carno}-->&otype=<!--{$smarty.get.otype}-->&cstatus=<!--{$smarty.get.cstatus}-->&page=<!--{$page['nextPage']}-->">>></a></li>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<!--{$smarty.get.cphone}-->&cname=<!--{$smarty.get.cname}-->&sdate=<!--{$smarty.get.sdate}-->&cdate=<!--{$smarty.get.cdate}-->&ono=<!--{$smarty.get.ono}-->&carno=<!--{$smarty.get.carno}-->&otype=<!--{$smarty.get.otype}-->&cstatus=<!--{$smarty.get.cstatus}-->&page=<!--{$page['allPages']}-->">>|</a></li>
 					
 					</ul>
 				</div>

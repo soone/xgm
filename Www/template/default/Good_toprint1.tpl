@@ -7,7 +7,7 @@
 			<th>下单日期</th>
 			<th>卡号/配送单号</th>
 			<th>物品简称</th>
-			<th>订单内容</th>
+			<!--<th>订单内容</th>-->
 			<th>订单类型</th>
 			<th>订货人</th>
 			<th>收货人</th>
@@ -31,11 +31,11 @@
 				<!--{$allOrder[ao].20[s].0}-->:<!--{$allOrder[ao].20[s].1}-->;
 				<!--{/section}-->
 			</td>
-			<td>
+			<!--<td>
 				<!--{section name=in loop=$allOrder[ao].15}-->
 				<!--{$allOrder[ao].15[in].1}-->:<!--{$allOrder[ao].15[in].0}-->;
 				<!--{/section}-->
-			</td>
+			</td>-->
 			<td>
 				<!--{if $allOrder[ao].7 == 1}-->储物卡<!--{/if}-->
 				<!--{if $allOrder[ao].7 == 2}-->储值卡<!--{/if}-->
@@ -91,7 +91,7 @@
 			<th>下单日期</th>
 			<th>卡号/配送单号</th>
 			<th>物品简称</th>
-			<th>订单内容</th>
+			<!--<th>订单内容</th>-->
 			<th>订单类型</th>
 			<th>订货人</th>
 			<th>收货人</th>
@@ -115,11 +115,11 @@
 				<!--{$carOrder[$cars[cc]][ao].20[s].0}-->:<!--{$carOrder[$cars[cc]][ao].20[s].1}-->;
 				<!--{/section}-->
 			</td>
-			<td>
+			<!--<td>
 				<!--{section name=in loop=$carOrder[$cars[cc]][ao].15}-->
 				<!--{$carOrder[$cars[cc]][ao].15[in].1}-->:<!--{$carOrder[$cars[cc]][ao].15[in].0}-->;
 				<!--{/section}-->
-			</td>
+			</td>-->
 			<td>
 				<!--{if $carOrder[$cars[cc]][ao].7 == 1}-->储物卡<!--{/if}-->
 				<!--{if $carOrder[$cars[cc]][ao].7 == 2}-->储值卡<!--{/if}-->

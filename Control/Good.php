@@ -23,7 +23,6 @@ class Control_Good extends N8_Core_Control
 		$expNums = $this->db->get(array(
 			'table' => 'xgm_goodin',
 			'key' => array('count(*)'),
-			//'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}', 'gl_edate' => '{{IS NULL}}'), 'oper' => array('now()' => '>', 'gl_edate' => ' '))
 			'where' => array('and' => array('now()' => '{{DATE_ADD(gl_edate, INTERVAL -5 MONTH)}}'), 'oper' => array('now()' => '>'))
 		));
 
@@ -1046,17 +1045,25 @@ class Control_Good extends N8_Core_Control
 					));
 					$v[15] = $cInfo;
 					$addInfo = json_decode($v[9], true);
-					$v[16] = $addInfo[2];
-					$v[17] = $addInfo[3];
-					$v[18] = $addInfo[4];
+					$v[16] = $addInfo[1];
+					$v[17] = $addInfo[2];
+					$v[18] = $addInfo[3];
 					if($v[3] > 0)
 					{
-						$cardName = $this->db->get(array(
+						$cardNum = $this->db->get(array(
 							'table' => 'xgm_cardlib',
-							'key' => array('cl_num'),
-							'where' => array('and' => array('cl_id' => $v[3]))
+							'key' => array('cl_num', 'ci_id'),
+							'where' => array('and' => array('cl_id' => $v[3])),
+							'limit' => array(0, 1)
 						));
-						$v[19] = $cardName[0][0];
+
+						$cardName = $this->db->get(array(
+							'table' => 'xgm_cardinfo',
+							'key' => array('ci_name'),
+							'where' => array('and' => array('ci_id' => $cardNum[0][1])),
+							'limit' => array(0, 1)
+						));
+						$v[19] = $cardNum[0][0] . '(' . $cardName[0][0] . ')';
 					}
 					else
 						$v[19] = $v[0];

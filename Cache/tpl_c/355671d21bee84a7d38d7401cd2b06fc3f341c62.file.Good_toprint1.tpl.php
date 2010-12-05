@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-05 21:26:07
+<?php /* Smarty version Smarty3-b8, created on 2010-12-05 21:52:11
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_toprint1.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1599521464cfb92ef2991c3-04482105%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:14441645414cfb990bcb2860-57137745%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '355671d21bee84a7d38d7401cd2b06fc3f341c62' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_toprint1.tpl',
-      1 => 1291555488,
+      1 => 1291557131,
     ),
   ),
-  'nocache_hash' => '1599521464cfb92ef2991c3-04482105',
+  'nocache_hash' => '14441645414cfb990bcb2860-57137745',
   'function' => 
   array (
   ),
@@ -28,7 +28,7 @@ $_smarty_tpl->decodeProperties(array (
 			<th>下单日期</th>
 			<th>卡号/配送单号</th>
 			<th>物品简称</th>
-			<th>订单内容</th>
+			<!--<th>订单内容</th>-->
 			<th>订单类型</th>
 			<th>订货人</th>
 			<th>收货人</th>
@@ -102,7 +102,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['last']       = ($_smart
 ;
 				<?php endfor; endif; ?>
 			</td>
-			<td>
+			<!--<td>
 				<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['in']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['name'] = 'in';
 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][15]) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -131,7 +131,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['last']       = ($_smar
 :<?php echo $_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][15][$_smarty_tpl->getVariable('smarty')->value['section']['in']['index']][0];?>
 ;
 				<?php endfor; endif; ?>
-			</td>
+			</td>-->
 			<td>
 				<?php if ($_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==1){?>储物卡<?php }?>
 				<?php if ($_smarty_tpl->getVariable('allOrder')->value[$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==2){?>储值卡<?php }?>
@@ -247,7 +247,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['cc']['last']       = ($_smar
 			<th>下单日期</th>
 			<th>卡号/配送单号</th>
 			<th>物品简称</th>
-			<th>订单内容</th>
+			<!--<th>订单内容</th>-->
 			<th>订单类型</th>
 			<th>订货人</th>
 			<th>收货人</th>
@@ -321,7 +321,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['s']['last']       = ($_smart
 ;
 				<?php endfor; endif; ?>
 			</td>
-			<td>
+			<!--<td>
 				<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['in']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['name'] = 'in';
 $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['loop'] = is_array($_loop=$_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][15]) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -350,7 +350,7 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['in']['last']       = ($_smar
 :<?php echo $_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][15][$_smarty_tpl->getVariable('smarty')->value['section']['in']['index']][0];?>
 ;
 				<?php endfor; endif; ?>
-			</td>
+			</td>-->
 			<td>
 				<?php if ($_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==1){?>储物卡<?php }?>
 				<?php if ($_smarty_tpl->getVariable('carOrder')->value[$_smarty_tpl->getVariable('cars')->value[$_smarty_tpl->getVariable('smarty')->value['section']['cc']['index']]][$_smarty_tpl->getVariable('smarty')->value['section']['ao']['index']][7]==2){?>储值卡<?php }?>

@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-05 21:17:17
+<?php /* Smarty version Smarty3-b8, created on 2010-12-06 00:17:27
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1843193944cfb90dde755e3-85208844%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:8961984734cfbbb17be3060-62983709%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f66a682c0e07a17f24fdbdd86f9898ab70ec351a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl',
-      1 => 1290963705,
+      1 => 1291560054,
     ),
   ),
-  'nocache_hash' => '1843193944cfb90dde755e3-85208844',
+  'nocache_hash' => '8961984734cfbbb17be3060-62983709',
   'function' => 
   array (
   ),
@@ -30,7 +30,7 @@ $_smarty_tpl->decodeProperties(array (
 " /><br />
 	<label>下单日期：</label><input type="text" class="text" name="cdate" style="width:120px;" onFocus="WdatePicker({lang:'zh_cn',skin:'whyGreen'})" value="<?php echo $_GET['cdate'];?>
 " />
-	<label>订单号：</label><input type="text" class="text" name="ono" style="width:120px;" value="<?php echo $_GET['ono'];?>
+	<label>配送单号：</label><input type="text" class="text" name="ono" style="width:120px;" value="<?php echo $_GET['ono'];?>
 " />
 	<label>分车号：</label>
 	<select name="carno">
@@ -147,9 +147,9 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['last']       = ($_smart
 "><?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 </a></li>
 						<?php endfor; endif; ?>
-						<li><a href="index.php?control=goodaction=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
+						<li><a href="index.php?control=good&action=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
 ">>></a></li>
-						<li><a href="index.php?control=goodaction=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
+						<li><a href="index.php?control=good&action=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 ">>|</a></li>
 					
 					</ul>

@@ -37,8 +37,8 @@
 						<!--{section name=p loop=$page['max']+$page['min'] start=$page['min'] max=$page['max']}-->
 						<li><a href="index.php?control=good&action=ioadd&page=<!--{$smarty.section.p.index}-->"><!--{$smarty.section.p.index}--></a></li>
 						<!--{/section}-->
-						<li><a href="index.php?control=goodaction=ioadd&page=<!--{$page['nextPage']}-->">>></a></li>
-						<li><a href="index.php?control=goodaction=ioadd&page=<!--{$page['allPages']}-->">>|</a></li>
+						<li><a href="index.php?control=good&action=ioadd&page=<!--{$page['nextPage']}-->">>></a></li>
+						<li><a href="index.php?control=good&action=ioadd&page=<!--{$page['allPages']}-->">>|</a></li>
 					
 					</ul>
 				</div>

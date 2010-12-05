@@ -60,9 +60,8 @@
 		<div>
 			<h4>数据统计</h4>
 			<ul>
-				<li><a href="index.php?control=stat&action=gin">进货统计</a></li>
-				<li><a href="index.php?control=stat&action=gout">出货统计</a></li>
-				<li><a href="index.php?control=stat&action=sorder">零散订单统计</a></li>
+				<li><a href="index.php?control=stat&action=scard">售卡订单统计</a></li>
+				<li><a href="index.php?control=stat&action=tc">套餐选择统计</a></li>
 			</ul>
 		</div>
     </div>
