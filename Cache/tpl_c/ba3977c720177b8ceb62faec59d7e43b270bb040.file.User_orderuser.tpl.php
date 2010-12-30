@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-29 01:11:51
-         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_colist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:19922701724d1a1a575b0916-25375000%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty3-b8, created on 2010-12-29 00:55:07
+         compiled from "/media/work_study/work/soone/xgm/./Www/template/default/User_orderuser.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:4195639424d1a166bca04f6-04820310%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '7d7d3ebd1367594e8953f27dd785df7b1f84f287' => 
+    'ba3977c720177b8ceb62faec59d7e43b270bb040' => 
     array (
-      0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_colist.tpl',
-      1 => 1293385432,
+      0 => '/media/work_study/work/soone/xgm/./Www/template/default/User_orderuser.tpl',
+      1 => 1293554408,
     ),
   ),
-  'nocache_hash' => '19922701724d1a1a575b0916-25375000',
+  'nocache_hash' => '4195639424d1a166bca04f6-04820310',
   'function' => 
   array (
   ),
@@ -19,32 +19,31 @@ $_smarty_tpl->decodeProperties(array (
 <?php $_template = new Smarty_Internal_Template("header.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 
-<h3 class="topmenu">售卡订单列表</h3>
+<h3 class="topmenu">下单客户资料列表</h3>
 <table class="slist">
 	<thead>
 		<tr>
-			<th>订单号</th>
-			<th>总价</th>
-			<th>数量</th>
-			<th>均价</th>
-			<th>卡名称</th>
-			<th>发票内容</th>
-			<th>定卡人</th>
-			<th>下单日期</th>
-			<th>状态</th>
+			<th>用户名</th>
+			<th>姓名</th>
+			<th>姓名拼音</th>
+			<th>手机</th>
+			<th>电话</th>
+			<th>总消费金额</th>
+			<th>用户邮箱</th>
+			<th>注册时间</th>
 			<th>操作</th>
 		</tr>
 	</thead>
 	<?php if ($_smarty_tpl->getVariable('page')->value){?>
 	<tfoot>
 		<tr>
-			<td colspan="10">
+			<td colspan="8">
 				<div class="page">
 					<ul>
 						<li class="all">总<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 页</li>
-						<li><a href="index.php?control=card&action=colist">|<</a></li>
-						<li><a href="index.php?control=card&action=colist&page=<?php echo $_smarty_tpl->getVariable('page')->value['prevPage'];?>
+						<li><a href="index.php?action=orderuser">|<</a></li>
+						<li><a href="index.php?action=orderuser&page=<?php echo $_smarty_tpl->getVariable('page')->value['curPage']-1;?>
 "><<</a></li>
 						<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['p']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['name'] = 'p';
@@ -76,13 +75,13 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['index_next'] = $_smarty
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['p']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['p']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['total']);
 ?>
-						<li><a href="index.php?control=card&action=colist&page=<?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
+						<li><a href="index.php?action=orderuser&page=<?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 "><?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 </a></li>
 						<?php endfor; endif; ?>
-						<li><a href="index.php?control=card&action=colist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
+						<li><a href="index.php?action=orderuser&page=<?php echo $_smarty_tpl->getVariable('page')->value['curPage']+1;?>
 ">>></a></li>
-						<li><a href="index.php?control=card&action=colist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
+						<li><a href="index.php?action=orderuser&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 ">>|</a></li>
 					
 					</ul>
@@ -129,41 +128,16 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['l']['last']       = ($_smart
 </td>
 			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][6];?>
 </td>
+			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][9];?>
+</td>
 			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][8];?>
 </td>
-			<td><?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][7];?>
-</td>
-			<td><?php if ($_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][10]==1){?>未出卡<?php }elseif($_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][10]==3){?>出卡完成<?php }elseif($_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][10]==5){?>作废<?php }?></td>
-			<td>
-				<?php if ($_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][10]==1){?>
-				<select onchange="javascript:setthis(this);">
-					<option value="">选择操作</option>
-					<option value="3">出卡完成</option>
-					<option value="5">作废</option>
-				</select><br />
-				<input type="hidden" id="coid" value="<?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][0];?>
-" />
-				<?php }?>
-				<a href="index.php?control=card&action=minfo&coid=<?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][0];?>
-">详情</a>
-			</td>
+			<td><a href="index.php?control=user&action=orderuseredit&ouid=<?php echo $_smarty_tpl->getVariable('data')->value[$_smarty_tpl->getVariable('smarty')->value['section']['l']['index']][0];?>
+">修改</a></td>
 		</tr>
 		<?php endfor; endif; ?>
 	</tbody>
 </table>
-<script language="javascript" type="text/javascript">
-function setthis(obj)
-{
-	var s = parseInt($(obj).val());
-	if(!isNaN(s) && (s == 3 || s == 5))
-	{
-		if(s == 5 && !confirm('确定将该订单作废？？'))
-			return false;
-
-		location.href="index.php?control=card&action=cstatus&s="+s+"&coid="+$('#coid').val();
-	}
-}
-</script>
 <?php $_template = new Smarty_Internal_Template("footer.tpl", $_smarty_tpl->smarty, $_smarty_tpl, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null);
  echo $_template->getRenderedTemplate();?><?php $_template->updateParentVariables(0);?><?php unset($_template);?>
 

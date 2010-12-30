@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-11-20 01:28:42
+<?php /* Smarty version Smarty3-b8, created on 2010-12-27 01:21:02
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:4326548914ce6b3caa294d5-42731190%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:10282563204d17797eac6d69-43241668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '8a7a6af31448d665b3d33305eb6c6f65cf4b9b0f' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Card_order.tpl',
-      1 => 1290187025,
+      1 => 1293384060,
     ),
   ),
-  'nocache_hash' => '4326548914ce6b3caa294d5-42731190',
+  'nocache_hash' => '10282563204d17797eac6d69-43241668',
   'function' => 
   array (
   ),
@@ -288,12 +288,12 @@ $('#cardadd').bind('click', function(){
 
 			if(i.indexOf('4') == -1)
 			{
-				usec += "<span onclick='remove(1, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
+				usec += "<span style='display:block;float:left' onclick='remove(1, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
 				cards += (',' + i);
 				j++;
 			}
 			else
-				unc += "<span onclick='remove(2, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
+				unc += "<span style='display:block;float:left' onclick='remove(2, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
 		}
 
 		$('#usecard').html(usec+tmpusec);

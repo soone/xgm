@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-06 00:17:28
+<?php /* Smarty version Smarty3-b8, created on 2010-12-29 01:26:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/header.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:14960727244cfbbb1821c184-59660415%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:16958731444d1a1dc16fd3c3-42113502%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'bc5359c43c9d01aa91c436866e02bd85cf330a1d' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/header.tpl',
-      1 => 1291558800,
+      1 => 1293453561,
     ),
   ),
-  'nocache_hash' => '14960727244cfbbb1821c184-59660415',
+  'nocache_hash' => '16958731444d1a1dc16fd3c3-42113502',
   'function' => 
   array (
   ),
@@ -82,13 +82,18 @@ images/style.css" type="text/css" media="screen, projection">
                 <li><a href="index.php?control=other&action=scman">司机和车牌管理</a></li>
             </ul>
         </div>
+        <div>
+            <h4>客户资料管理</h4>
+            <ul>
+                <li><a href="index.php?control=user&action=carduser">订单客户资料</a></li>
+                <li><a href="index.php?control=user&action=orderuser">配送单客户资料</a></li>
+            </ul>
+        </div>
 		<div>
 			<h4>数据统计</h4>
 			<ul>
 				<li><a href="index.php?control=stat&action=scard">售卡订单统计</a></li>
-				<li><a href="index.php?control=stat&action=gin">进货统计</a></li>
-				<li><a href="index.php?control=stat&action=gout">出货统计</a></li>
-				<li><a href="index.php?control=stat&action=sorder">零散订单统计</a></li>
+				<li><a href="index.php?control=stat&action=tc">套餐选择统计</a></li>
 			</ul>
 		</div>
     </div>

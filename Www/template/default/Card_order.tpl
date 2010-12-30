@@ -193,12 +193,12 @@ $('#cardadd').bind('click', function(){
 
 			if(i.indexOf('4') == -1)
 			{
-				usec += "<span onclick='remove(1, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
+				usec += "<span style='display:block;float:left' onclick='remove(1, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
 				cards += (',' + i);
 				j++;
 			}
 			else
-				unc += "<span onclick='remove(2, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
+				unc += "<span style='display:block;float:left' onclick='remove(2, this.id)' id='"+i+"'>"+i+"&nbsp;&nbsp;</span>";
 		}
 
 		$('#usecard').html(usec+tmpusec);

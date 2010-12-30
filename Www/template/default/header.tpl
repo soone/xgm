@@ -57,6 +57,13 @@
                 <li><a href="index.php?control=other&action=scman">司机和车牌管理</a></li>
             </ul>
         </div>
+        <div>
+            <h4>客户资料管理</h4>
+            <ul>
+                <li><a href="index.php?control=user&action=carduser">订单客户资料</a></li>
+                <li><a href="index.php?control=user&action=orderuser">配送单客户资料</a></li>
+            </ul>
+        </div>
 		<div>
 			<h4>数据统计</h4>
 			<ul>

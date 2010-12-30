@@ -929,7 +929,7 @@ class Control_Good extends N8_Core_Control
 			));
 
 			if($rs)
-				N8_Helper_Helper::showMessage('操作成功', 'index.php?control=good&action=orderlist');
+				N8_Helper_Helper::showMessage('操作成功', $_SERVER['HTTP_REFERER']);
 			else
 				N8_Helper_Helper::showMessage('操作失败，请稍候再试');
 		}

@@ -1,16 +1,16 @@
-<?php /* Smarty version Smarty3-b8, created on 2010-12-06 00:17:27
+<?php /* Smarty version Smarty3-b8, created on 2010-12-29 01:25:25
          compiled from "/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:8961984734cfbbb17be3060-62983709%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:18014742984d1a1d85cb9074-97080308%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f66a682c0e07a17f24fdbdd86f9898ab70ec351a' => 
     array (
       0 => '/media/work_study/work/soone/xgm/./Www/template/default/Good_orderlist.tpl',
-      1 => 1291560054,
+      1 => 1291566051,
     ),
   ),
-  'nocache_hash' => '8961984734cfbbb17be3060-62983709',
+  'nocache_hash' => '18014742984d1a1d85cb9074-97080308',
   'function' => 
   array (
   ),
@@ -110,8 +110,24 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['cn']['last']       = ($_smar
 					<ul>
 						<li class="all">总<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 页</li>
-						<li><a href="index.php?control=good&action=orderlist">|<</a></li>
-						<li><a href="index.php?control=good&action=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['prevPage'];?>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<?php echo $_GET['cphone'];?>
+&cname=<?php echo $_GET['cname'];?>
+&sdate=<?php echo $_GET['sdate'];?>
+&cdate=<?php echo $_GET['cdate'];?>
+&ono=<?php echo $_GET['ono'];?>
+&carno=<?php echo $_GET['carno'];?>
+&otype=<?php echo $_GET['otype'];?>
+&cstatus=<?php echo $_GET['cstatus'];?>
+">|<</a></li>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<?php echo $_GET['cphone'];?>
+&cname=<?php echo $_GET['cname'];?>
+&sdate=<?php echo $_GET['sdate'];?>
+&cdate=<?php echo $_GET['cdate'];?>
+&ono=<?php echo $_GET['ono'];?>
+&carno=<?php echo $_GET['carno'];?>
+&otype=<?php echo $_GET['otype'];?>
+&cstatus=<?php echo $_GET['cstatus'];?>
+&page=<?php echo $_smarty_tpl->getVariable('page')->value['prevPage'];?>
 "><<</a></li>
 						<?php unset($_smarty_tpl->tpl_vars['smarty']->value['section']['p']);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['name'] = 'p';
@@ -143,13 +159,37 @@ $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['index_next'] = $_smarty
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['first']      = ($_smarty_tpl->tpl_vars['smarty']->value['section']['p']['iteration'] == 1);
 $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['last']       = ($_smarty_tpl->tpl_vars['smarty']->value['section']['p']['iteration'] == $_smarty_tpl->tpl_vars['smarty']->value['section']['p']['total']);
 ?>
-						<li><a href="index.php?control=good&action=orderlist&page=<?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<?php echo $_GET['cphone'];?>
+&cname=<?php echo $_GET['cname'];?>
+&sdate=<?php echo $_GET['sdate'];?>
+&cdate=<?php echo $_GET['cdate'];?>
+&ono=<?php echo $_GET['ono'];?>
+&carno=<?php echo $_GET['carno'];?>
+&otype=<?php echo $_GET['otype'];?>
+&cstatus=<?php echo $_GET['cstatus'];?>
+&page=<?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 "><?php echo $_smarty_tpl->getVariable('smarty')->value['section']['p']['index'];?>
 </a></li>
 						<?php endfor; endif; ?>
-						<li><a href="index.php?control=good&action=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<?php echo $_GET['cphone'];?>
+&cname=<?php echo $_GET['cname'];?>
+&sdate=<?php echo $_GET['sdate'];?>
+&cdate=<?php echo $_GET['cdate'];?>
+&ono=<?php echo $_GET['ono'];?>
+&carno=<?php echo $_GET['carno'];?>
+&otype=<?php echo $_GET['otype'];?>
+&cstatus=<?php echo $_GET['cstatus'];?>
+&page=<?php echo $_smarty_tpl->getVariable('page')->value['nextPage'];?>
 ">>></a></li>
-						<li><a href="index.php?control=good&action=orderlist&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
+						<li><a href="index.php?control=good&action=orderlist&cphone=<?php echo $_GET['cphone'];?>
+&cname=<?php echo $_GET['cname'];?>
+&sdate=<?php echo $_GET['sdate'];?>
+&cdate=<?php echo $_GET['cdate'];?>
+&ono=<?php echo $_GET['ono'];?>
+&carno=<?php echo $_GET['carno'];?>
+&otype=<?php echo $_GET['otype'];?>
+&cstatus=<?php echo $_GET['cstatus'];?>
+&page=<?php echo $_smarty_tpl->getVariable('page')->value['allPages'];?>
 ">>|</a></li>
 					
 					</ul>

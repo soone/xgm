@@ -379,4 +379,164 @@ class Control_User extends N8_Core_Control
 							'page' => $page
 		));
 	}
+
+	public function carduser()
+	{
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+		$perNum = 30;
+		$start = ($page-1)*$perNum;
+		$allNums = $this->db->get(array(
+			'table' => 'xgm_carduser',
+			'key' => array('count(*)'),
+		));
+
+		$data = $this->db->get(array(
+			'table' => 'xgm_carduser',
+			'key' => array('*'),
+			'limit' => array($start, $perNum)
+		));
+
+		$page =	N8_Helper_Helper::setPage(array(
+					'allNums' => $allNums[0][0], 
+					'curPage' => $page,
+					'perNum' => $perNum));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'data' => $data,
+							'page' => $page
+		));
+	}
+
+	public function carduseredit()
+	{
+		if(!$this->req['get']['cuid'] && !$this->req['post']['cuid'])
+			N8_Helper_Helper::showMessage('数据错误');
+
+		if($this->req['post']['submit'] && ($cuid = $this->req['post']['cuid']))
+		{
+			$set = array();
+			$this->req['post']['name'] ? $set['cu_name'] = $this->req['post']['name'] : '';
+			$this->req['post']['py'] ? $set['cu_py'] = $this->req['post']['py'] : '';
+			$this->req['post']['sex'] ? $set['cu_sex'] = $this->req['post']['sex'] : '';
+			$this->req['post']['job'] ? $set['cu_job'] = $this->req['post']['job'] : '';
+			$this->req['post']['tel1'] ? $set['cu_tel1'] = $this->req['post']['tel1'] : '';
+			$this->req['post']['tel2'] ? $set['cu_tel2'] = $this->req['post']['tel2'] : '';
+			$this->req['post']['email'] ? $set['cu_email'] = $this->req['post']['email'] : '';
+			$this->req['post']['website'] ? $set['cu_website'] = $this->req['post']['website'] : '';
+			$this->req['post']['msn'] ? $set['cu_msn'] = $this->req['post']['msn'] : '';
+			$this->req['post']['qq'] ? $set['cu_qq'] = $this->req['post']['qq'] : '';
+			$this->req['post']['taobao'] ? $set['cu_taobao'] = $this->req['post']['taobao'] : '';
+			$this->req['post']['fetion'] ? $set['cu_fetion'] = $this->req['post']['fetion'] : '';
+			$this->req['post']['bank'] ? $set['cu_bank'] = $this->req['post']['bank'] : '';
+			$this->req['post']['bankname'] ? $set['cu_bankname'] = $this->req['post']['bankname'] : '';
+			
+			if($set)
+			{
+				$rs = $this->db->set(array(
+					'table' => 'xgm_carduser',
+					'key' => array_keys($set),
+					'value' => array_values($set),
+					'where' => array('and' => array('cu_id' => $cuid)),
+				));
+
+				if($rs == false)
+					N8_Helper_Helper::showMessage('操作失败');
+				else
+					N8_Helper_Helper::showMessage('操作成功', 'index.php?control=user&action=carduseredit&cuid=' . $cuid);
+			}
+			else
+				N8_Helper_Helper::showMessage('数据未修改');
+		}
+
+		$info = $this->db->get(array(
+			'table' => 'xgm_carduser',
+			'key' => array('*'),
+			'where' => array('and' => array('cu_id' => $this->req['get']['cuid'])),
+			'limit' => array(0, 1)
+		));
+
+		if(!$info)
+			N8_Helper_Helper::showMessage('数据错误');
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+					'info' => $info[0],
+					't' => $this->req['get']['t']
+		));
+	}
+
+	public function orderuser()
+	{
+		$page = $this->req['get']['page'] ? $this->req['get']['page'] : 1;
+		$perNum = 30;
+		$start = ($page-1)*$perNum;
+		$allNums = $this->db->get(array(
+			'table' => 'xgm_orderuser',
+			'key' => array('count(*)'),
+		));
+
+		$data = $this->db->get(array(
+			'table' => 'xgm_orderuser',
+			'key' => array('*'),
+			'limit' => array($start, $perNum)
+		));
+
+		$page =	N8_Helper_Helper::setPage(array(
+					'allNums' => $allNums[0][0], 
+					'curPage' => $page,
+					'perNum' => $perNum));
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+							'data' => $data,
+							'page' => $page
+		));
+	}
+
+	public function orderuseredit()
+	{
+		if(!$this->req['get']['ouid'] && !$this->req['post']['ouid'])
+			N8_Helper_Helper::showMessage('数据错误');
+
+		if($this->req['post']['submit'] && ($ouid = $this->req['post']['ouid']))
+		{
+			$set = array();
+			$this->req['post']['username'] ? $set['ou_username'] = $this->req['post']['username'] : '';
+			$this->req['post']['truename'] ? $set['ou_truename'] = $this->req['post']['truename'] : '';
+			$this->req['post']['py'] ? $set['ou_pinyin'] = $this->req['post']['py'] : '';
+			$this->req['post']['phone'] ? $set['ou_phone'] = $this->req['post']['phone'] : '';
+			$this->req['post']['tel'] ? $set['ou_tel'] = $this->req['post']['tel'] : '';
+			$this->req['post']['total'] ? $set['ou_total'] = $this->req['post']['total'] : '';
+			$this->req['post']['email'] ? $set['ou_email'] = $this->req['post']['email'] : '';
+
+			if($set)
+			{
+				$rs = $this->db->set(array(
+					'table' => 'xgm_orderuser',
+					'key' => array_keys($set),
+					'value' => array_values($set),
+					'where' => array('and' => array('ou_id' => $ouid)),
+				));
+
+				if($rs == false)
+					N8_Helper_Helper::showMessage('操作失败');
+				else
+					N8_Helper_Helper::showMessage('操作成功', 'index.php?control=user&action=orderuseredit&ouid=' . $ouid);
+			}
+			else
+				N8_Helper_Helper::showMessage('数据未改动');
+		}
+
+		$info = $this->db->get(array(
+			'table' => 'xgm_orderuser',
+			'key' => array('*'),
+			'where' => array('and' => array('ou_id' => $this->req['get']['ouid'])),
+			'limit' => array(0, 1)
+		));
+
+		if(!$info)
+			N8_Helper_Helper::showMessage('数据错误');
+
+		$this->render(array('tplDir' => $this->conf->get('view->rDir'),
+					'info' => $info[0]
+		));
+	}
 }
